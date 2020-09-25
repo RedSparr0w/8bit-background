@@ -95,7 +95,7 @@ setTimeout(() => {
 // setInterval(() => {
 //     test.setMinutes(test.getMinutes() + 1);
 //     updateScene(test);
-// }, 1000);
+// }, 5);
 
 //Determines the picture to use based on the hour
 function getPicture(hour) {
