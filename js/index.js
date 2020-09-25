@@ -11,7 +11,7 @@ const setSunMoonPosition = (date = new Date()) => {
     var w = window.innerWidth / 1.2;
 
     // Do the same thing with the height. Responsive = Good times.
-    var h = window.innerHeight / 1.2;
+    var h = window.innerHeight / 1;
 
     // Get the hours and minutes.
     const hours = date.getHours();
@@ -19,13 +19,13 @@ const setSunMoonPosition = (date = new Date()) => {
 
     // Calculate the position of the sun and moon based on the time.
     const sunRad = (((hours) * 60 + mins) / (24.00 * 62.00)) * Math.PI * 2;
-    const moonRad = (((hours) * 60 + mins) / (24.00 * 60.00)) * Math.PI * 2;
+    const moonRad = (((hours + 12) * 60 + mins) / (24.00 * 60.00)) * Math.PI * 2;
 
     // Calculate the axis
-    const sunX = (w / 2) - (w * Math.sin(sunRad)) / 2;
+    const sunX = (w / 1.8) - (w * Math.sin(sunRad)) / 2;
     const sunY = (h / 1.6) + (h * Math.cos(sunRad)) / 2;
-    const moonX = (w / 2) - (w * Math.sin(moonRad)) / 2;
-    const moonY = (h / 2) + (h * Math.cos(moonRad)) / 2;
+    const moonX = (w / 1.8) - (w * Math.sin(moonRad)) / 2;
+    const moonY = (h / 1.6) + (h * Math.cos(moonRad)) / 2;
 
 
     // Apply the sun class on the top left of the axis based on our previous calculations
@@ -35,8 +35,8 @@ const setSunMoonPosition = (date = new Date()) => {
 
     // And do the opposite for the moon, of course!
     const moon = document.getElementById('moon')
-    moon.style.bottom = `${moonY}px`;
-    moon.style.right = `${moonX}px`;
+    moon.style.top = `${moonY}px`;
+    moon.style.left = `${moonX}px`;
 }
 
 /*
