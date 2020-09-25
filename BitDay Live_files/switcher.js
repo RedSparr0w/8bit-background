@@ -7,39 +7,36 @@ const DAY = HOUR * 24;
 
 // Sun and Moon across an axis :)
 
-function sun_and_moon(date = new Date()) {
-    var w = screen.width / 1.2 ;
+const setSunMoonPosition = (date = new Date()) => {
+    var w = screen.width / 1.2;
 
     // Do the same thing with the height. Responsive = Good times.
     var h = screen.height / 1.2;
 
     // Get the hours and minutes.
-    var hours = date.getHours();
-    var mins = date.getMinutes();
+    const hours = date.getHours();
+    const mins = date.getMinutes();
 
     // Calculate the position of the sun and moon based on the time.
-    // Adjust these numbers as you please..    |--------------|
-    var pos_rad_sun = (((hours) * 60 + mins) / (24.00 * 61.00)) * Math.PI *  2;
-    var pos_rad_moon = (((hours) * 60 + mins) / (24.00 * 60.00)) * Math.PI * 2;
+    const sunRad = (((hours) * 60 + mins) / (24.00 * 62.00)) * Math.PI * 2;
+    const moonRad = (((hours) * 60 + mins) / (24.00 * 60.00)) * Math.PI * 2;
 
     // Calculate the axis
-    SunxCoord = (w / 2) - (w * Math.sin(pos_rad_sun)) / 2;
-    SunyCoord = (h / 1.6) + (h * Math.cos(pos_rad_sun)) / 2;
-    MoonxCoord = (w / 2) - (w * Math.sin(pos_rad_moon)) / 2;
-    MoonyCoord = (h / 2) + (h * Math.cos(pos_rad_moon)) / 2;
+    const sunX = (w / 2) - (w * Math.sin(sunRad)) / 2;
+    const sunY = (h / 1.6) + (h * Math.cos(sunRad)) / 2;
+    const moonX = (w / 2) - (w * Math.sin(moonRad)) / 2;
+    const moonY = (h / 2) + (h * Math.cos(moonRad)) / 2;
 
 
     // Apply the sun class on the top left of the axis based on our previous calculations
-    $(".sun").css({
-        "top": SunyCoord,
-        "left": SunxCoord
-    });
+    const sun = document.getElementById('sun')
+    sun.style.top = `${sunY}px`;
+    sun.style.left = `${sunX}px`;
 
     // And do the opposite for the moon, of course!
-    $(".moon").css({
-        "bottom": MoonyCoord,
-        "right": MoonxCoord
-    });
+    const moon = document.getElementById('moon')
+    moon.style.bottom = `${moonY}px`;
+    moon.style.right = `${moonX}px`;
 }
 
 /*
@@ -77,7 +74,7 @@ updateBackgrounds = (d = new Date()) => {
 };
 
 const updateScene = (date = new Date()) => {
-    sun_and_moon(date);
+    setSunMoonPosition(date);
     updateBackgrounds(date);
 }
 
@@ -88,13 +85,13 @@ setTimeout(() => {
 }, MINUTE - (Date.now() % MINUTE));
 
 // For updating the scene quickly
-// test = new Date();
-// setInterval(() => {
-//     test.setMinutes(test.getMinutes() + 1);
-//     updateScene(test);
-// }, 5);
+test = new Date();
+setInterval(() => {
+    test.setMinutes(test.getMinutes() + 10);
+    updateScene(test);
+}, 50);
 
-//Determines the picture to use based on the hour
+// Determines the images to use based on the hour
 function getPicture(hour) {
     if (hour >= 23 || hour < 1)
         return 11;
