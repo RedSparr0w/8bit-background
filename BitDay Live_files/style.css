@@ -1,0 +1,326 @@
+body {
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: white;
+    height: 100%;
+    width: 100%;
+}
+
+/* Sky Switcher */
+.sky {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-size: auto 120vh;
+    background-repeat: repeat-x;
+    z-index: 99;
+}
+
+.sky-0 {
+    background-image: url('../images/sky/10.png');
+}
+
+.sky-1 {
+    background-image: url('../images/sky/01.png');
+}
+
+.sky-2 {
+    background-image: url('../images/sky/02.png');
+}
+
+.sky-3 {
+    background-image: url('../images/sky/03.png');
+}
+
+.sky-4 {
+    background-image: url('../images/sky/04.png');
+}
+
+.sky-5 {
+    background-image: url('../images/sky/04.png');
+}
+
+.sky-6 {
+    background-image: url('../images/sky/04.png');
+}
+
+.sky-7 {
+    background-image: url('../images/sky/07.png');
+}
+
+.sky-8 {
+    background-image: url('../images/sky/08.png');
+}
+
+.sky-9 {
+    background-image: url('../images/sky/09.png');
+}
+
+.sky-10 {
+    background-image: url('../images/sky/10.png');
+}
+
+.sky-11 {
+    background-image: url('../images/sky/11.png');
+}
+
+/* Ground Switcher! */
+.ground {
+    height: 20%;
+    width: 100%;
+    background-repeat: repeat-x;
+    background-size: auto 22vh;
+    position: absolute;
+    bottom: 0;
+    z-index: 200;
+}
+
+.ground-0 {
+    background-image: url('../images/ground/10.png');
+}
+
+.ground-1 {
+    background-image: url('../images/ground/01.png');
+}
+
+.ground-2 {
+    background-image: url('../images/ground/02.png');
+}
+
+.ground-3 {
+    background-image: url('../images/ground/03.png');
+}
+
+.ground-4 {
+    background-image: url('../images/ground/04.png');
+}
+
+.ground-5 {
+    background-image: url('../images/ground/04.png');
+}
+
+.ground-6 {
+    background-image: url('../images/ground/04.png');
+}
+
+.ground-7 {
+    background-image: url('../images/ground/07.png');
+}
+
+.ground-8 {
+    background-image: url('../images/ground/08.png');
+}
+
+.ground-9 {
+    background-image: url('../images/ground/09.png');
+}
+
+.ground-10 {
+    background-image: url('../images/ground/10.png');
+}
+
+.ground-11 {
+    background-image: url('../images/ground/11.png');
+}
+
+/* Sun & Moon Axis */
+
+
+#orbital {
+    height: 140vh;
+    margin:10vh auto 0px;
+    width: 100vw;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+
+}
+
+.innerorbital {
+    position: relative;
+}
+.sun {
+    position: absolute;
+    background: url('../images/sun.png');
+    background-size: cover;
+    top: 0px;
+    left: 0px;
+    display: block;
+    width: 18vh;
+    height: 18vh;
+    z-index: 100;
+
+}
+
+.sun-glow {
+}
+
+.sun image {
+    max-width: 100%;
+    box-shadow: 0px 0px 188px -16px rgba(255,255,255,1);
+}
+
+.moon {
+    position: absolute;
+    background: url('../images/moon.png');
+    background-size: cover;
+    bottom: 0px;
+    right: 0px;
+    display: block;
+    width: 14.2vh;
+    height: 15vh;
+    z-index: 100;
+}
+
+.moon image {
+    max-width:100%;
+    box-shadow: 0px 0px 188px -16px rgba(255,255,255,1);
+}
+
+/* Clouds! */
+
+.cloud-container {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    position: absolute;
+}
+
+.cloud {
+    width: 20vw; height: 5vh;
+    z-index: 105;
+    position: relative;
+}
+
+
+/* Cloud Animation*/
+
+/*variable speed, opacity, and position of clouds for realistic effect*/
+.x2 {
+    left: 200px;
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    transform: scale(0.6);
+    opacity: 0.6; /*opacity proportional to the size*/
+    /*Speed will also be proportional to the size and opacity*/
+    /*More the speed. Less the time in 's' = seconds*/
+    -webkit-animation: moveclouds 50s linear infinite;
+    -moz-animation: moveclouds 50s linear infinite;
+    -o-animation: moveclouds 50s linear infinite;
+}
+
+.x3 {
+    left: -250px; bottom: -20vh;
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0.8; /*opacity proportional to the size*/
+    -webkit-animation: moveclouds 45s linear infinite;
+    -moz-animation: moveclouds 45s linear infinite;
+    -o-animation: moveclouds 45s linear infinite;
+}
+
+.x4 {
+    left: 470px; bottom: -10vh;
+    -webkit-transform: scale(0.75);
+    -moz-transform: scale(0.75);
+    transform: scale(0.75);
+    opacity: 0.75; /*opacity proportional to the size*/
+    -webkit-animation: moveclouds 37s linear infinite;
+    -moz-animation: moveclouds 37s linear infinite;
+    -o-animation: moveclouds 37s linear infinite;
+}
+
+@-webkit-keyframes moveclouds {
+    0% {margin-left: 100vw;}
+    100% {margin-left: -100vw;}
+}
+@-moz-keyframes moveclouds {
+    0% {margin-left: 100vw;}
+    100% {margin-left: -100vw;}
+}
+@-o-keyframes moveclouds {
+    0% {margin-left: 100vw;}
+    100% {margin-left: -100vw;}
+}
+
+/* Cloud 1 Switcher */
+.cloud1 {
+    left: 200px;
+    width: 65vh;
+    height: 25vh;
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0.3;
+    -webkit-animation: moveclouds 60s linear infinite;
+    -moz-animation: moveclouds 60s linear infinite;
+    -o-animation: moveclouds 60s linear infinite;
+    z-index: 300;
+    background-size: cover;
+    bottom: 20vh;
+    position: absolute;
+}
+
+.cloud1-0 {
+    background-image: url('../images/cloud/09.png');
+}
+
+.cloud1-1 {
+    background-image: url('../images/cloud/01.png');
+}
+
+.cloud1-2 {
+    background-image: url('../images/cloud/02.png');
+}
+
+.cloud1-3 {
+    background-image: url('../images/cloud/04.png');
+}
+
+.cloud1-4 {
+    background-image: url('../images/cloud/04.png');
+}
+
+.cloud1-5 {
+    background-image: url('../images/cloud/04.png');
+}
+
+.cloud1-6 {
+    background-image: url('../images/cloud/04.png');
+}
+
+.cloud1-7 {
+    background-image: url('../images/cloud/07.png');
+}
+
+.cloud1-8 {
+    background-image: url('../images/cloud/08.png');
+}
+
+.cloud1-9 {
+    background-image: url('../images/cloud/08.1.png');
+}
+
+.cloud1-10 {
+    background-image: url('../images/cloud/09.png');
+}
+
+.cloud1-11 {
+    background-image: url('../images/cloud/10.png');
+}
+
+
+.container {
+    transition: margin 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+    padding:5em 3em;
+}
+
+.inner {
+    overflow: scroll;
+    position: relative;
+}
