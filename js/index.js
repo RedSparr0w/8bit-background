@@ -85,11 +85,11 @@ setTimeout(() => {
 }, MINUTE - (Date.now() % MINUTE));
 
 // For updating the scene quickly
-test = new Date();
-setInterval(() => {
-    test.setMinutes(test.getMinutes() + 10);
-    updateScene(test);
-}, 50);
+// test = new Date();
+// setInterval(() => {
+//     test.setMinutes(test.getMinutes() + 10);
+//     updateScene(test);
+// }, 50);
 
 // Determines the images to use based on the hour
 function getPicture(hour) {
