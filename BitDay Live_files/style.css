@@ -17,7 +17,7 @@ body {
     position: absolute;
     background-size: auto 120vh;
     background-repeat: repeat-x;
-    z-index: 99;
+    z-index: -4;
 }
 
 .sky-0 {
@@ -76,7 +76,7 @@ body {
     background-size: auto 22vh;
     position: absolute;
     bottom: 0;
-    z-index: 200;
+    z-index: -1;
 }
 
 .ground-0 {
@@ -152,8 +152,7 @@ body {
     display: block;
     width: 18vh;
     height: 18vh;
-    z-index: 100;
-
+    z-index: -3;
 }
 
 .sun image {
@@ -170,7 +169,7 @@ body {
     display: block;
     width: 14.2vh;
     height: 15vh;
-    z-index: 100;
+    z-index: -3;
 }
 
 .moon image {
@@ -189,7 +188,7 @@ body {
 
 .cloud {
     width: 20vw; height: 5vh;
-    z-index: 105;
+    z-index: -2;
     position: relative;
 }
 
@@ -257,7 +256,7 @@ body {
     -webkit-animation: moveclouds 60s linear infinite;
     -moz-animation: moveclouds 60s linear infinite;
     -o-animation: moveclouds 60s linear infinite;
-    z-index: 300;
+    z-index: -2;
     background-size: cover;
     bottom: 20vh;
     position: absolute;
