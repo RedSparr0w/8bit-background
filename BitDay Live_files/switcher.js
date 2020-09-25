@@ -72,13 +72,8 @@ updateBackgrounds = (d = new Date()) => {
     document.getElementById('ground2').style.opacity = opacity;
     document.getElementById('ground2').classList.value = (`ground ground-${bgNumberNext}`);
 
-    if (DEBUG) console.log('CURRENT TIME IS: ' + hour + ':' + minutes + '.');
+    if (DEBUG) console.log('CURRENT TIME IS: ' + hour + ':' + minutes);
     if (DEBUG) console.log('BACKGROUNDS ARE: ' + bgNumber + ' -> ' + bgNumberNext + ' [' + opacity.toFixed(2) + '%]');
-
-    // Set opacity values adjusted to percentage of current block that has elapsed:
-    // We're fading div ONE out, so this will have an opacity of the percentage still remaining in this block,
-    // and we're fading div TWO in, so this will have an opacity of percentage done in this block.
-
 };
 
 const updateScene = (date = new Date()) => {
@@ -92,7 +87,7 @@ setTimeout(() => {
     setInterval(updateScene, MINUTE);
 }, MINUTE - (Date.now() % MINUTE));
 
-// For moving background quickly
+// For updating the scene quickly
 // test = new Date();
 // setInterval(() => {
 //     test.setMinutes(test.getMinutes() + 1);
