@@ -1,3 +1,5 @@
+const DEBUG = false;
+
 const SECOND = 1000;
 const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
@@ -70,8 +72,8 @@ updateBackgrounds = (d = new Date()) => {
     document.getElementById('ground2').style.opacity = opacity;
     document.getElementById('ground2').classList.value = (`ground ground-${bgNumberNext}`);
 
-    console.log('CURRENT TIME IS: ' + hour + ':' + minutes + '.')
-    console.log('BACKGROUNDS ARE: ' + bgNumber + ' -> ' + bgNumberNext + ' [' + opacity.toFixed(2) + '%]')
+    if (DEBUG) console.log('CURRENT TIME IS: ' + hour + ':' + minutes + '.');
+    if (DEBUG) console.log('BACKGROUNDS ARE: ' + bgNumber + ' -> ' + bgNumberNext + ' [' + opacity.toFixed(2) + '%]');
 
     // Set opacity values adjusted to percentage of current block that has elapsed:
     // We're fading div ONE out, so this will have an opacity of the percentage still remaining in this block,
