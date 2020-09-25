@@ -8,10 +8,10 @@ const DAY = HOUR * 24;
 // Sun and Moon across an axis :)
 
 const setSunMoonPosition = (date = new Date()) => {
-    var w = screen.width / 1.2;
+    var w = window.innerWidth / 1.2;
 
     // Do the same thing with the height. Responsive = Good times.
-    var h = screen.height / 1.2;
+    var h = window.innerHeight / 1.2;
 
     // Get the hours and minutes.
     const hours = date.getHours();
