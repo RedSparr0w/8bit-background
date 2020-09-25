@@ -5,8 +5,9 @@ const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
 const DAY = HOUR * 24;
 
-// Sun and Moon across an axis :)
-
+/*
+SUN & MOON
+*/
 const setSunMoonPosition = (date = new Date()) => {
     var w = window.innerWidth / 1.2;
 
@@ -42,8 +43,6 @@ const setSunMoonPosition = (date = new Date()) => {
 /*
 SKY & GROUND
 */
-const timeBetweenBackgrounds = 2 * HOUR;
-
 updateBackgrounds = (d = new Date()) => {
     const hour = d.getHours();
     const minutes = d.getMinutes();
