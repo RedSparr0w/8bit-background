@@ -81,7 +81,7 @@ updateBackgrounds = (d = new Date()) => {
 
 const updateScene = (date = new Date()) => {
     sun_and_moon(date);
-    updateSky(date);
+    updateBackgrounds(date);
 }
 
 updateScene();
