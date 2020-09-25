@@ -172,10 +172,12 @@ body {
     height: 100vh;
     top: 0;
     position: fixed;
+    z-index: -2;
 }
 
 .cloud {
-    width: 20vw; height: 5vh;
+    width: 20vw;
+    height: 5vh;
     z-index: -2;
     position: relative;
 }
