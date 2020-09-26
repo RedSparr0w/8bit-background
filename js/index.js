@@ -121,7 +121,7 @@ function getPicture(hour) {
         return 0;
 };
 
-// TODO: random pokemon move across the screen occasionally
+// TODO: add all the flying pokemon (with wings flapping)
 const flyingPokemon = [12,15,17,18,22,41,42,49,92,93,109,110,142,144,145,146,149,150,151];
 const addPokemon = id => {
     const pokeElement = document.createElement('div');
@@ -139,15 +139,12 @@ const addPokemon = id => {
     }, MINUTE)
 }
 
+const highestID = 151;
 const startAddingPokemon = () => {
     delay = Math.floor(Math.random() * (5 * SECOND));
     setTimeout(() => {
-        // 151
-        addPokemon(Math.floor(Math.random() * 150) + 1)
+        addPokemon(Math.floor(Math.random() * highestID) + 1)
         startAddingPokemon();
     }, delay);
 }
 startAddingPokemon();
-// setInterval(() => {
-//     addPokemon(Math.floor(Math.random() * 250) + 1)
-// }, 1000);
