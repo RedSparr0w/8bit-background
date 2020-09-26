@@ -121,3 +121,22 @@ function getPicture(hour) {
         return 0;
 };
 
+// TODO: random pokemon move across the screen occasionally
+const flyingPokemon = [12,15,17,18,22,41,42,49,92,93,109,110,123,142,144,145,146,149,150,151];
+const addPokemon = id => {
+    const pokeElement = document.createElement('div');
+
+    const flying = flyingPokemon.includes(id);
+    const shiny = !!Math.round(Math.random());
+
+    pokeElement.style.bottom = `${Math.floor(Math.random() * (10 + (flying ? 60 : 0))) + 5}vh`;
+    pokeElement.style.width = '40px';
+    pokeElement.style.height = '40px';
+    pokeElement.style.backgroundImage = `url('images/pokemon/${id.toString().padStart(3, 0)}${shiny ? 's' : ''}.png')`;
+    pokeElement.classList.add('pokemon');
+    pokeElement.classList.add('walkLeft');
+    document.body.appendChild(pokeElement);
+    setTimeout(() => {
+        document.body.removeChild(pokeElement);
+    }, 30 * SECOND)
+}
