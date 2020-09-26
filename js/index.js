@@ -68,6 +68,9 @@ updateBackgrounds = (d = new Date()) => {
     document.getElementById('ground2').style.opacity = opacity;
     document.getElementById('ground2').classList.value = (`ground ground-${bgNumberNext}`);
 
+    darkness = hour >= 18 ? (Math.abs(18 - hour) * 60) + minutes : hour < 6 ? (Math.abs(6 - hour) * 60) - minutes : 0;
+    max_percent = 30;
+    real_percent = max_percent * (darkness / 300);
     if (DEBUG) console.log('CURRENT TIME IS: ' + hour + ':' + minutes);
     if (DEBUG) console.log('BACKGROUNDS ARE: ' + bgNumber + ' -> ' + bgNumberNext + ' [' + opacity.toFixed(2) + '%]');
 };
