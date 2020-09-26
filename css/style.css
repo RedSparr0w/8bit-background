@@ -19,7 +19,7 @@ body {
     top: 0;
     background-size: auto 120vh;
     background-repeat: repeat-x;
-    z-index: -4;
+    z-index: -5;
 }
 
 .sky-0 {
@@ -79,7 +79,7 @@ body {
     bottom: 0;
     background-repeat: repeat-x;
     background-size: auto 22vh;
-    z-index: -1;
+    z-index: -2;
 }
 
 .ground-0 {
@@ -138,7 +138,7 @@ body {
     overflow: hidden;
     top: 10vh;
     left: 0;
-    z-index: -3;
+    z-index: -4;
 }
 
 #sun {
@@ -150,7 +150,7 @@ body {
     display: block;
     width: 18vh;
     height: 18vh;
-    z-index: -3;
+    z-index: -4;
 }
 
 #moon {
@@ -162,7 +162,7 @@ body {
     display: block;
     width: 14.2vh;
     height: 15vh;
-    z-index: -3;
+    z-index: -4;
 }
 
 /* Clouds! */
@@ -246,7 +246,7 @@ body {
     -webkit-animation: moveclouds 60s linear infinite;
     -moz-animation: moveclouds 60s linear infinite;
     -o-animation: moveclouds 60s linear infinite;
-    z-index: -2;
+    z-index: -3;
     background-size: cover;
     bottom: 20vh;
     position: fixed;
