@@ -140,3 +140,16 @@ const addPokemon = id => {
         document.body.removeChild(pokeElement);
     }, 30 * SECOND)
 }
+
+const startAddingPokemon = () => {
+    delay = Math.floor(Math.random() * (30 * SECOND));
+    setTimeout(() => {
+        // 151
+        addPokemon(Math.floor(Math.random() * 150) + 1)
+        startAddingPokemon();
+    }, delay);
+}
+startAddingPokemon();
+// setInterval(() => {
+//     addPokemon(Math.floor(Math.random() * 250) + 1)
+// }, 1000);
