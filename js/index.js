@@ -122,7 +122,7 @@ function getPicture(hour) {
 };
 
 // TODO: random pokemon move across the screen occasionally
-const flyingPokemon = [12,15,17,18,22,41,42,49,92,93,109,110,123,142,144,145,146,149,150,151];
+const flyingPokemon = [12,15,17,18,22,41,42,49,92,93,109,110,142,144,145,146,149,150,151];
 const addPokemon = id => {
     const pokeElement = document.createElement('div');
 
@@ -130,19 +130,17 @@ const addPokemon = id => {
     const shiny = !!Math.round(Math.random());
 
     pokeElement.style.bottom = `${Math.floor(Math.random() * (10 + (flying ? 60 : 0))) + 5}vh`;
-    pokeElement.style.width = '40px';
-    pokeElement.style.height = '40px';
     pokeElement.style.backgroundImage = `url('images/pokemon/${id.toString().padStart(3, 0)}${shiny ? 's' : ''}.png')`;
     pokeElement.classList.add('pokemon');
     pokeElement.classList.add('walkLeft');
     document.body.appendChild(pokeElement);
     setTimeout(() => {
         document.body.removeChild(pokeElement);
-    }, 30 * SECOND)
+    }, MINUTE)
 }
 
 const startAddingPokemon = () => {
-    delay = Math.floor(Math.random() * (30 * SECOND));
+    delay = Math.floor(Math.random() * (5 * SECOND));
     setTimeout(() => {
         // 151
         addPokemon(Math.floor(Math.random() * 150) + 1)
