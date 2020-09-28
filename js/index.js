@@ -96,29 +96,29 @@ setTimeout(() => {
 // Determines the images to use based on the hour
 function getPicture(hour) {
     if (hour >= 23 || hour < 1)
-        return 11;
-    else if (hour >= 21)
         return 10;
-    else if (hour >= 19)
+    else if (hour >= 21)
         return 9;
-    else if (hour >= 17)
+    else if (hour >= 19)
         return 8;
-    else if (hour >= 15)
+    else if (hour >= 17)
         return 7;
-    else if (hour >= 13)
+    else if (hour >= 15)
         return 6;
-    else if (hour >= 11)
+    else if (hour >= 13)
         return 5;
-    else if (hour >= 9)
+    else if (hour >= 11)
         return 4;
-    else if (hour >= 7)
+    else if (hour >= 9)
         return 3;
-    else if (hour >= 5)
+    else if (hour >= 7)
         return 2;
-    else if (hour >= 3)
+    else if (hour >= 5)
         return 1;
-    else
+    else if (hour >= 3)
         return 0;
+    else
+        return 11;
 };
 
 // All the flying pokemon IDs
