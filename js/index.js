@@ -19,14 +19,14 @@ const setSunMoonPosition = (date = new Date()) => {
     const mins = date.getMinutes();
 
     // Calculate the position of the sun and moon based on the time.
-    const sunRad = (((hours) * 60 + mins) / (24.00 * 62.00)) * Math.PI * 2;
-    const moonRad = (((hours + 12) * 60 + mins) / (24.00 * 60.00)) * Math.PI * 2;
+    const sunRad = (((hours + 2) * 60 + mins) / (24.00 * 62.00)) * Math.PI * 2;
+    const moonRad = (((hours + 14) * 60 + mins) / (24.00 * 60.00)) * Math.PI * 2;
 
     // Calculate the axis
     const sunX = (w / 1.8) - (w * Math.sin(sunRad)) / 2;
-    const sunY = (h / 1.6) + (h * Math.cos(sunRad)) / 2;
+    const sunY = (h / 2) + (h * Math.cos(sunRad)) / 2;
     const moonX = (w / 1.8) - (w * Math.sin(moonRad)) / 2;
-    const moonY = (h / 1.6) + (h * Math.cos(moonRad)) / 2;
+    const moonY = (h / 1.4) + (h * Math.cos(moonRad)) / 2;
 
 
     // Apply the sun class on the top left of the axis based on our previous calculations
