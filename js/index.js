@@ -122,14 +122,14 @@ function getPicture(hour) {
 };
 
 // TODO: add all the flying pokemon (with wings flapping)
-const flyingPokemon = [12,15,17,18,22,41,42,49,92,93,109,110,142,144,145,146,149,150,151];
+const flyingPokemon = [12,15,17,18,22,41,42,49,92,93,109,110,142,144,145,146,149,151];
 const addPokemon = id => {
     const pokeElement = document.createElement('div');
 
     const flying = flyingPokemon.includes(id);
     const shiny = !!Math.round(Math.random());
 
-    pokeElement.style.bottom = `${Math.floor(Math.random() * (10 + (flying ? 60 : 0))) + 5}vh`;
+    pokeElement.style.bottom = flying ? `${Math.floor(Math.random() * 90) + 20}vh` : `${Math.floor(Math.random() * 10) + 5}vh`;
     pokeElement.style.backgroundImage = `url('images/pokemon/${id.toString().padStart(3, 0)}${shiny ? 's' : ''}.png')`;
     pokeElement.classList.add('pokemon');
     pokeElement.classList.add('walkLeft');

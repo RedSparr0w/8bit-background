@@ -188,48 +188,28 @@ body {
 /*variable speed, opacity, and position of clouds for realistic effect*/
 .x2 {
     left: 200px;
-    -webkit-transform: scale(0.6);
-    -moz-transform: scale(0.6);
     transform: scale(0.6);
     opacity: 0.6; /*opacity proportional to the size*/
     /*Speed will also be proportional to the size and opacity*/
     /*More the speed. Less the time in 's' = seconds*/
-    -webkit-animation: moveclouds 50s linear infinite;
-    -moz-animation: moveclouds 50s linear infinite;
-    -o-animation: moveclouds 50s linear infinite;
+    animation: moveclouds 50s linear infinite;
 }
 
 .x3 {
     left: -250px; bottom: -20vh;
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
     transform: scale(0.8);
     opacity: 0.8; /*opacity proportional to the size*/
-    -webkit-animation: moveclouds 45s linear infinite;
-    -moz-animation: moveclouds 45s linear infinite;
-    -o-animation: moveclouds 45s linear infinite;
+    animation: moveclouds 45s linear infinite;
 }
 
 .x4 {
     left: 470px; bottom: -10vh;
-    -webkit-transform: scale(0.75);
-    -moz-transform: scale(0.75);
     transform: scale(0.75);
     opacity: 0.75; /*opacity proportional to the size*/
-    -webkit-animation: moveclouds 37s linear infinite;
-    -moz-animation: moveclouds 37s linear infinite;
-    -o-animation: moveclouds 37s linear infinite;
+    animation: moveclouds 37s linear infinite;
 }
 
-@-webkit-keyframes moveclouds {
-    0% {margin-left: 100vw;}
-    100% {margin-left: -100vw;}
-}
-@-moz-keyframes moveclouds {
-    0% {margin-left: 100vw;}
-    100% {margin-left: -100vw;}
-}
-@-o-keyframes moveclouds {
+@keyframes moveclouds {
     0% {margin-left: 100vw;}
     100% {margin-left: -100vw;}
 }
@@ -239,13 +219,9 @@ body {
     left: 200px;
     width: 65vh;
     height: 25vh;
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
     transform: scale(0.8);
     opacity: 0.3;
-    -webkit-animation: moveclouds 60s linear infinite;
-    -moz-animation: moveclouds 60s linear infinite;
-    -o-animation: moveclouds 60s linear infinite;
+    animation: moveclouds 60s linear infinite;
     z-index: -3;
     background-size: cover;
     bottom: 20vh;
@@ -298,17 +274,6 @@ body {
 
 .cloud1-11 {
     background-image: url('../images/cloud/10.png');
-}
-
-
-.container {
-    transition: margin 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
-    padding:5em 3em;
-}
-
-.inner {
-    overflow: scroll;
-    position: relative;
 }
 
 /*
