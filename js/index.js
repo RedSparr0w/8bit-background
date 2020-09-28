@@ -49,7 +49,7 @@ updateBackgrounds = (d = new Date()) => {
     const bgNumber = getPicture(hour);
 
     // Determine starting background images:
-    const bgNumberNext = bgNumber == 11 ? 0 : bgNumber + 1;
+    const bgNumberNext = (bgNumber + 1) % 12;
 
     // Get opacity (i.e. how far (in percentage) are we in a certain time-block):
     // Every block is 2 hours, so 1 hour into a block would be 50% (0.50)
