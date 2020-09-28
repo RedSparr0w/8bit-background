@@ -1,5 +1,3 @@
-const DEBUG = false;
-
 const SECOND = 1000;
 const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
@@ -59,20 +57,14 @@ updateBackgrounds = (d = new Date()) => {
     opacity += minutes / 120;
 
     // Set sky image
-    document.getElementById('sky1').classList.value = (`sky sky-${bgNumber}`);
-    document.getElementById('sky2').style.opacity = opacity;
-    document.getElementById('sky2').classList.value = (`sky sky-${bgNumberNext}`);
+    document.getElementById('sky1').classList.value = `sky sky-${bgNumber}`;
+    document.getElementById('sky2').style.opacity = opacity.toString();
+    document.getElementById('sky2').classList.value = `sky sky-${bgNumberNext}`;
 
     // Set ground image
-    document.getElementById('ground1').classList.value = (`ground ground-${bgNumber}`);
-    document.getElementById('ground2').style.opacity = opacity;
-    document.getElementById('ground2').classList.value = (`ground ground-${bgNumberNext}`);
-
-    darkness = hour >= 18 ? (Math.abs(18 - hour) * 60) + minutes : hour < 6 ? (Math.abs(6 - hour) * 60) - minutes : 0;
-    max_percent = 30;
-    real_percent = max_percent * (darkness / 300);
-    if (DEBUG) console.log('CURRENT TIME IS: ' + hour + ':' + minutes);
-    if (DEBUG) console.log('BACKGROUNDS ARE: ' + bgNumber + ' -> ' + bgNumberNext + ' [' + opacity.toFixed(2) + '%]');
+    document.getElementById('ground1').classList.value = `ground ground-${bgNumber}`;
+    document.getElementById('ground2').style.opacity = opacity.toString();
+    document.getElementById('ground2').classList.value = `ground ground-${bgNumberNext}`;
 };
 
 const updateScene = (date = new Date()) => {
