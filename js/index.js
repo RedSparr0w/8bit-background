@@ -2,141 +2,148 @@ const SECOND = 1000;
 const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
 const DAY = HOUR * 24;
+class DynamicBackground {
+    static autoUpdateScene;
 
-/*
-SUN & MOON
-*/
-const setSunMoonPosition = (date = new Date()) => {
-    var w = window.innerWidth / 1.2;
+    /* SUN & MOON */
+    static setSunMoonPosition = (date = new Date()) => {
+        const h = window.innerHeight;
+        const w = window.innerWidth / 1.2;
 
-    // Do the same thing with the height. Responsive = Good times.
-    var h = window.innerHeight / 1;
+        // Get the hours and minutes.
+        const hours = date.getHours();
+        const mins = date.getMinutes();
 
-    // Get the hours and minutes.
-    const hours = date.getHours();
-    const mins = date.getMinutes();
+        // Calculate the position of the sun and moon based on the time.
+        const sunRad = (((hours) * 60 + mins) / (24 * 60)) * Math.PI * 2;
+        const moonRad = (((hours + 12) * 60 + mins) / (24 * 60)) * Math.PI * 2;
 
-    // Calculate the position of the sun and moon based on the time.
-    const sunRad = (((hours) * 60 + mins) / (24.00 * 62.00)) * Math.PI * 2;
-    const moonRad = (((hours + 12) * 60 + mins) / (24.00 * 60.00)) * Math.PI * 2;
+        // Calculate the axis
+        const sunX = (w / 1.8) - (w * Math.sin(sunRad)) / 2;
+        const sunY = (h / 2) + (h * Math.cos(sunRad)) / 2;
+        const moonX = (w / 1.8) - (w * Math.sin(moonRad)) / 2;
+        const moonY = (h / 1.4) + (h * Math.cos(moonRad)) / 2;
 
-    // Calculate the axis
-    const sunX = (w / 1.8) - (w * Math.sin(sunRad)) / 2;
-    const sunY = (h / 2) + (h * Math.cos(sunRad)) / 2;
-    const moonX = (w / 1.8) - (w * Math.sin(moonRad)) / 2;
-    const moonY = (h / 1.4) + (h * Math.cos(moonRad)) / 2;
+        // Apply the positions based on our previous calculations
+        const sun = document.getElementById('sun');
+        sun.style.top = `${sunY}px`;
+        sun.style.left = `${sunX}px`;
+        const moon = document.getElementById('moon');
+        moon.style.top = `${moonY}px`;
+        moon.style.left = `${moonX}px`;
+    };
 
+    /* SKY & GROUND */
+    static updateBackgrounds = (d = new Date()) => {
+        const hour = d.getHours();
+        const minutes = d.getMinutes();
+        const bgNumber = DynamicBackground.getPicture(hour);
 
-    // Apply the sun class on the top left of the axis based on our previous calculations
-    const sun = document.getElementById('sun')
-    sun.style.top = `${sunY}px`;
-    sun.style.left = `${sunX}px`;
+        // Determine starting background images:
+        const bgNumberNext = (bgNumber + 1) % 12;
 
-    // And do the opposite for the moon, of course!
-    const moon = document.getElementById('moon')
-    moon.style.top = `${moonY}px`;
-    moon.style.left = `${moonX}px`;
-}
+        // Get opacity (i.e. how far (in percentage) are we in a certain time-block):
+        // Every block is 2 hours, so 1 hour into a block would be 50% (0.50)
+        // If we are in an even hour add 50%
+        let opacity = hour % 2 ? 0 : 0.5;
+        // Every minute would be 1/120th of a block (minutes / 120)
+        opacity += minutes / 120;
 
-/*
-SKY & GROUND
-*/
-updateBackgrounds = (d = new Date()) => {
-    const hour = d.getHours();
-    const minutes = d.getMinutes();
-    const bgNumber = getPicture(hour);
+        // Set sky image
+        document.getElementById('sky1').classList.value = `sky sky-${bgNumber}`;
+        document.getElementById('sky2').style.opacity = opacity.toString();
+        document.getElementById('sky2').classList.value = `sky sky-${bgNumberNext}`;
 
-    // Determine starting background images:
-    const bgNumberNext = (bgNumber + 1) % 12;
+        // Set ground image
+        document.getElementById('ground1').classList.value = `ground ground-${bgNumber}`;
+        document.getElementById('ground2').style.opacity = opacity.toString();
+        document.getElementById('ground2').classList.value = `ground ground-${bgNumberNext}`;
+    };
 
-    // Get opacity (i.e. how far (in percentage) are we in a certain time-block):
-    // Every block is 2 hours, so 1 hour into a block would be 50% (0.50)
-    // If we are in an even hour add 50%
-    let opacity = hour % 2 ? 0 : 0.5;
-    // Every minute would be 1/120th of a block (minutes / 120)
-    opacity += minutes / 120;
+    // Determines the images to use based on the current hour
+    static getPicture = (hour) => (hour ? Math.floor((hour - 1) / 2) : 11);
 
-    // Set sky image
-    document.getElementById('sky1').classList.value = `sky sky-${bgNumber}`;
-    document.getElementById('sky2').style.opacity = opacity.toString();
-    document.getElementById('sky2').classList.value = `sky sky-${bgNumberNext}`;
+    /* POKEMON */
+    static MAX_POKEMON_ID = 815;
+    static SHINY_CHANCE = 512;
 
-    // Set ground image
-    document.getElementById('ground1').classList.value = `ground ground-${bgNumber}`;
-    document.getElementById('ground2').style.opacity = opacity.toString();
-    document.getElementById('ground2').classList.value = `ground ground-${bgNumberNext}`;
+    // All the flying pokemon IDs (these pokemon can spawn in the sky)
+    static flyingPokemon = [
+        12, 15, 17, 18, 22, 41, 42, 49, 92, 93,
+        109, 110, 142, 144, 145, 146, 149, 151, 164, 165, 166, 169, 176, 187, 188, 189, 193,
+        200, 206, 227, 249, 250, 251, 267, 269, 277, 278, 279, 284, 291,
+        329, 330, 333, 334, 358, 380, 381, 382, 384, 385, 397, 398,
+        414, 415, 416, 425, 426, 433, 462, 469, 479, 480, 481, 482, 488, 489, 490, 491,
+        521, 527, 528, 567, 581,
+        628, 642, 644, 645, 646, 662, 663, 666, 691,
+        707, 714, 715, 738, 745, 746,
+    ];
+
+    static MIN_SPEED_STAT = 20;
+    static MAX_SPEED_STAT = 180;
+    static MAX_SPEED = 10;
+
+    // Add a pokemon to the scene
+    static addPokemon = (id) => {
+        const pokemonSpeed = Math.random() * this.MAX_SPEED_STAT + this.MIN_SPEED_STAT
+        let moveSpeed = Math.floor(((pokemonSpeed - DynamicBackground.MIN_SPEED_STAT) / (DynamicBackground.MAX_SPEED_STAT - DynamicBackground.MIN_SPEED_STAT)) * DynamicBackground.MAX_SPEED);
+        // Adjust speed by -1 → +1 randomly
+        moveSpeed += Math.floor(Math.random() * 3) - 1;
+        moveSpeed = Math.max(0, Math.min(DynamicBackground.MAX_SPEED, moveSpeed));
+        const flying = DynamicBackground.flyingPokemon.includes(id);
+        const shiny = !Math.floor(Math.random() * this.SHINY_CHANCE);
+
+        const pokeElement = document.createElement('div');
+        pokeElement.style.bottom = flying ? `${Math.floor(Math.random() * 70) + 20}vh` : `${Math.floor(Math.random() * 10) + 5}vh`;
+        pokeElement.style.backgroundImage = `${shiny ? 'url(\'assets/images/dynamic-background/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${id.toString().padStart(3, 0)}${shiny ? 's' : ''}.png')`;
+        pokeElement.classList.add('pokemonSprite');
+        pokeElement.classList.add(`speed-${moveSpeed}`);
+        document.getElementById('dynamic-background').appendChild(pokeElement);
+        setTimeout(() => {
+            document.getElementById('dynamic-background').removeChild(pokeElement);
+        }, 2 * MINUTE);
+    };
+
+    /* SCENE MANAGEMENT */
+    static addPokemonTimeout;
+
+    static startAddingPokemon = () => {
+        // Random delay up to 7 seconds
+        const delay = Math.floor(Math.random() * (7 * SECOND));
+
+        // Assign our timeout function so we can stop it later
+        DynamicBackground.addPokemonTimeout = setTimeout(() => {
+            DynamicBackground.addPokemon(Math.floor(Math.random() * this.MAX_POKEMON_ID) + 1);
+            // Add another pokemon
+            DynamicBackground.startAddingPokemon();
+        }, delay);
+    };
+
+    static stopAddingPokemon = () => {
+        clearTimeout(DynamicBackground.addPokemonTimeout);
+    };
+
+    static updateScene = (date = new Date()) => {
+        try {
+            DynamicBackground.setSunMoonPosition(date);
+            DynamicBackground.updateBackgrounds(date);
+        } catch (e) { console.error(e); }
+    };
+
+    static startScene = () => {
+        // Start adding the Pokemon images (manages it's own timer)
+        DynamicBackground.startAddingPokemon();
+        // Update the background now then every minute
+        DynamicBackground.updateScene();
+        DynamicBackground.autoUpdateScene = setInterval(DynamicBackground.updateScene, MINUTE);
+    };
+
+    static stopScene = () => {
+        // Stop adding the pokemon images
+        DynamicBackground.stopAddingPokemon();
+        // Stop updating background images
+        clearInterval(DynamicBackground.autoUpdateScene);
+    };
 };
 
-const updateScene = (date = new Date()) => {
-    setSunMoonPosition(date);
-    updateBackgrounds(date);
-}
-
-updateScene();
-setTimeout(() => {
-    updateScene();
-    setInterval(updateScene, MINUTE);
-}, MINUTE - (Date.now() % MINUTE));
-
-// For updating the scene quickly
-// test = new Date();
-// setInterval(() => {
-//     test.setMinutes(test.getMinutes() + 1);
-//     updateScene(test);
-// }, 10);
-
-// Determines the images to use based on the hour
-function getPicture(hour) {
-    if (hour >= 23 || hour < 1)
-        return 10;
-    else if (hour >= 21)
-        return 9;
-    else if (hour >= 19)
-        return 8;
-    else if (hour >= 17)
-        return 7;
-    else if (hour >= 15)
-        return 6;
-    else if (hour >= 13)
-        return 5;
-    else if (hour >= 11)
-        return 4;
-    else if (hour >= 9)
-        return 3;
-    else if (hour >= 7)
-        return 2;
-    else if (hour >= 5)
-        return 1;
-    else if (hour >= 3)
-        return 0;
-    else
-        return 11;
-};
-
-// All the flying pokemon IDs
-const flyingPokemon = [12,15,17,18,22,41,42,49,92,93,109,110,142,144,145,146,149,151,164,165,166,169,176,187,188,189,193,200,206,227,249,250,251,267,269,277,278,279,284,291,329,330,333,334,358,380,381,382,384,385,397,398,414,415,416,425,426,433,462,469,479,480,481,482,488,489,490,491,521,527,528,567,581,628,642,644,645,646,662,663,666,691,707,714,715,738,745,746];
-const addPokemon = id => {
-    const pokeElement = document.createElement('div');
-
-    const flying = flyingPokemon.includes(id);
-    const shiny = !Math.round(Math.random() * 1024);
-
-    pokeElement.style.bottom = flying ? `${Math.floor(Math.random() * 70) + 20}vh` : `${Math.floor(Math.random() * 10) + 5}vh`;
-    pokeElement.style.backgroundImage = `url('images/pokemon/${id.toString().padStart(3, 0)}${shiny ? 's' : ''}.png')`;
-    pokeElement.classList.add('pokemon');
-    pokeElement.classList.add('walkLeft');
-    document.body.appendChild(pokeElement);
-    setTimeout(() => {
-        document.body.removeChild(pokeElement);
-    }, MINUTE)
-}
-
-const highestID = 151;
-const startAddingPokemon = () => {
-    delay = Math.floor(Math.random() * (5 * SECOND));
-    setTimeout(() => {
-        addPokemon(Math.floor(Math.random() * highestID) + 1)
-        startAddingPokemon();
-    }, delay);
-}
-startAddingPokemon();
+DynamicBackground.startScene();
