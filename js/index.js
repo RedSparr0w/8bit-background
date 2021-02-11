@@ -2,6 +2,7 @@ const SECOND = 1000;
 const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
 const DAY = HOUR * 24;
+
 class DynamicBackground {
     static autoUpdateScene;
 
@@ -98,9 +99,9 @@ class DynamicBackground {
         pokeElement.style.backgroundImage = `${shiny ? 'url(\'assets/images/dynamic-background/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${id.toString().padStart(3, 0)}${shiny ? 's' : ''}.png')`;
         pokeElement.classList.add('pokemonSprite');
         pokeElement.classList.add(`speed-${moveSpeed}`);
-        document.getElementById('dynamic-background').appendChild(pokeElement);
+        document.body.appendChild(pokeElement);
         setTimeout(() => {
-            document.getElementById('dynamic-background').removeChild(pokeElement);
+            document.body.removeChild(pokeElement);
         }, 2 * MINUTE);
     };
 

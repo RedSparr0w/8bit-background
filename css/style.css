@@ -1,4 +1,4 @@
-#dynamic-background {
+body {
 	display: block;
 	position: fixed;
 	top: 0px;
@@ -9,7 +9,7 @@
 	pointer-events: none;
 }
 
-#dynamic-background .sky {
+.sky {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -20,55 +20,55 @@
 	z-index: -5;
 }
 
-#dynamic-background .sky-0 {
+.sky-0 {
 	background-image: url('../images/sky/10.png');
 }
 
-#dynamic-background .sky-1 {
+.sky-1 {
 	background-image: url('../images/sky/01.png');
 }
 
-#dynamic-background .sky-2 {
+.sky-2 {
 	background-image: url('../images/sky/02.png');
 }
 
-#dynamic-background .sky-3 {
+.sky-3 {
 	background-image: url('../images/sky/03.png');
 }
 
-#dynamic-background .sky-4 {
+.sky-4 {
 	background-image: url('../images/sky/04.png');
 }
 
-#dynamic-background .sky-5 {
+.sky-5 {
 	background-image: url('../images/sky/04.png');
 }
 
-#dynamic-background .sky-6 {
+.sky-6 {
 	background-image: url('../images/sky/04.png');
 }
 
-#dynamic-background .sky-7 {
+.sky-7 {
 	background-image: url('../images/sky/07.png');
 }
 
-#dynamic-background .sky-8 {
+.sky-8 {
 	background-image: url('../images/sky/08.png');
 }
 
-#dynamic-background .sky-9 {
+.sky-9 {
 	background-image: url('../images/sky/09.png');
 }
 
-#dynamic-background .sky-10 {
+.sky-10 {
 	background-image: url('../images/sky/10.png');
 }
 
-#dynamic-background .sky-11 {
+.sky-11 {
 	background-image: url('../images/sky/11.png');
 }
 
-#dynamic-background .ground {
+.ground {
 	height: 20vh;
 	width: 100vw;
 	position: fixed;
@@ -79,55 +79,55 @@
 	z-index: -2;
 }
 
-#dynamic-background .ground-0 {
+.ground-0 {
 	background-image: url('../images/ground/10.png');
 }
 
-#dynamic-background .ground-1 {
+.ground-1 {
 	background-image: url('../images/ground/01.png');
 }
 
-#dynamic-background .ground-2 {
+.ground-2 {
 	background-image: url('../images/ground/02.png');
 }
 
-#dynamic-background .ground-3 {
+.ground-3 {
 	background-image: url('../images/ground/03.png');
 }
 
-#dynamic-background .ground-4 {
+.ground-4 {
 	background-image: url('../images/ground/04.png');
 }
 
-#dynamic-background .ground-5 {
+.ground-5 {
 	background-image: url('../images/ground/04.png');
 }
 
-#dynamic-background .ground-6 {
+.ground-6 {
 	background-image: url('../images/ground/04.png');
 }
 
-#dynamic-background .ground-7 {
+.ground-7 {
 	background-image: url('../images/ground/07.png');
 }
 
-#dynamic-background .ground-8 {
+.ground-8 {
 	background-image: url('../images/ground/08.png');
 }
 
-#dynamic-background .ground-9 {
+.ground-9 {
 	background-image: url('../images/ground/09.png');
 }
 
-#dynamic-background .ground-10 {
+.ground-10 {
 	background-image: url('../images/ground/10.png');
 }
 
-#dynamic-background .ground-11 {
+.ground-11 {
 	background-image: url('../images/ground/11.png');
 }
 
-#dynamic-background #orbital {
+#orbital {
 	height: 140vh;
 	width: 100vw;
 	position: fixed;
@@ -137,7 +137,7 @@
 	z-index: -4;
 }
 
-#dynamic-background #sun {
+#sun {
 	position: absolute;
 	background: url('../images/sun.png');
 	background-size: cover;
@@ -149,7 +149,7 @@
 	z-index: -4;
 }
 
-#dynamic-background #moon {
+#moon {
 	position: absolute;
 	background: url('../images/moon.png');
 	background-size: cover;
@@ -161,7 +161,7 @@
 	z-index: -4;
 }
 
-#dynamic-background .cloud-container {
+.cloud-container {
 	width: 100vw;
 	height: 100vh;
 	top: 0;
@@ -169,14 +169,14 @@
 	z-index: -2;
 }
 
-#dynamic-background .cloud {
+.cloud {
 	width: 20vw;
 	height: 5vh;
 	z-index: -2;
 	position: relative;
 }
 
-#dynamic-background .x2 {
+.x2 {
 	left: 200px;
 	transform: scale(0.6);
 	opacity: 0.6;
@@ -186,7 +186,7 @@
 	animation: moveclouds 50s linear infinite;
 }
 
-#dynamic-background .x3 {
+.x3 {
 	left: -250px;
 	bottom: -20vh;
 	transform: scale(0.8);
@@ -195,7 +195,7 @@
 	animation: moveclouds 45s linear infinite;
 }
 
-#dynamic-background .x4 {
+.x4 {
 	left: 470px;
 	bottom: -10vh;
 	transform: scale(0.75);
@@ -214,7 +214,7 @@
 	}
 }
 
-#dynamic-background .cloud1 {
+.cloud1 {
 	left: 200px;
 	width: 65vh;
 	height: 25vh;
@@ -227,55 +227,55 @@
 	position: fixed;
 }
 
-#dynamic-background .cloud1-0 {
+.cloud1-0 {
 	background-image: url('../images/cloud/09.png');
 }
 
-#dynamic-background .cloud1-1 {
+.cloud1-1 {
 	background-image: url('../images/cloud/01.png');
 }
 
-#dynamic-background .cloud1-2 {
+.cloud1-2 {
 	background-image: url('../images/cloud/02.png');
 }
 
-#dynamic-background .cloud1-3 {
+.cloud1-3 {
 	background-image: url('../images/cloud/04.png');
 }
 
-#dynamic-background .cloud1-4 {
+.cloud1-4 {
 	background-image: url('../images/cloud/04.png');
 }
 
-#dynamic-background .cloud1-5 {
+.cloud1-5 {
 	background-image: url('../images/cloud/04.png');
 }
 
-#dynamic-background .cloud1-6 {
+.cloud1-6 {
 	background-image: url('../images/cloud/04.png');
 }
 
-#dynamic-background .cloud1-7 {
+.cloud1-7 {
 	background-image: url('../images/cloud/07.png');
 }
 
-#dynamic-background .cloud1-8 {
+.cloud1-8 {
 	background-image: url('../images/cloud/08.png');
 }
 
-#dynamic-background .cloud1-9 {
+.cloud1-9 {
 	background-image: url('../images/cloud/08.1.png');
 }
 
-#dynamic-background .cloud1-10 {
+.cloud1-10 {
 	background-image: url('../images/cloud/09.png');
 }
 
-#dynamic-background .cloud1-11 {
+.cloud1-11 {
 	background-image: url('../images/cloud/10.png');
 }
 
-#dynamic-background .pokemonSprite {
+.pokemonSprite {
 	position: fixed;
 	height: 4vh;
 	width: 4vh;
@@ -284,47 +284,47 @@
 	background-position: 0.00000% 33.3333%;
 }
 
-#dynamic-background .pokemonSprite.speed-0 {
+.pokemonSprite.speed-0 {
 	animation: walkLeft 0.8s steps(3) infinite, moveLeft 120s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-1 {
+.pokemonSprite.speed-1 {
 	animation: walkLeft 0.7s steps(3) infinite, moveLeft 100s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-2 {
+.pokemonSprite.speed-2 {
 	animation: walkLeft 0.65s steps(3) infinite, moveLeft 90s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-3 {
+.pokemonSprite.speed-3 {
 	animation: walkLeft 0.6s steps(3) infinite, moveLeft 80s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-4 {
+.pokemonSprite.speed-4 {
 	animation: walkLeft 0.5s steps(3) infinite, moveLeft 70s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-5 {
+.pokemonSprite.speed-5 {
 	animation: walkLeft 0.4s steps(3) infinite, moveLeft 60s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-6 {
+.pokemonSprite.speed-6 {
 	animation: walkLeft 0.38s steps(3) infinite, moveLeft 55s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-7 {
+.pokemonSprite.speed-7 {
 	animation: walkLeft 0.36s steps(3) infinite, moveLeft 50s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-8 {
+.pokemonSprite.speed-8 {
 	animation: walkLeft 0.34s steps(3) infinite, moveLeft 42s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-9 {
+.pokemonSprite.speed-9 {
 	animation: walkLeft 0.32s steps(3) infinite, moveLeft 37s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-10 {
+.pokemonSprite.speed-10 {
 	animation: walkLeft 0.3s steps(3) infinite, moveLeft 30s linear;
 }
 
@@ -338,7 +338,7 @@
 	}
 }
 
-#dynamic-background {
+{
 	display: block;
 	position: fixed;
 	top: 0px;
@@ -349,7 +349,7 @@
 	pointer-events: none;
 }
 
-#dynamic-background .sky {
+.sky {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -360,55 +360,55 @@
 	z-index: -5;
 }
 
-#dynamic-background .sky-0 {
+.sky-0 {
 	background-image: url('../images/sky/10.png');
 }
 
-#dynamic-background .sky-1 {
+.sky-1 {
 	background-image: url('../images/sky/01.png');
 }
 
-#dynamic-background .sky-2 {
+.sky-2 {
 	background-image: url('../images/sky/02.png');
 }
 
-#dynamic-background .sky-3 {
+.sky-3 {
 	background-image: url('../images/sky/03.png');
 }
 
-#dynamic-background .sky-4 {
+.sky-4 {
 	background-image: url('../images/sky/04.png');
 }
 
-#dynamic-background .sky-5 {
+.sky-5 {
 	background-image: url('../images/sky/04.png');
 }
 
-#dynamic-background .sky-6 {
+.sky-6 {
 	background-image: url('../images/sky/04.png');
 }
 
-#dynamic-background .sky-7 {
+.sky-7 {
 	background-image: url('../images/sky/07.png');
 }
 
-#dynamic-background .sky-8 {
+.sky-8 {
 	background-image: url('../images/sky/08.png');
 }
 
-#dynamic-background .sky-9 {
+.sky-9 {
 	background-image: url('../images/sky/09.png');
 }
 
-#dynamic-background .sky-10 {
+.sky-10 {
 	background-image: url('../images/sky/10.png');
 }
 
-#dynamic-background .sky-11 {
+.sky-11 {
 	background-image: url('../images/sky/11.png');
 }
 
-#dynamic-background .ground {
+.ground {
 	height: 20vh;
 	width: 100vw;
 	position: fixed;
@@ -419,55 +419,55 @@
 	z-index: -2;
 }
 
-#dynamic-background .ground-0 {
+.ground-0 {
 	background-image: url('../images/ground/10.png');
 }
 
-#dynamic-background .ground-1 {
+.ground-1 {
 	background-image: url('../images/ground/01.png');
 }
 
-#dynamic-background .ground-2 {
+.ground-2 {
 	background-image: url('../images/ground/02.png');
 }
 
-#dynamic-background .ground-3 {
+.ground-3 {
 	background-image: url('../images/ground/03.png');
 }
 
-#dynamic-background .ground-4 {
+.ground-4 {
 	background-image: url('../images/ground/04.png');
 }
 
-#dynamic-background .ground-5 {
+.ground-5 {
 	background-image: url('../images/ground/04.png');
 }
 
-#dynamic-background .ground-6 {
+.ground-6 {
 	background-image: url('../images/ground/04.png');
 }
 
-#dynamic-background .ground-7 {
+.ground-7 {
 	background-image: url('../images/ground/07.png');
 }
 
-#dynamic-background .ground-8 {
+.ground-8 {
 	background-image: url('../images/ground/08.png');
 }
 
-#dynamic-background .ground-9 {
+.ground-9 {
 	background-image: url('../images/ground/09.png');
 }
 
-#dynamic-background .ground-10 {
+.ground-10 {
 	background-image: url('../images/ground/10.png');
 }
 
-#dynamic-background .ground-11 {
+.ground-11 {
 	background-image: url('../images/ground/11.png');
 }
 
-#dynamic-background #orbital {
+#orbital {
 	height: 140vh;
 	width: 100vw;
 	position: fixed;
@@ -477,7 +477,7 @@
 	z-index: -4;
 }
 
-#dynamic-background #sun {
+#sun {
 	position: absolute;
 	background: url('../images/sun.png');
 	background-size: cover;
@@ -489,7 +489,7 @@
 	z-index: -4;
 }
 
-#dynamic-background #moon {
+#moon {
 	position: absolute;
 	background: url('../images/moon.png');
 	background-size: cover;
@@ -501,7 +501,7 @@
 	z-index: -4;
 }
 
-#dynamic-background .cloud-container {
+.cloud-container {
 	width: 100vw;
 	height: 100vh;
 	top: 0;
@@ -509,14 +509,14 @@
 	z-index: -2;
 }
 
-#dynamic-background .cloud {
+.cloud {
 	width: 20vw;
 	height: 5vh;
 	z-index: -2;
 	position: relative;
 }
 
-#dynamic-background .x2 {
+.x2 {
 	left: 200px;
 	transform: scale(0.6);
 	opacity: 0.6;
@@ -526,7 +526,7 @@
 	animation: moveclouds 50s linear infinite;
 }
 
-#dynamic-background .x3 {
+.x3 {
 	left: -250px;
 	bottom: -20vh;
 	transform: scale(0.8);
@@ -535,7 +535,7 @@
 	animation: moveclouds 45s linear infinite;
 }
 
-#dynamic-background .x4 {
+.x4 {
 	left: 470px;
 	bottom: -10vh;
 	transform: scale(0.75);
@@ -554,7 +554,7 @@
 	}
 }
 
-#dynamic-background .cloud1 {
+.cloud1 {
 	left: 200px;
 	width: 65vh;
 	height: 25vh;
@@ -567,55 +567,55 @@
 	position: fixed;
 }
 
-#dynamic-background .cloud1-0 {
+.cloud1-0 {
 	background-image: url('../images/cloud/09.png');
 }
 
-#dynamic-background .cloud1-1 {
+.cloud1-1 {
 	background-image: url('../images/cloud/01.png');
 }
 
-#dynamic-background .cloud1-2 {
+.cloud1-2 {
 	background-image: url('../images/cloud/02.png');
 }
 
-#dynamic-background .cloud1-3 {
+.cloud1-3 {
 	background-image: url('../images/cloud/04.png');
 }
 
-#dynamic-background .cloud1-4 {
+.cloud1-4 {
 	background-image: url('../images/cloud/04.png');
 }
 
-#dynamic-background .cloud1-5 {
+.cloud1-5 {
 	background-image: url('../images/cloud/04.png');
 }
 
-#dynamic-background .cloud1-6 {
+.cloud1-6 {
 	background-image: url('../images/cloud/04.png');
 }
 
-#dynamic-background .cloud1-7 {
+.cloud1-7 {
 	background-image: url('../images/cloud/07.png');
 }
 
-#dynamic-background .cloud1-8 {
+.cloud1-8 {
 	background-image: url('../images/cloud/08.png');
 }
 
-#dynamic-background .cloud1-9 {
+.cloud1-9 {
 	background-image: url('../images/cloud/08.1.png');
 }
 
-#dynamic-background .cloud1-10 {
+.cloud1-10 {
 	background-image: url('../images/cloud/09.png');
 }
 
-#dynamic-background .cloud1-11 {
+.cloud1-11 {
 	background-image: url('../images/cloud/10.png');
 }
 
-#dynamic-background .pokemonSprite {
+.pokemonSprite {
 	position: fixed;
 	height: 4vh;
 	width: 4vh;
@@ -624,47 +624,47 @@
 	background-position: 0.00000% 33.3333%;
 }
 
-#dynamic-background .pokemonSprite.speed-0 {
+.pokemonSprite.speed-0 {
 	animation: walkLeft 0.8s steps(3) infinite, moveLeft 120s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-1 {
+.pokemonSprite.speed-1 {
 	animation: walkLeft 0.7s steps(3) infinite, moveLeft 100s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-2 {
+.pokemonSprite.speed-2 {
 	animation: walkLeft 0.65s steps(3) infinite, moveLeft 90s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-3 {
+.pokemonSprite.speed-3 {
 	animation: walkLeft 0.6s steps(3) infinite, moveLeft 80s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-4 {
+.pokemonSprite.speed-4 {
 	animation: walkLeft 0.5s steps(3) infinite, moveLeft 70s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-5 {
+.pokemonSprite.speed-5 {
 	animation: walkLeft 0.4s steps(3) infinite, moveLeft 60s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-6 {
+.pokemonSprite.speed-6 {
 	animation: walkLeft 0.38s steps(3) infinite, moveLeft 55s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-7 {
+.pokemonSprite.speed-7 {
 	animation: walkLeft 0.36s steps(3) infinite, moveLeft 50s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-8 {
+.pokemonSprite.speed-8 {
 	animation: walkLeft 0.34s steps(3) infinite, moveLeft 42s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-9 {
+.pokemonSprite.speed-9 {
 	animation: walkLeft 0.32s steps(3) infinite, moveLeft 37s linear;
 }
 
-#dynamic-background .pokemonSprite.speed-10 {
+.pokemonSprite.speed-10 {
 	animation: walkLeft 0.3s steps(3) infinite, moveLeft 30s linear;
 }
 
