@@ -95,7 +95,9 @@ class DynamicBackground {
         const shiny = !Math.floor(Math.random() * this.SHINY_CHANCE);
 
         const pokeElement = document.createElement('div');
-        pokeElement.style.bottom = flying ? `${Math.floor(Math.random() * 70) + 20}vh` : `${Math.floor(Math.random() * 10) + 5}vh`;
+        const height = flying ? Math.floor(Math.random() * 70) + 20 : Math.floor(Math.random() * 10) + 5;
+        pokeElement.style.bottom = `${height}vh`;
+        pokeElement.style.zIndex = height;
         pokeElement.style.backgroundImage = `${shiny ? 'url(\'images/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${id.toString().padStart(3, 0)}${shiny ? 's' : ''}.png')`;
         pokeElement.classList.add('pokemonSprite');
         pokeElement.classList.add(`speed-${moveSpeed}`);
