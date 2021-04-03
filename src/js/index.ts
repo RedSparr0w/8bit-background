@@ -252,10 +252,11 @@ class Pokemon {
     }
 
     attack() {
-        if (this.attackElement) return;
+        if (this.attackElement || this.hp <= 0) return;
         this.attackElement = document.createElement('div');
         this.attackElement.classList.add('attack');
         this.attackElement.classList.add('cut');
+        document.body.appendChild(this.attackElement);
 
         const position = this.element.getBoundingClientRect();
         const direction = this.getDirection();
@@ -263,17 +264,20 @@ class Pokemon {
             left: position.left,
             top: position.top,
         }
-        if (direction == 'up') { newPosition.top -= WindowSizes.vh * 4 }
-        if (direction == 'down') { newPosition.top += WindowSizes.vh * 4 }
-        if (direction == 'left') { newPosition.left -= WindowSizes.vh * 4 }
-        if (direction == 'right') { newPosition.left += WindowSizes.vh * 4 }
+
+        const height = this.attackElement.clientHeight;
+        const width = this.attackElement.clientWidth;
+
+        if (direction == 'up') { newPosition.top -= height }
+        if (direction == 'down') { newPosition.top += height }
+        if (direction == 'left') { newPosition.left -= width }
+        if (direction == 'right') { newPosition.left += width }
 
         this.attackElement.style.left = `${newPosition.left}px`;
         this.attackElement.style.top = `${newPosition.top}px`;
 
-        document.body.appendChild(this.attackElement);
         setTimeout(() => {
-            this.attackElement.remove();
+            this.attackElement?.remove();
             this.attackElement = null;
         }, 750);
 
@@ -282,13 +286,19 @@ class Pokemon {
             const colliding = is_colliding(this.attackElement, p.element);
             if (colliding) {
                 p.takeDamage(this.pokemon.attack / 10);
+                if (p.hp <= 0) this.heal();
             }
         });
     }
 
+    heal(amount = this.pokemon.base.hitpoints / 5) {
+        this.hp = Math.min(this.pokemon.base.hitpoints, this.hp + amount);
+        this.hpElement.value = this.hp;
+    }
+
     takeDamage(amount) {
         this.hp -= amount;
-        this.hpElement.value -= amount;
+        this.hpElement.value = this.hp;
         if (this.hp <= 0) {
             this.death();
         }
@@ -313,9 +323,16 @@ class Pokemon {
 
 class ComputerPokemon extends Pokemon {
     public thinkInterval: NodeJS.Timeout;
+    public retreatChance = 0;
+    public retreatCounter = 0;
+    public braveryChance = 0;
+    public braveryCounter = 0;
+
     constructor(team = 1, p = pokemonMap.random()) {
         super(p, team, false);
         // TODO: Make it have a "brain" to choose who to track/attack or move randomly etc
+        this.retreatChance = Math.random() * 0.02;
+        this.braveryChance = Math.random() * 0.1;
         this.thinkInterval = global.setInterval(() => this.think(), 100);
     }
 
@@ -326,9 +343,23 @@ class ComputerPokemon extends Pokemon {
     }
 
     think() {
+        this.braveryCounter += this.braveryCounter <= 5 && Math.random() <= this.braveryChance ? 10 + Math.floor(Math.random() * 30) : 0;
+        if (this.braveryCounter > 0) {
+            this.braveryCounter--;
+            return this.moveToClosestEnemy();
+        }
+
+        this.retreatCounter += this.retreatCounter <= 5 && Math.random() <= this.retreatChance ? 5 + Math.floor(Math.random() * 30) : 0;
+        if (this.retreatCounter > 0) {
+            this.retreatCounter--;
+            return this.moveAwayClosestEnemy();
+        }
+        // If already attacking retreat, unless bravery kicks in
         if (this.attackElement) {
             this.moveAwayClosestEnemy();
-        } else {
+        }
+        // Else move towards the enemy
+        else {
             this.moveToClosestEnemy();
         }
     }
