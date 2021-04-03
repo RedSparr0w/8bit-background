@@ -327,9 +327,55 @@ class ComputerPokemon extends Pokemon {
     public retreatCounter = 0;
     public braveryChance = 0;
     public braveryCounter = 0;
+    public moveToOrder = [
+        // move up
+        (dx, dy, c1, c2) => {
+            if (dy >= c1) {
+                this.movement.y = 1;
+                return true;
+            }
+        },
+        // move up to same level before moving over
+        (dx, dy, c1, c2) => {
+            if (dy >= c2 && (dx > 20 || dx < -20)) {
+                this.movement.y = 1;
+                return true;
+            }
+        },
+        // move down
+        (dx, dy, c1, c2) => {
+            if (dy <= -c1) {
+                this.movement.y = -1;
+                return true;
+            }
+        },
+        // move down to same level before moving over
+        (dx, dy, c1, c2) => {
+            if (dy <= -c2 && (dx > 20 || dx < -20)) {
+                this.movement.y = -1;
+                return true;
+            }
+        },
+        // move right
+        (dx, dy, c1, c2) => {
+            if (dx >= c1) {
+                this.movement.x = 1;
+                return true;
+            }
+        },
+        // move left
+        (dx, dy, c1, c2) => {
+            if (dx <= -c1) {
+                this.movement.x = -1;
+                return true;
+            }
+        },
+    ]
 
     constructor(team = 1, p = pokemonMap.random()) {
         super(p, team, false);
+        // Give some randomness to the movements
+        this.moveToOrder = shuffleArray(this.moveToOrder);
         // TODO: Make it have a "brain" to choose who to track/attack or move randomly etc
         this.retreatChance = Math.random() * 0.02;
         this.braveryChance = Math.random() * 0.1;
@@ -378,28 +424,17 @@ class ComputerPokemon extends Pokemon {
         this.movement.y = 0;
         const closeDist = WindowSizes.vh * 5;
         const closestDist = WindowSizes.vh * 0.9;
-
-        // move up
-        if (distY >= closeDist) this.movement.y = 1;
-        // move up to same level before moving over
-        else if (distY >= closestDist && (distX > 20 || distX < -20)) this.movement.y = 1;
-        // move down
-        else if (distY <= -closeDist) this.movement.y = -1;
-        // move down to same level before moving over
-        else if (distY <= -closestDist && (distX > 20 || distX < -20)) this.movement.y = -1;
-        // move right
-        else if (distX >= closeDist) this.movement.x = 1;
-        // move left
-        else if (distX <= -closeDist) this.movement.x = -1;
-        else if (Math.abs(distX) > Math.abs(distY)) {
+        const moved = this.moveToOrder.some(m => m(distX, distY, closeDist, closestDist));
+        if (!moved && Math.abs(distX) > Math.abs(distY)) {
             if (distX <= 0) this.faceLeft();
             else this.faceRight();
-            this.attack()
-        } else if (Math.abs(distY) > Math.abs(distX)) {
+        } else if (!moved && Math.abs(distY) > Math.abs(distX)) {
             if (distY <= 0) this.faceDown();
             else this.faceUp();
-            this.attack()
         }
+        
+        // If close enough, then attack
+        if (Math.abs(distX) <= closeDist && Math.abs(distY) <= closeDist) this.attack()
     }
 
     moveAwayClosestEnemy() {
@@ -442,6 +477,14 @@ class ComputerPokemon extends Pokemon {
     }
 }
 
+const shuffleArray = (arr) => {
+    const len = arr.length;
+    for (let i = 0; i < arr.length * 2; i++) {
+        const j = Math.floor(Math.random() * len);
+        [arr[i % len], arr[j]] = [arr[j], arr[i % len]];
+    }
+    return arr;
+}
 
 const is_colliding = (div1: HTMLElement, div2: HTMLElement) => {
 	// Div 1 data
