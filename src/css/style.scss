@@ -332,16 +332,15 @@ body {
 	/* Now the value part */
 	progress::-webkit-progress-value {
 		border-radius: 50px;
-		background: #b62424;
-		
-		/* Looks great, now animating it */
-		background-size: 25px 14px, 100% 100%, 100% 100%;
-		animation: move 5s linear 0 infinite;
+		background: #c0392b;
+    transition: width 0.3s;
 	}
-}
-@keyframes move {
-	0% {background-position: 0px 0px, 0 0, 0 0}
-	100% {background-position: -100px 0px, 0 0, 0 0}
+	progress.team1::-webkit-progress-value {
+		background: #c0392b;
+	}
+	progress.team2::-webkit-progress-value {
+		background: #8e44ad;
+	}
 }
 
 @keyframes moveLeft {

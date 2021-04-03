@@ -164,6 +164,7 @@ class Pokemon {
         this.hpElement.max = this.pokemon.base.hitpoints;
         this.hpElement.value = this.pokemon.base.hitpoints;
         this.hpElement.classList.add(`hit-points`);
+        this.hpElement.classList.add(`team${this.team}`);
         this.element.appendChild(this.hpElement);
         document.body.appendChild(this.element);
 
@@ -251,6 +252,7 @@ class Pokemon {
         if(this.element.classList.contains('walk-right')) return 'right';
     }
 
+    // TODO: close range, long range, different typed attacks, maybe some ability attacks
     attack() {
         if (this.attackElement || this.hp <= 0) return;
         this.attackElement = document.createElement('div');
@@ -296,6 +298,7 @@ class Pokemon {
         this.hpElement.value = this.hp;
     }
 
+    // TODO: type advantages, defensive resistance
     takeDamage(amount) {
         this.hp -= amount;
         this.hpElement.value = this.hp;
@@ -389,12 +392,14 @@ class ComputerPokemon extends Pokemon {
     }
 
     think() {
+        // TODO: Factor in current health
         this.braveryCounter += this.braveryCounter <= 5 && Math.random() <= this.braveryChance ? 10 + Math.floor(Math.random() * 30) : 0;
         if (this.braveryCounter > 0) {
             this.braveryCounter--;
             return this.moveToClosestEnemy();
         }
 
+        // TODO: Factor in current health
         this.retreatCounter += this.retreatCounter <= 5 && Math.random() <= this.retreatChance ? 5 + Math.floor(Math.random() * 30) : 0;
         if (this.retreatCounter > 0) {
             this.retreatCounter--;
@@ -414,6 +419,7 @@ class ComputerPokemon extends Pokemon {
         return this.element.getBoundingClientRect();
     }
 
+    // TODO: Select a target, then keep that target for next 10? ticks, check for a new target, less computations
     moveToClosestEnemy() {
         const enemyPos = this.getClosestEnemyPosition();
         if (!enemyPos) return;
