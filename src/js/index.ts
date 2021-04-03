@@ -1,5 +1,5 @@
-import { Module } from 'node:module';
 import '../css/style.scss';
+import { pokemonMap, PokemonListData, minSpeed, maxSpeed } from './PokemonList';
 
 const SECOND = 1000;
 const MINUTE = SECOND * 60;
@@ -107,9 +107,12 @@ class Pokemon {
     static SHINY_CHANCE = 512;
     public shiny = false;
     public element: HTMLDivElement;
-    public moving: NodeJS.Timeout;
+    public hpElement: HTMLProgressElement;
+    public timeout: NodeJS.Timeout;
     public keydown = false;
     public hp: number;
+    public speed: number;
+    public attackElement: HTMLDivElement;
 
     public movement = {
         x: 0,
@@ -117,14 +120,14 @@ class Pokemon {
     };
 
     constructor(
-        public id: number,
-        public speed: number,
-        public attack: number,
-        public maxHP: number,
+        public pokemon: PokemonListData,
+        public team: number,
         public player_controlled = false,
     ) {
-        this.hp = this.maxHP;
-        this.speed = Math.max(0, Math.min(10, this.speed));
+        this.hp = this.pokemon.base.hitpoints;
+        const speedSpread = maxSpeed - minSpeed;
+
+        this.speed = Math.round(((this.pokemon.base.speed - minSpeed) / speedSpread) * 20);
         this.shiny = this.calculateShiny();
         this.spawn();
     }
@@ -151,17 +154,25 @@ class Pokemon {
 
     spawn() {
         this.element = document.createElement('div');
-        this.element.style.bottom = `0`;
-        this.element.style.left = `${this.player_controlled ? 0 : WindowSizes.vhw}vh`;
-        this.element.style.backgroundImage = `${this.shiny ? 'url(\'images/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${this.id.toString().padStart(3, '0')}${this.shiny ? 's' : ''}.png')`;
+        this.element.style.bottom = `${Math.floor(Math.random() * 15)}vh`;
+        this.element.style.left = `${this.team <= 1 ? 0 : WindowSizes.vhw}vh`;
+        this.element.style.backgroundImage = `${this.shiny ? 'url(\'images/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${this.pokemon.id.toString().padStart(3, '0')}${this.shiny ? 's' : ''}.png')`;
         this.element.classList.add('pokemonSprite');
         this.element.classList.add(`speed-${this.speed}`);
         this.element.classList.add(`walk-right`);
+        this.hpElement = document.createElement('progress');
+        this.hpElement.max = this.pokemon.base.hitpoints;
+        this.hpElement.value = this.pokemon.base.hitpoints;
+        this.hpElement.classList.add(`hit-points`);
+        this.element.appendChild(this.hpElement);
         document.body.appendChild(this.element);
 
         if (this.player_controlled) {
             document.body.addEventListener('keydown', (e: KeyboardEvent) => {
                 switch (e.key) {
+                    case 'q':
+                        this.attack();
+                        break;
                     case 'w':
                         this.movement.x = 0;
                         this.movement.y = 1;
@@ -207,7 +218,7 @@ class Pokemon {
             });
         }
         
-        setInterval(() => this.updatePosition(), 150 - (this.speed * 5));
+        this.timeout = global.setInterval(() => this.updatePosition(), 160 - (this.speed * 5));
     }
 
     faceDirection(direction: string) {
@@ -232,87 +243,210 @@ class Pokemon {
     faceRight() {
         this.faceDirection('right');
     }
-}
 
-class EnemyPokemon {
-    public pokemon: Pokemon;
-    constructor() {
-        const ID = Math.floor(Math.random() * 151) + 1;
-        const speed = Math.floor(Math.random() * 10) + 1;
-        const hp = Math.floor(Math.random() * 40) + 10;
-        const attack = Math.floor(Math.random() * 40) + 5;
-        this.pokemon = new Pokemon(ID, speed, hp, attack);
-        // TODO: Make it have a "brain" to choose who to track/attack or move randomly etc
-        setInterval(() => this.moveToClosestEnemy(), 100);
+    getDirection() {
+        if(this.element.classList.contains('walk-up')) return 'up';
+        if(this.element.classList.contains('walk-left')) return 'left';
+        if(this.element.classList.contains('walk-down')) return 'down';
+        if(this.element.classList.contains('walk-right')) return 'right';
     }
 
-    getPosition() {
-        return this.pokemon.element.getBoundingClientRect();
+    attack() {
+        if (this.attackElement) return;
+        this.attackElement = document.createElement('div');
+        this.attackElement.classList.add('attack');
+        this.attackElement.classList.add('cut');
+
+        const position = this.element.getBoundingClientRect();
+        const direction = this.getDirection();
+        const newPosition = {
+            left: position.left,
+            top: position.top,
+        }
+        if (direction == 'up') { newPosition.top -= WindowSizes.vh * 4 }
+        if (direction == 'down') { newPosition.top += WindowSizes.vh * 4 }
+        if (direction == 'left') { newPosition.left -= WindowSizes.vh * 4 }
+        if (direction == 'right') { newPosition.left += WindowSizes.vh * 4 }
+
+        this.attackElement.style.left = `${newPosition.left}px`;
+        this.attackElement.style.top = `${newPosition.top}px`;
+
+        document.body.appendChild(this.attackElement);
+        setTimeout(() => {
+            this.attackElement.remove();
+            this.attackElement = null;
+        }, 750);
+
+        let enemies = pokemon.filter(p => p.team != this.team);
+        enemies.forEach(p => {
+            const colliding = is_colliding(this.attackElement, p.element);
+            if (colliding) {
+                p.takeDamage(this.pokemon.attack / 10);
+            }
+        });
+    }
+
+    takeDamage(amount) {
+        this.hp -= amount;
+        this.hpElement.value -= amount;
+        if (this.hp <= 0) {
+            this.death();
+        }
+    }
+
+    death() {
+        console.log(this.pokemon.name, 'has fainted');
+        clearTimeout(this.timeout);
+        this.element?.remove();
+        this.hpElement?.remove();
+        this.attackElement?.remove();
+        this.element = null;
+        this.hpElement = null;
+        this.attackElement = null;
+        const index = pokemon.findIndex(p => p == this);
+        pokemon.splice(index, 1);
+        if (this.player_controlled) {
+            pokemon.push(new Pokemon(pokemonMap.random(), 1, true));
+        }
+    }
+}
+
+class ComputerPokemon extends Pokemon {
+    public thinkInterval: NodeJS.Timeout;
+    constructor(team = 1, p = pokemonMap.random()) {
+        super(p, team, false);
+        // TODO: Make it have a "brain" to choose who to track/attack or move randomly etc
+        this.thinkInterval = global.setInterval(() => this.think(), 100);
+    }
+
+    death() {
+        clearInterval(this.thinkInterval);
+        super.death();
+        pokemon.push(new ComputerPokemon(this.team));
+    }
+
+    think() {
+        if (this.attackElement) {
+            this.moveAwayClosestEnemy();
+        } else {
+            this.moveToClosestEnemy();
+        }
+    }
+
+    getPosition(): DOMRect {
+        return this.element.getBoundingClientRect();
     }
 
     moveToClosestEnemy() {
         const enemyPos = this.getClosestEnemyPosition();
+        if (!enemyPos) return;
         const pos = this.getPosition();
         const distX = enemyPos.x - pos.x;
         const distY = pos.y - enemyPos.y;
-        this.pokemon.movement.x = 0;
-        this.pokemon.movement.y = 0;
+        this.movement.x = 0;
+        this.movement.y = 0;
         const closeDist = WindowSizes.vh * 5;
-        const closestDist = WindowSizes.vh * 0.5;
+        const closestDist = WindowSizes.vh * 0.9;
 
-        if (distY >= closeDist) this.pokemon.movement.y = 1;
-        else if (distY >= closestDist && (distX > 20 || distX < -20)) this.pokemon.movement.y = 1;
-        else if (distY <= -closeDist) this.pokemon.movement.y = -1;
-        else if (distY <= -closestDist && (distX > 20 || distX < -20)) this.pokemon.movement.y = -1;
-        else if (distX > closeDist) this.pokemon.movement.x = 1;
-        else if (distX < -closeDist) this.pokemon.movement.x = -1;
-        else if (Math.abs(distX) > Math.abs(distY))
-            if (distX <= 0) this.pokemon.faceLeft();
-            else this.pokemon.faceRight();
-        else if (Math.abs(distY) > Math.abs(distX))
-            if (distY <= 0) this.pokemon.faceDown();
-            else this.pokemon.faceUp();
+        // move up
+        if (distY >= closeDist) this.movement.y = 1;
+        // move up to same level before moving over
+        else if (distY >= closestDist && (distX > 20 || distX < -20)) this.movement.y = 1;
+        // move down
+        else if (distY <= -closeDist) this.movement.y = -1;
+        // move down to same level before moving over
+        else if (distY <= -closestDist && (distX > 20 || distX < -20)) this.movement.y = -1;
+        // move right
+        else if (distX >= closeDist) this.movement.x = 1;
+        // move left
+        else if (distX <= -closeDist) this.movement.x = -1;
+        else if (Math.abs(distX) > Math.abs(distY)) {
+            if (distX <= 0) this.faceLeft();
+            else this.faceRight();
+            this.attack()
+        } else if (Math.abs(distY) > Math.abs(distX)) {
+            if (distY <= 0) this.faceDown();
+            else this.faceUp();
+            this.attack()
+        }
     }
 
     moveAwayClosestEnemy() {
         const enemyPos = this.getClosestEnemyPosition();
+        if (!enemyPos) return;
         const pos = this.getPosition();
         const distX = enemyPos.x - pos.x;
         const distY = pos.y - enemyPos.y;
-        this.pokemon.movement.x = 0;
-        this.pokemon.movement.y = 0;
-        const closeDist = WindowSizes.vh * 30;
-        const closestDist = WindowSizes.vh * 0.5;
+        this.movement.x = 0;
+        this.movement.y = 0;
+        const furthestDist = WindowSizes.vh * 30;
+        const closestDist = WindowSizes.vh * 0.2;
+        const totalDist = (Math.abs(distX) + Math.abs(distY));
 
-        if (distX > closeDist && distX) this.pokemon.movement.x = -1;
-        else if (distX < -closeDist) this.pokemon.movement.x = 1;
-        else if (distY >= closeDist) this.pokemon.movement.y = -1;
-        else if (distY >= closestDist && (distX > 20 || distX < -20)) this.pokemon.movement.y = -1;
-        else if (distY <= -closeDist) this.pokemon.movement.y = 1;
-        else if (distY <= -closestDist && (distX > 20 || distX < -20)) this.pokemon.movement.y = 1;
-        else if (Math.abs(distX) > Math.abs(distY))
-            if (distX <= 0) this.pokemon.faceLeft();
-            else this.pokemon.faceRight();
-        else if (Math.abs(distY) > Math.abs(distX))
-            if (distY <= 0) this.pokemon.faceDown();
-            else this.pokemon.faceUp();
+        if (totalDist <= furthestDist) {
+            if (distX > closestDist && distX <= furthestDist && totalDist) this.movement.x = -1;
+            else if (distX < -closestDist && distX >= -furthestDist) this.movement.x = 1;
+            else if (distY > closestDist && distY <= furthestDist) this.movement.y = -1;
+            else if (distY < -closestDist && distY >= -furthestDist) this.movement.y = 1;
+        } else if (Math.abs(distX) > Math.abs(distY)) {
+            if (distX <= 0) this.faceLeft();
+            else this.faceRight();
+        } else if (Math.abs(distY) > Math.abs(distX)) {
+            if (distY <= 0) this.faceDown();
+            else this.faceUp();
+        }
     }
 
-    getClosestEnemyPosition() {
-        return playerPokemon.element.getBoundingClientRect();
+    getClosestEnemyPosition(): DOMRect {
+        let enemy: Pokemon | ComputerPokemon = null;
+        let enemyDistance = Infinity;
+        pokemon.filter(p => p.team != this.team)?.forEach(e => {
+           const distance = getDistance(e.element, this.element);
+           if (distance < enemyDistance) {
+               enemy = e;
+               enemyDistance = distance;
+           }
+        });
+        return enemy.element.getBoundingClientRect()
     }
 }
 
-const playerPokemon: Pokemon = new Pokemon(6, 10, 20, 10, true);
 
-const enemyPokemon: EnemyPokemon[] = [
-    new EnemyPokemon(),
+const is_colliding = (div1: HTMLElement, div2: HTMLElement) => {
+	// Div 1 data
+	const d1 = div1.getBoundingClientRect();
+	const d1_from_top  = d1.top + d1.height;
+	const d1_from_left = d1.left + d1.width;
+
+	// Div 2 data
+	const d2 = div2.getBoundingClientRect();
+	const d2_from_top  = d2.top + d2.height;
+	const d2_from_left = d2.left + d2.width;
+
+	return !(d1_from_top < d2.top || d1.top > d2_from_top || d1_from_left < d2.left || d1.left > d2_from_left);
+};
+
+const getDistance = (div1: HTMLElement, div2: HTMLElement) => {
+	const d1 = div1.getBoundingClientRect();
+	const d2 = div2.getBoundingClientRect();
+
+    const distX = Math.abs(d1.x - d2.x);
+    const distY = Math.abs(d1.y - d2.y);
+
+	return distX + distY;
+};
+
+const pokemon: Array<ComputerPokemon | Pokemon> = [
+    new Pokemon(pokemonMap.random(), 1, true), // players pokemon
+    new ComputerPokemon(1),
+    new ComputerPokemon(1),
+    new ComputerPokemon(2),
+    new ComputerPokemon(2),
 ];
 
 
 export {
     DynamicBackground,
     Pokemon,
-    playerPokemon,
-    enemyPokemon,
+    pokemon,
 }
