@@ -68,68 +68,6 @@ class DynamicBackground {
     static getPicture = (hour) => (hour ? Math.floor((hour - 1) / 2) : 11);
 
     /* POKEMON */
-    static MAX_POKEMON_ID = 815;
-    static SHINY_CHANCE = 512;
-
-    // All the flying pokemon IDs (these pokemon can spawn in the sky)
-    static flyingPokemon = [
-        12, 15, 17, 18, 22, 41, 42, 49, 92, 93,
-        109, 110, 142, 144, 145, 146, 149, 151, 164, 165, 166, 169, 176, 187, 188, 189, 193,
-        200, 206, 227, 249, 250, 251, 267, 269, 277, 278, 279, 284, 291,
-        329, 330, 333, 334, 358, 380, 381, 382, 384, 385, 397, 398,
-        414, 415, 416, 425, 426, 433, 462, 469, 479, 480, 481, 482, 488, 489, 490, 491,
-        521, 527, 528, 567, 581,
-        628, 642, 644, 645, 646, 662, 663, 666, 691,
-        707, 714, 715, 738, 745, 746,
-    ];
-
-    static MIN_SPEED_STAT = 20;
-    static MAX_SPEED_STAT = 180;
-    static MAX_SPEED = 10;
-
-    // Add a pokemon to the scene
-    static addPokemon = (id) => {
-        const pokemonSpeed = Math.random() * DynamicBackground.MAX_SPEED_STAT + DynamicBackground.MIN_SPEED_STAT
-        let moveSpeed = Math.floor(((pokemonSpeed - DynamicBackground.MIN_SPEED_STAT) / (DynamicBackground.MAX_SPEED_STAT - DynamicBackground.MIN_SPEED_STAT)) * DynamicBackground.MAX_SPEED);
-        // Adjust speed by -1 → +1 randomly
-        moveSpeed += Math.floor(Math.random() * 3) - 1;
-        moveSpeed = Math.max(0, Math.min(DynamicBackground.MAX_SPEED, moveSpeed));
-        const flying = DynamicBackground.flyingPokemon.includes(id);
-        const shiny = !Math.floor(Math.random() * DynamicBackground.SHINY_CHANCE);
-
-        const pokeElement = document.createElement('div');
-        const bottom = flying ? Math.floor(Math.random() * 70) + 20 : Math.floor(Math.random() * 10) + 5;
-        pokeElement.style.bottom = `${bottom}vh`;
-        pokeElement.style.zIndex = (1e4 - bottom).toString();
-        pokeElement.style.backgroundImage = `${shiny ? 'url(\'images/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${id.toString().padStart(3, 0)}${shiny ? 's' : ''}.png')`;
-        pokeElement.classList.add('pokemonSprite');
-        pokeElement.classList.add(`speed-${moveSpeed}`);
-        const direction = !!Math.round(Math.random());
-        pokeElement.classList.add(`walk${direction ? 'Left' : 'Right'}`);
-        document.body.appendChild(pokeElement);
-        setTimeout(() => {
-            document.body.removeChild(pokeElement);
-        }, 2 * MINUTE);
-    };
-
-    /* SCENE MANAGEMENT */
-    static addPokemonTimeout;
-
-    static startAddingPokemon = () => {
-        // Random delay up to 7 seconds
-        const delay = Math.floor(Math.random() * (7 * SECOND));
-
-        // Assign our timeout function so we can stop it later
-        DynamicBackground.addPokemonTimeout = setTimeout(() => {
-            DynamicBackground.addPokemon(Math.floor(Math.random() * DynamicBackground.MAX_POKEMON_ID) + 1);
-            // Add another pokemon
-            DynamicBackground.startAddingPokemon();
-        }, delay);
-    };
-
-    static stopAddingPokemon = () => {
-        clearTimeout(DynamicBackground.addPokemonTimeout);
-    };
 
     static updateScene = (date = new Date()) => {
         try {
@@ -139,16 +77,12 @@ class DynamicBackground {
     };
 
     static startScene = () => {
-        // Start adding the Pokemon images (manages it's own timer)
-        DynamicBackground.startAddingPokemon();
         // Update the background now then every minute
         DynamicBackground.updateScene();
         DynamicBackground.autoUpdateScene = setInterval(DynamicBackground.updateScene, MINUTE);
     };
 
     static stopScene = () => {
-        // Stop adding the pokemon images
-        DynamicBackground.stopAddingPokemon();
         // Stop updating background images
         clearInterval(DynamicBackground.autoUpdateScene);
     };
@@ -156,6 +90,150 @@ class DynamicBackground {
 
 DynamicBackground.startScene();
 
+class Pokemon {
+    static MAX_POKEMON_ID = 815;
+    static SHINY_CHANCE = 512;
+    public shiny = false;
+    public element: HTMLDivElement;
+    public moving: NodeJS.Timeout;
+    public keydown = false;
+
+    constructor(
+        public id: number,
+        public speed: number,
+        public hp: number,
+        public attack: number
+    ) {
+        this.speed = Math.max(0, Math.min(10, this.speed));
+        this.shiny = this.calculateShiny();
+        this.spawn();
+    }
+
+    calculateShiny() {
+        return !Math.floor(Math.random() * Pokemon.SHINY_CHANCE);
+    }
+
+    spawn() {
+        this.element = document.createElement('div');
+        this.element.style.bottom = `0vh`;
+        this.element.style.left = '-4vh';
+        this.element.style.zIndex = (1e4 + parseInt(this.element.style.bottom)).toString();
+        this.element.style.backgroundImage = `${this.shiny ? 'url(\'images/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${this.id.toString().padStart(3, '0')}${this.shiny ? 's' : ''}.png')`;
+        this.element.classList.add('pokemonSprite');
+        this.element.classList.add(`speed-${this.speed}`);
+        this.element.classList.add(`walk-right`);
+        document.body.appendChild(this.element);
+        document.body.addEventListener('keydown', (e: KeyboardEvent) => {
+            if (!this.keydown) {
+                switch (e.key) {
+                    case 'w':
+                        this.keydown = true;
+                        this.moveUp();
+                        this.moving = global.setInterval(() => {
+                            this.moveUp();
+                        }, 400);
+                        break;
+                    case 'a':
+                        this.keydown = true;
+                        this.moveLeft();
+                        this.moving = global.setInterval(() => {
+                            this.moveLeft();
+                        }, 800);
+                        break;
+                    case 's':
+                        this.keydown = true;
+                        this.moveDown();
+                        this.moving = global.setInterval(() => {
+                            this.moveDown();
+                        }, 400);
+                        break;
+                    case 'd':
+                        this.keydown = true;
+                        this.moveRight();
+                        this.moving = global.setInterval(() => {
+                            this.moveRight();
+                        }, 800);
+                        break;
+                }
+            }
+        });
+        document.body.addEventListener('keyup', (e: KeyboardEvent) => {
+            if (this.keydown) {
+                switch (e.key) {
+                    case 'w':
+                    case 'a':
+                    case 's':
+                    case 'd':
+                        this.keydown = false;
+                        clearInterval(this.moving);
+                        break;
+                }
+            }
+        });
+    }
+
+    faceLeft() {
+        this.element.classList.replace('walk-up', 'walk-left');
+        this.element.classList.replace('walk-right', 'walk-left');
+        this.element.classList.replace('walk-down', 'walk-left');
+    }
+
+    moveLeft() {
+        this.faceLeft();
+        const left = parseInt(this.element.style.left);
+        if (left > 0) {
+            this.element.style.left = `${left - 4}vh`;
+        }
+    }
+
+    faceRight() {
+        this.element.classList.replace('walk-up', 'walk-right');
+        this.element.classList.replace('walk-left', 'walk-right');
+        this.element.classList.replace('walk-down', 'walk-right');
+    }
+
+    moveRight() {
+        this.faceRight();
+        const left = parseInt(this.element.style.left);
+        // TODO: calculate how far they can actually go
+        if (left <= 100) {
+            this.element.style.left = `${parseInt(this.element.style.left) + 4}vh`;
+        }
+    }
+
+    faceUp() {
+        this.element.classList.replace('walk-left', 'walk-up');
+        this.element.classList.replace('walk-right', 'walk-up');
+        this.element.classList.replace('walk-down', 'walk-up');
+    }
+
+    moveUp() {
+        this.faceUp();
+        const bottom = parseInt(this.element.style.bottom);
+        if (bottom < 14) {
+            this.element.style.bottom = `${bottom + 2}vh`;
+        }
+    }
+
+    faceDown() {
+        this.element.classList.replace('walk-left', 'walk-down');
+        this.element.classList.replace('walk-right', 'walk-down');
+        this.element.classList.replace('walk-up', 'walk-down');
+    }
+
+    moveDown() {
+        this.faceDown();
+        const bottom = parseInt(this.element.style.bottom);
+        if (bottom > 0) {
+            this.element.style.bottom = `${bottom - 2}vh`;
+        }
+    }
+}
+
+const pikachu = new Pokemon(6, 5, 20, 10);
+
 export {
     DynamicBackground,
+    Pokemon,
+    pikachu,
 }

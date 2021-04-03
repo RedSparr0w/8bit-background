@@ -279,100 +279,30 @@ body {
 	position: fixed;
 	height: 4vh;
 	width: 4vh;
-	z-index: 0;
-	left: -4vh;
-	background-position: 0.00000% 33.3333%;
-
-	&.walkLeft {
-		&.speed-0 {
-			animation: walkLeft 0.8s steps(3) infinite, moveLeft 120s linear;
-		}
-		
-		&.speed-1 {
-			animation: walkLeft 0.7s steps(3) infinite, moveLeft 100s linear;
-		}
-		
-		&.speed-2 {
-			animation: walkLeft 0.65s steps(3) infinite, moveLeft 90s linear;
-		}
-		
-		&.speed-3 {
-			animation: walkLeft 0.6s steps(3) infinite, moveLeft 80s linear;
-		}
-		
-		&.speed-4 {
-			animation: walkLeft 0.5s steps(3) infinite, moveLeft 70s linear;
-		}
-		
-		&.speed-5 {
-			animation: walkLeft 0.4s steps(3) infinite, moveLeft 60s linear;
-		}
-		
-		&.speed-6 {
-			animation: walkLeft 0.38s steps(3) infinite, moveLeft 55s linear;
-		}
-		
-		&.speed-7 {
-			animation: walkLeft 0.36s steps(3) infinite, moveLeft 50s linear;
-		}
-		
-		&.speed-8 {
-			animation: walkLeft 0.34s steps(3) infinite, moveLeft 42s linear;
-		}
-		
-		&.speed-9 {
-			animation: walkLeft 0.32s steps(3) infinite, moveLeft 37s linear;
-		}
-		
-		&.speed-10 {
-			animation: walkLeft 0.3s steps(3) infinite, moveLeft 30s linear;
-		}
+	&.big {
+		height: 8vh;
+		width: 8vh;
 	}
+	z-index: 0;
+	background-position: -33.333% 0.00000%;
+	transition: left 0.8s linear, bottom 0.4s linear;
+	animation: walk-down 0.8s steps(4) infinite;
 
-	&.walkRight {
-		&.speed-0 {
-			animation: walkRight 0.8s steps(3) infinite, moveRight 120s linear;
-		}
-
-		&.speed-1 {
-			animation: walkRight 0.7s steps(3) infinite, moveRight 100s linear;
-		}
-
-		&.speed-2 {
-			animation: walkRight 0.65s steps(3) infinite, moveRight 90s linear;
-		}
-
-		&.speed-3 {
-			animation: walkRight 0.6s steps(3) infinite, moveRight 80s linear;
-		}
-
-		&.speed-4 {
-			animation: walkRight 0.5s steps(3) infinite, moveRight 70s linear;
-		}
-
-		&.speed-5 {
-			animation: walkRight 0.4s steps(3) infinite, moveRight 60s linear;
-		}
-
-		&.speed-6 {
-			animation: walkRight 0.38s steps(3) infinite, moveRight 55s linear;
-		}
-
-		&.speed-7 {
-			animation: walkRight 0.36s steps(3) infinite, moveRight 50s linear;
-		}
-
-		&.speed-8 {
-			animation: walkRight 0.34s steps(3) infinite, moveRight 42s linear;
-		}
-
-		&.speed-9 {
-			animation: walkRight 0.32s steps(3) infinite, moveRight 37s linear;
-		}
-
-		&.speed-10 {
-			animation: walkRight 0.3s steps(3) infinite, moveRight 30s linear;
-		}
+	&.walk-left {
+		background-position: -33.333% 33.3333%;
+		animation: walk-left 0.8s steps(4) infinite;
+	}
+	&.walk-down {
+		background-position: -33.333% 0.00000%;
+		animation: walk-down 0.8s steps(4) infinite;
+	}
+	&.walk-right {
+		background-position: -33.333% 66.6666%;
+		animation: walk-right 0.8s steps(4) infinite;
+	}
+	&.walk-up {
+		background-position: -33.333% 100.000%;
+		animation: walk-up 0.8s steps(4) infinite;
 	}
 }
 
@@ -402,41 +332,41 @@ POKEMON ANIMATIONS
 	background-size: 400% 400%;
 }
 
-.pokemonSprite.walkDown {
-	background-position: 0.00000% 0.00000%;
-}
+@keyframes walk-down {
+	0% {
+		background-position: -33.333% 0.00000%;
+	}
 
-@keyframes walkDown {
 	100% {
 		background-position: 100.000% 0.00000%;
 	}
 }
 
-.pokemonSprite.walkLeft {
-	background-position: 0.00000% 33.3333%;
-}
+@keyframes walk-left {
+	0% {
+		background-position: -33.333% 33.3333%;
+	}
 
-@keyframes walkLeft {
 	100% {
 		background-position: 100.000% 33.3333%;
 	}
 }
 
-.pokemonSprite.walkRight {
-	background-position: 0.00000% 66.6666%;
-}
+@keyframes walk-right {
+	0% {
+		background-position: -33.333% 66.6666%;
+	}
 
-@keyframes walkRight {
 	100% {
 		background-position: 100.000% 66.6666%;
 	}
 }
 
-.pokemonSprite.walkUp {
-	background-position: 0.00000% 100.000%;
-}
+@keyframes walk-up {
+	0% {
+		background-position: -33.333% 100.000%;
+	}
 
-@keyframes walkUp {
 	100% {
 		background-position: 100.000% 100.000%;
 	}
