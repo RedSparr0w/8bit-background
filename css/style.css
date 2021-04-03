@@ -147,6 +147,7 @@ body {
 	width: 18vh;
 	height: 18vh;
 	z-index: -4;
+	transition: all 0.5s;
 }
 
 #moon {
@@ -159,6 +160,7 @@ body {
 	width: 14.2vh;
 	height: 15vh;
 	z-index: -4;
+	transition: all 0.5s;
 }
 
 .cloud-container {
@@ -280,7 +282,7 @@ body {
 	height: 4vh;
 	width: 4vh;
 	z-index: 0;
-    left: -4vh;
+	left: -4vh;
 	background-position: 0.00000% 33.3333%;
 }
 
