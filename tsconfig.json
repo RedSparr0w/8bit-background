@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "es2017", "es2019"],
+    "outDir": "out",
+    "module": "CommonJS",
+    "sourceMap": false,
+    "resolveJsonModule": true
+  },
+  "compileOnSave": false,
+  "exclude": [
+    "node_modules",
+    "docs",
+    "out",
+  ],
+  "include": [
+    "src/**/*"
+  ]
+}
