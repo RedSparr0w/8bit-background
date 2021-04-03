@@ -6,9 +6,21 @@ const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
 const DAY = HOUR * 24;
 
+class WindowSizes {
+    public static vh = 0;
+    public static vhw = 0;
+
+    public static calculateValues() {
+        WindowSizes.vh = Math.round(window.innerHeight / 100);
+        WindowSizes.vhw = Math.floor(window.innerWidth / WindowSizes.vh) - 8;
+    }
+}
+WindowSizes.calculateValues();
+window.onresize = () => WindowSizes.calculateValues();
+
 class DynamicBackground {
     static autoUpdateScene;
-
+    
     /* SUN & MOON */
     static setSunMoonPosition = (date = new Date()) => {
         const h = window.innerHeight;
@@ -97,16 +109,40 @@ class Pokemon {
     public element: HTMLDivElement;
     public moving: NodeJS.Timeout;
     public keydown = false;
+    public hp: number;
+
+    public movement = {
+        x: 0,
+        y: 0,
+    };
 
     constructor(
         public id: number,
         public speed: number,
-        public hp: number,
-        public attack: number
+        public attack: number,
+        public maxHP: number,
+        public player_controlled = false,
     ) {
+        this.hp = this.maxHP;
         this.speed = Math.max(0, Math.min(10, this.speed));
         this.shiny = this.calculateShiny();
         this.spawn();
+    }
+
+    updatePosition() {
+        if (!this.movement.x && !this.movement.y) return;
+        // Update the firection the player is facing
+        let direction = '';
+        if (this.movement.x == 1) direction = 'right';
+        else if (this.movement.x == -1) direction = 'left';
+        else if (this.movement.y == 1) direction = 'up';
+        else if (this.movement.y == -1) direction = 'down';
+        this.faceDirection(direction);
+
+        // TODO: Calculate actual max it can go to the right
+        this.element.style.left = `${Math.max(0, Math.min(WindowSizes.vhw, parseFloat(this.element.style.left) + this.movement.x))}vh`;
+        this.element.style.bottom = `${Math.max(0, Math.min(14, parseFloat(this.element.style.bottom) + this.movement.y))}vh`;
+        this.element.style.zIndex = (1e4 - (parseFloat(this.element.style.bottom) * 10)).toString();
     }
 
     calculateShiny() {
@@ -115,125 +151,168 @@ class Pokemon {
 
     spawn() {
         this.element = document.createElement('div');
-        this.element.style.bottom = `0vh`;
-        this.element.style.left = '-4vh';
-        this.element.style.zIndex = (1e4 + parseInt(this.element.style.bottom)).toString();
+        this.element.style.bottom = `0`;
+        this.element.style.left = `${this.player_controlled ? 0 : WindowSizes.vhw}vh`;
         this.element.style.backgroundImage = `${this.shiny ? 'url(\'images/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${this.id.toString().padStart(3, '0')}${this.shiny ? 's' : ''}.png')`;
         this.element.classList.add('pokemonSprite');
         this.element.classList.add(`speed-${this.speed}`);
         this.element.classList.add(`walk-right`);
         document.body.appendChild(this.element);
-        document.body.addEventListener('keydown', (e: KeyboardEvent) => {
-            if (!this.keydown) {
+
+        if (this.player_controlled) {
+            document.body.addEventListener('keydown', (e: KeyboardEvent) => {
                 switch (e.key) {
                     case 'w':
-                        this.keydown = true;
-                        this.moveUp();
-                        this.moving = global.setInterval(() => {
-                            this.moveUp();
-                        }, 400);
+                        this.movement.x = 0;
+                        this.movement.y = 1;
                         break;
                     case 'a':
-                        this.keydown = true;
-                        this.moveLeft();
-                        this.moving = global.setInterval(() => {
-                            this.moveLeft();
-                        }, 800);
+                        this.movement.x = -1;
+                        this.movement.y = 0;
                         break;
                     case 's':
-                        this.keydown = true;
-                        this.moveDown();
-                        this.moving = global.setInterval(() => {
-                            this.moveDown();
-                        }, 400);
+                        this.movement.x = 0;
+                        this.movement.y = -1;
                         break;
                     case 'd':
-                        this.keydown = true;
-                        this.moveRight();
-                        this.moving = global.setInterval(() => {
-                            this.moveRight();
-                        }, 800);
+                        this.movement.x = 1;
+                        this.movement.y = 0;
                         break;
                 }
-            }
-        });
-        document.body.addEventListener('keyup', (e: KeyboardEvent) => {
-            if (this.keydown) {
+            });
+
+            document.body.addEventListener('keyup', (e: KeyboardEvent) => {
                 switch (e.key) {
                     case 'w':
-                    case 'a':
+                        if (this.movement.y == 1) {
+                            this.movement.y = 0;
+                        }
+                        break;
                     case 's':
+                        if (this.movement.y == -1) {
+                            this.movement.y = 0;
+                        }
+                        break;
+                    case 'a':
+                        if (this.movement.x == -1) {
+                            this.movement.x = 0;
+                        }
+                        break;
                     case 'd':
-                        this.keydown = false;
-                        clearInterval(this.moving);
+                        if (this.movement.x == 1) {
+                            this.movement.x = 0;
+                        }
                         break;
                 }
-            }
-        });
-    }
-
-    faceLeft() {
-        this.element.classList.replace('walk-up', 'walk-left');
-        this.element.classList.replace('walk-right', 'walk-left');
-        this.element.classList.replace('walk-down', 'walk-left');
-    }
-
-    moveLeft() {
-        this.faceLeft();
-        const left = parseInt(this.element.style.left);
-        if (left > 0) {
-            this.element.style.left = `${left - 4}vh`;
+            });
         }
+        
+        setInterval(() => this.updatePosition(), 150 - (this.speed * 5));
     }
 
-    faceRight() {
-        this.element.classList.replace('walk-up', 'walk-right');
-        this.element.classList.replace('walk-left', 'walk-right');
-        this.element.classList.replace('walk-down', 'walk-right');
-    }
-
-    moveRight() {
-        this.faceRight();
-        const left = parseInt(this.element.style.left);
-        // TODO: calculate how far they can actually go
-        if (left <= 100) {
-            this.element.style.left = `${parseInt(this.element.style.left) + 4}vh`;
-        }
+    faceDirection(direction: string) {
+        this.element.classList.replace('walk-up', `walk-${direction}`);
+        this.element.classList.replace('walk-left', `walk-${direction}`);
+        this.element.classList.replace('walk-down', `walk-${direction}`);
+        this.element.classList.replace('walk-right', `walk-${direction}`);
     }
 
     faceUp() {
-        this.element.classList.replace('walk-left', 'walk-up');
-        this.element.classList.replace('walk-right', 'walk-up');
-        this.element.classList.replace('walk-down', 'walk-up');
+        this.faceDirection('up');
     }
 
-    moveUp() {
-        this.faceUp();
-        const bottom = parseInt(this.element.style.bottom);
-        if (bottom < 14) {
-            this.element.style.bottom = `${bottom + 2}vh`;
-        }
+    faceLeft() {
+        this.faceDirection('left');
     }
 
     faceDown() {
-        this.element.classList.replace('walk-left', 'walk-down');
-        this.element.classList.replace('walk-right', 'walk-down');
-        this.element.classList.replace('walk-up', 'walk-down');
+        this.faceDirection('down');
     }
 
-    moveDown() {
-        this.faceDown();
-        const bottom = parseInt(this.element.style.bottom);
-        if (bottom > 0) {
-            this.element.style.bottom = `${bottom - 2}vh`;
-        }
+    faceRight() {
+        this.faceDirection('right');
     }
 }
 
-const pikachu = new Pokemon(6, 5, 20, 10);
+class EnemyPokemon {
+    public pokemon: Pokemon;
+    constructor() {
+        const ID = Math.floor(Math.random() * 151) + 1;
+        const speed = Math.floor(Math.random() * 10) + 1;
+        const hp = Math.floor(Math.random() * 40) + 10;
+        const attack = Math.floor(Math.random() * 40) + 5;
+        this.pokemon = new Pokemon(ID, speed, hp, attack);
+        // TODO: Make it have a "brain" to choose who to track/attack or move randomly etc
+        setInterval(() => this.moveToClosestEnemy(), 100);
+    }
+
+    getPosition() {
+        return this.pokemon.element.getBoundingClientRect();
+    }
+
+    moveToClosestEnemy() {
+        const enemyPos = this.getClosestEnemyPosition();
+        const pos = this.getPosition();
+        const distX = enemyPos.x - pos.x;
+        const distY = pos.y - enemyPos.y;
+        this.pokemon.movement.x = 0;
+        this.pokemon.movement.y = 0;
+        const closeDist = WindowSizes.vh * 5;
+        const closestDist = WindowSizes.vh * 0.5;
+
+        if (distY >= closeDist) this.pokemon.movement.y = 1;
+        else if (distY >= closestDist && (distX > 20 || distX < -20)) this.pokemon.movement.y = 1;
+        else if (distY <= -closeDist) this.pokemon.movement.y = -1;
+        else if (distY <= -closestDist && (distX > 20 || distX < -20)) this.pokemon.movement.y = -1;
+        else if (distX > closeDist) this.pokemon.movement.x = 1;
+        else if (distX < -closeDist) this.pokemon.movement.x = -1;
+        else if (Math.abs(distX) > Math.abs(distY))
+            if (distX <= 0) this.pokemon.faceLeft();
+            else this.pokemon.faceRight();
+        else if (Math.abs(distY) > Math.abs(distX))
+            if (distY <= 0) this.pokemon.faceDown();
+            else this.pokemon.faceUp();
+    }
+
+    moveAwayClosestEnemy() {
+        const enemyPos = this.getClosestEnemyPosition();
+        const pos = this.getPosition();
+        const distX = enemyPos.x - pos.x;
+        const distY = pos.y - enemyPos.y;
+        this.pokemon.movement.x = 0;
+        this.pokemon.movement.y = 0;
+        const closeDist = WindowSizes.vh * 30;
+        const closestDist = WindowSizes.vh * 0.5;
+
+        if (distX > closeDist && distX) this.pokemon.movement.x = -1;
+        else if (distX < -closeDist) this.pokemon.movement.x = 1;
+        else if (distY >= closeDist) this.pokemon.movement.y = -1;
+        else if (distY >= closestDist && (distX > 20 || distX < -20)) this.pokemon.movement.y = -1;
+        else if (distY <= -closeDist) this.pokemon.movement.y = 1;
+        else if (distY <= -closestDist && (distX > 20 || distX < -20)) this.pokemon.movement.y = 1;
+        else if (Math.abs(distX) > Math.abs(distY))
+            if (distX <= 0) this.pokemon.faceLeft();
+            else this.pokemon.faceRight();
+        else if (Math.abs(distY) > Math.abs(distX))
+            if (distY <= 0) this.pokemon.faceDown();
+            else this.pokemon.faceUp();
+    }
+
+    getClosestEnemyPosition() {
+        return playerPokemon.element.getBoundingClientRect();
+    }
+}
+
+const playerPokemon: Pokemon = new Pokemon(6, 10, 20, 10, true);
+
+const enemyPokemon: EnemyPokemon[] = [
+    new EnemyPokemon(),
+];
+
 
 export {
     DynamicBackground,
     Pokemon,
-    pikachu,
+    playerPokemon,
+    enemyPokemon,
 }

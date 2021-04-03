@@ -137,28 +137,30 @@ body {
 	z-index: -4;
 }
 
-#sun, #moon {
+#sun {
 	position: absolute;
+	background: url('../images/sky/sun.png');
 	background-size: cover;
+	top: 0px;
+	left: 0px;
 	display: block;
+	width: 18vh;
+	height: 18vh;
 	z-index: -4;
 	transition: all 0.5s;
 }
 
-#sun {
-	background: url('../images/sky/sun.png');
-	top: 0px;
-	left: 0px;
-	width: 18vh;
-	height: 18vh;
-}
-
 #moon {
+	position: absolute;
 	background: url('../images/sky/moon.png');
+	background-size: cover;
 	bottom: 0px;
 	right: 0px;
+	display: block;
 	width: 14.2vh;
 	height: 15vh;
+	z-index: -4;
+	transition: all 0.5s;
 }
 
 .cloud-container {
@@ -279,14 +281,17 @@ body {
 	position: fixed;
 	height: 4vh;
 	width: 4vh;
+
+	/* Not used currently, maybe in the future.. */
 	&.big {
-		height: 8vh;
-		width: 8vh;
+		height: 6vh;
+		width: 6vh;
 	}
+	
 	z-index: 0;
 	background-position: -33.333% 0.00000%;
-	transition: left 0.8s linear, bottom 0.4s linear;
-	animation: walk-down 0.8s steps(4) infinite;
+	transition: left 0.1s linear, bottom 0.1s linear;
+	animation: walk-down 0.1s steps(4) infinite;
 
 	&.walk-left {
 		background-position: -33.333% 33.3333%;
