@@ -29,6 +29,12 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       cooldown: 850,
     },
     {
+      name: 'pound',
+      type: AttackType.physical,
+      duration: 700,
+      cooldown: 950,
+    },
+    {
       name: 'swift',
       type: AttackType.special,
       duration: 750,
@@ -57,7 +63,13 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       cooldown: 1000,
     },
     {
-      name: 'watergun',
+      name: 'splash',
+      type: AttackType.special,
+      duration: 750,
+      cooldown: 1000,
+    },
+    {
+      name: 'water-gun',
       type: AttackType.special,
       duration: 750,
       cooldown: 1000,
@@ -71,7 +83,14 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       cooldown: 1000,
     },
   ],
-  [PokemonType.Grass]: [],
+  [PokemonType.Grass]: [
+    {
+      name: 'seed-bomb',
+      type: AttackType.physical,
+      duration: 750,
+      cooldown: 1000,
+    },
+  ],
   [PokemonType.Ice]: [],
   [PokemonType.Fighting]: [
     {
