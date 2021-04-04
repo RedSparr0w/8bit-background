@@ -24,9 +24,15 @@ export const Attacks: Record<PokemonType, Attack[]> = {
     },
     {
       name: 'cut2',
-      type: AttackType.special,
+      type: AttackType.physical,
       duration: 600,
       cooldown: 850,
+    },
+    {
+      name: 'swift',
+      type: AttackType.special,
+      duration: 750,
+      cooldown: 1000,
     },
   ],
   [PokemonType.Fire]: [
@@ -57,7 +63,14 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       cooldown: 1000,
     },
   ],
-  [PokemonType.Electric]: [],
+  [PokemonType.Electric]: [
+    {
+      name: 'spark',
+      type: AttackType.special,
+      duration: 750,
+      cooldown: 1000,
+    },
+  ],
   [PokemonType.Grass]: [],
   [PokemonType.Ice]: [],
   [PokemonType.Fighting]: [
@@ -69,10 +82,24 @@ export const Attacks: Record<PokemonType, Attack[]> = {
     },
   ],
   [PokemonType.Poison]: [],
-  [PokemonType.Ground]: [],
+  [PokemonType.Ground]: [
+    {
+      name: 'mud-slap',
+      type: AttackType.special,
+      duration: 500,
+      cooldown: 750,
+    },
+  ],
   [PokemonType.Flying]: [],
   [PokemonType.Psychic]: [],
-  [PokemonType.Bug]: [],
+  [PokemonType.Bug]: [
+    {
+      name: 'string-shot',
+      type: AttackType.special,
+      duration: 500,
+      cooldown: 750,
+    },
+  ],
   [PokemonType.Rock]: [
     {
       name: 'rock-throw',
@@ -83,7 +110,14 @@ export const Attacks: Record<PokemonType, Attack[]> = {
   ],
   [PokemonType.Ghost]: [],
   [PokemonType.Dragon]: [],
-  [PokemonType.Dark]: [],
+  [PokemonType.Dark]: [
+    {
+      name: 'bite',
+      type: AttackType.physical,
+      duration: 500,
+      cooldown: 750,
+    },
+  ],
   [PokemonType.Steel]: [],
   [PokemonType.Fairy]: [],
 };
