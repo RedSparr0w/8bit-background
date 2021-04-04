@@ -19,14 +19,14 @@ export const Attacks: Record<PokemonType, Attack[]> = {
     {
       name: 'cut',
       type: AttackType.physical,
-      duration: 750,
-      cooldown: 1000,
+      duration: 500,
+      cooldown: 750,
     },
     {
       name: 'cut2',
       type: AttackType.special,
-      duration: 750,
-      cooldown: 1000,
+      duration: 600,
+      cooldown: 850,
     },
   ],
   [PokemonType.Fire]: [
@@ -41,13 +41,27 @@ export const Attacks: Record<PokemonType, Attack[]> = {
   [PokemonType.Electric]: [],
   [PokemonType.Grass]: [],
   [PokemonType.Ice]: [],
-  [PokemonType.Fighting]: [],
+  [PokemonType.Fighting]: [
+    {
+      name: 'punch',
+      type: AttackType.physical,
+      duration: 500,
+      cooldown: 750,
+    },
+  ],
   [PokemonType.Poison]: [],
   [PokemonType.Ground]: [],
   [PokemonType.Flying]: [],
   [PokemonType.Psychic]: [],
   [PokemonType.Bug]: [],
-  [PokemonType.Rock]: [],
+  [PokemonType.Rock]: [
+    {
+      name: 'rock-throw',
+      type: AttackType.special,
+      duration: 750,
+      cooldown: 1000,
+    },
+  ],
   [PokemonType.Ghost]: [],
   [PokemonType.Dragon]: [],
   [PokemonType.Dark]: [],

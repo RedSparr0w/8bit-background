@@ -427,7 +427,17 @@ POKEMON ANIMATIONS
 		background-image: url('../images/attacks/cut2.png');
 		width: 4vh;
 		height: 4vh;
-		animation: attack4 0.25s steps(4) infinite;
+		animation: attack4 0.3s steps(4) infinite;
+	}
+
+	&.punch {
+		left: 0;
+		bottom: 0;
+		background-size: 400% 100%;
+		background-image: url('../images/attacks/punch.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack4 0.5s steps(4) 1;
 	}
 
 	&.fire-punch {
@@ -439,6 +449,16 @@ POKEMON ANIMATIONS
 		height: 4vh;
 		animation: attack13 0.75s steps(13) 1;
 	}
+
+	&.rock-throw {
+		left: 0;
+		bottom: 0;
+		background-size: 1400% 100%;
+		background-image: url('../images/attacks/rock-throw.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack12 0.75s steps(12) 1;
+	}
 }
 
 @keyframes attack4 {
@@ -448,6 +468,16 @@ POKEMON ANIMATIONS
 
 	100% {
 		background-position: 133.3333% 0%;
+	}
+}
+
+@keyframes attack12 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 109.0909% 0%;
 	}
 }
 
