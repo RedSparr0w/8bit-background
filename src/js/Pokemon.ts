@@ -390,7 +390,8 @@ export class ComputerPokemon extends Pokemon {
 
     // If close enough, then attack
     if (Math.abs(distX) <= closeDist && Math.abs(distY) <= closeDist) {
-      this.attack(Rand.fromEnum(AttackType) as AttackType);
+      const attackType = Rand.fromWeightedArray([AttackType.physical, AttackType.special], [this.pokemon.base.attack, this.pokemon.base.specialAttack]) as AttackType;
+      this.attack(attackType);
     }
   }
 
