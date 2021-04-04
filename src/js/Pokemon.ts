@@ -449,7 +449,7 @@ export class ComputerPokemon extends Pokemon {
 }
 
 export const activePokemon: Array<Pokemon> = [
-  new Pokemon(1, pokemonMap.Charmander, true), // players pokemon
+  new Pokemon(1, pokemonMap.random(), true), // players pokemon
   new ComputerPokemon(1),
   new ComputerPokemon(1),
   new ComputerPokemon(2),
