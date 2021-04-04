@@ -59,7 +59,7 @@ class DynamicBackground {
   };
 
   // Determines the images to use based on the current hour
-  static getPicture = (hour): number => (hour ? Math.floor((hour - 1) / 2) : 11);
+  static getPicture = (hour: number): number => (hour ? Math.floor((hour - 1) / 2) : 11);
 
   /* POKEMON */
 
