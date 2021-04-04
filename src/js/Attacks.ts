@@ -154,8 +154,21 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       duration: 750,
       cooldown: 1000,
     },
+    {
+      name: 'air-cutter',
+      type: AttackType.special,
+      duration: 750,
+      cooldown: 1000,
+    },
   ],
-  [PokemonType.Psychic]: [],
+  [PokemonType.Psychic]: [
+    {
+      name: 'psycho-cut',
+      type: AttackType.special,
+      duration: 600,
+      cooldown: 850,
+    },
+  ],
   [PokemonType.Bug]: [
     {
       name: 'string-shot',

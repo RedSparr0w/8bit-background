@@ -128,6 +128,20 @@
 		animation: attack52 0.75s steps(52) 1;
 	}
 
+	&.air-cutter {
+        margin-top: 1vh;
+        height: 2vh;
+		background-size: 800% 100%;
+		background-image: url('../images/attacks/air-cutter.png');
+		animation: attack8 0.75s steps(8) 1;
+	}
+
+	&.psycho-cut {
+		background-size: 1400% 100%;
+		background-image: url('../images/attacks/psycho-cut.png');
+		animation: attack14 0.6s steps(14) 1;
+	}
+
 	&.string-shot {
 		background-size: 1100% 100%;
 		background-image: url('../images/attacks/string-shot.png');
@@ -260,6 +274,16 @@
 
 	100% {
 		background-position: 108.3333% 0%;
+	}
+}
+
+@keyframes attack14 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 107.6923% 0%;
 	}
 }
 
