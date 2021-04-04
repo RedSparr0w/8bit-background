@@ -1,6 +1,8 @@
 import { pokemonMap, PokemonListData, minSpeed, maxSpeed } from './PokemonList';
 import WindowSizes from './WindowSizes';
 import { elementsColliding, getDistance, shuffleArray } from './Functions';
+import { Attacks, AttackType, selectAttack } from './Attacks';
+import Rand from './Random';
 
 export class Pokemon {
   static MAX_POKEMON_ID = 815;
@@ -79,7 +81,10 @@ export class Pokemon {
       document.body.addEventListener('keydown', (e: KeyboardEvent) => {
         switch (e.key) {
           case 'q':
-            this.attack();
+            this.attack(AttackType.physical);
+            break;
+          case 'e':
+            this.attack(AttackType.special);
             break;
           case 'w':
             this.movement.x = 0;
@@ -168,13 +173,18 @@ export class Pokemon {
   }
 
   // TODO: close range, long range, different typed attacks, maybe some ability attacks
-  attack(): void {
+  attack(type: AttackType): void {
     if (this.attackElement || this.hp <= 0) {
       return;
     }
+    const attack = selectAttack(this.pokemon.type[0], this.pokemon.type[1], type, this.pokemon.id);
+    if (!attack) {
+      console.log(attack, this.pokemon.type[0], this.pokemon.type[1], type, this.pokemon.id);
+      console.log(selectAttack);
+    }
     this.attackElement = document.createElement('div');
     this.attackElement.classList.add('attack');
-    this.attackElement.classList.add('cut');
+    this.attackElement.classList.add(attack.name);
     document.body.appendChild(this.attackElement);
 
     const position = this.element.getBoundingClientRect();
@@ -205,11 +215,11 @@ export class Pokemon {
 
     setTimeout(() => {
       this.attackElement?.remove();
-    }, 750);
+    }, attack.duration);
 
     setTimeout(() => {
       this.attackElement = null;
-    }, 1000);
+    }, attack.cooldown);
 
     const enemies = activePokemon.filter(p => p.team != this.team);
     enemies.forEach(p => {
@@ -380,7 +390,7 @@ export class ComputerPokemon extends Pokemon {
 
     // If close enough, then attack
     if (Math.abs(distX) <= closeDist && Math.abs(distY) <= closeDist) {
-      this.attack();
+      this.attack(Rand.fromEnum(AttackType) as AttackType);
     }
   }
 
@@ -438,7 +448,7 @@ export class ComputerPokemon extends Pokemon {
 }
 
 export const activePokemon: Array<Pokemon> = [
-  new Pokemon(1, pokemonMap.random(), true), // players pokemon
+  new Pokemon(1, pokemonMap.Charmander, true), // players pokemon
   new ComputerPokemon(1),
   new ComputerPokemon(1),
   new ComputerPokemon(2),

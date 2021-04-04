@@ -1,9 +1,9 @@
 import { PokemonType } from './PokemonList';
+import SeededRand from './SeededRand';
 
 export enum AttackType {
   physical,
   special,
-  ability,
 }
 
 export type Attack = {
@@ -13,7 +13,7 @@ export type Attack = {
   cooldown: number,
 };
 
-const Attacks: Record<PokemonType, Attack[]> = {
+export const Attacks: Record<PokemonType, Attack[]> = {
   [PokemonType.None]: [],
   [PokemonType.Normal]: [
     {
@@ -22,8 +22,21 @@ const Attacks: Record<PokemonType, Attack[]> = {
       duration: 750,
       cooldown: 1000,
     },
+    {
+      name: 'cut',
+      type: AttackType.special,
+      duration: 750,
+      cooldown: 1000,
+    },
   ],
-  [PokemonType.Fire]: [],
+  [PokemonType.Fire]: [
+    {
+      name: 'fire-punch',
+      type: AttackType.physical,
+      duration: 750,
+      cooldown: 1000,
+    },
+  ],
   [PokemonType.Water]: [],
   [PokemonType.Electric]: [],
   [PokemonType.Grass]: [],
@@ -42,4 +55,24 @@ const Attacks: Record<PokemonType, Attack[]> = {
   [PokemonType.Fairy]: [],
 };
 
-export default Attacks;
+export const selectAttack = (type: PokemonType, type2: PokemonType, attackType: AttackType, id = 0): Attack => {
+  let possibleAttacks: Attack[] = [];
+
+  if (type != undefined) {
+    possibleAttacks.push(...Attacks[type]);
+  }
+
+  if (type2 != undefined) {
+    possibleAttacks.push(...Attacks[type2]);
+  }
+
+  possibleAttacks = possibleAttacks.filter(a => a.type == attackType);
+  if (!possibleAttacks.length) {
+    possibleAttacks = Attacks[PokemonType.Normal].filter(a => a.type == attackType);
+  }
+
+  SeededRand.seed(id);
+  const attack = SeededRand.fromArray(possibleAttacks) as Attack;
+
+  return attack;
+};

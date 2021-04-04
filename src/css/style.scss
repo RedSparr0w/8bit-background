@@ -424,10 +424,10 @@ POKEMON ANIMATIONS
 		left: 0;
 		bottom: 0;
 		background-size: 1400% 100%;
-		background-image: url('../images/attacks/cut.png');
+		background-image: url('../images/attacks/fire-punch.png');
 		width: 4vh;
 		height: 4vh;
-		animation: attack14 0.75s steps(14) 1;
+		animation: attack13 0.75s steps(13) 1;
 	}
 }
 
@@ -441,12 +441,12 @@ POKEMON ANIMATIONS
 	}
 }
 
-@keyframes attack14 {
+@keyframes attack13 {
 	0% {
 		background-position: 0% 0%;
 	}
 
 	100% {
-		background-position: 107.1428% 0%;
+		background-position: 108.3333% 0%;
 	}
 }
