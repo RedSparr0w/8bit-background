@@ -225,7 +225,7 @@ export class Pokemon {
     enemies.forEach(p => {
       const colliding = elementsColliding(this.attackElement, p.element);
       if (colliding) {
-        p.takeDamage(this.pokemon.attack / 10);
+        p.takeDamage((type == AttackType.physical ? this.pokemon.base.attack : this.pokemon.base.specialAttack) / 10);
         if (p.hp <= 0) {
           this.heal();
         }
