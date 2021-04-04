@@ -1,7 +1,7 @@
 import { pokemonMap, PokemonListData, minSpeed, maxSpeed } from './PokemonList';
 import WindowSizes from './WindowSizes';
 import { elementsColliding, getDistance, shuffleArray } from './Functions';
-import { Attacks, AttackType, selectAttack } from './Attacks';
+import { Attack, Attacks, AttackType, selectAttack } from './Attacks';
 import Rand from './Random';
 
 export class Pokemon {
@@ -15,6 +15,10 @@ export class Pokemon {
   public hp: number;
   public speed: number;
   public attackElement: HTMLDivElement;
+  public attacks: {
+    [AttackType.physical]: Attack,
+    [AttackType.special]: Attack,
+  };
 
   public movement = {
     x: 0,
@@ -28,6 +32,11 @@ export class Pokemon {
   ) {
     this.hp = this.pokemon.base.hitpoints;
     const speedSpread = maxSpeed - minSpeed;
+
+    this.attacks = {
+      [AttackType.physical]: selectAttack(this.pokemon.type[0], this.pokemon.type[1], AttackType.physical, this.pokemon.id),
+      [AttackType.special]: selectAttack(this.pokemon.type[0], this.pokemon.type[1], AttackType.special, this.pokemon.id),
+    };
 
     this.speed = Math.round(((this.pokemon.base.speed - minSpeed) / speedSpread) * 20);
     this.shiny = this.calculateShiny();
@@ -177,11 +186,12 @@ export class Pokemon {
     if (this.attackElement || this.hp <= 0) {
       return;
     }
-    const attack = selectAttack(this.pokemon.type[0], this.pokemon.type[1], type, this.pokemon.id);
+
+    const attack = this.attacks[type];
     if (!attack) {
-      console.log(attack, this.pokemon.type[0], this.pokemon.type[1], type, this.pokemon.id);
-      console.log(selectAttack);
+      return;
     }
+
     this.attackElement = document.createElement('div');
     this.attackElement.classList.add('attack');
     this.attackElement.classList.add(attack.name);
