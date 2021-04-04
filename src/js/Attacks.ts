@@ -23,7 +23,7 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       cooldown: 1000,
     },
     {
-      name: 'cut',
+      name: 'cut2',
       type: AttackType.special,
       duration: 750,
       cooldown: 1000,

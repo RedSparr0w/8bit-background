@@ -420,6 +420,16 @@ POKEMON ANIMATIONS
 		animation: attack4 0.25s steps(4) infinite;
 	}
 
+	&.cut2 {
+		left: 0;
+		bottom: 0;
+		background-size: 400% 100%;
+		background-image: url('../images/attacks/cut2.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack4 0.25s steps(4) infinite;
+	}
+
 	&.fire-punch {
 		left: 0;
 		bottom: 0;
