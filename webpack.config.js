@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
 
 module.exports = {
@@ -19,10 +20,10 @@ module.exports = {
           'css-loader',
           // Compiles Sass to CSS
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               // Prefer `dart-sass`
-              implementation: require("sass"),
+              implementation: require('sass'),
             },
           },
         ],

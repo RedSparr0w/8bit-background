@@ -7,8 +7,8 @@
     "build": "npm run build-code",
     "build-code": "webpack --progress",
     "build-watch": "webpack --progress --watch",
-    "test": "eslint --ext ts ./",
-    "test-fix": "eslint --ext ts ./ --fix"
+    "test": "eslint --ext ts ./src",
+    "test-fix": "eslint --ext ts ./src --fix"
   },
   "repository": {
     "type": "git",
