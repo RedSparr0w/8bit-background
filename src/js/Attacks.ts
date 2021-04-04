@@ -90,7 +90,14 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       cooldown: 750,
     },
   ],
-  [PokemonType.Flying]: [],
+  [PokemonType.Flying]: [
+    {
+      name: 'gust',
+      type: AttackType.special,
+      duration: 750,
+      cooldown: 1000,
+    },
+  ],
   [PokemonType.Psychic]: [],
   [PokemonType.Bug]: [
     {

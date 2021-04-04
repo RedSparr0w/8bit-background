@@ -104,6 +104,16 @@
 		animation: attack8 0.5s steps(8) 1;
 	}
 
+	&.gust {
+		left: 0;
+		bottom: 0;
+		background-size: 5200% 100%;
+		background-image: url('../images/attacks/gust.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack52 0.75s steps(52) 1;
+	}
+
 	&.string-shot {
 		left: 0;
 		bottom: 0;
@@ -192,5 +202,15 @@
 
 	100% {
 		background-position: 108.3333% 0%;
+	}
+}
+
+@keyframes attack52 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 101.9607% 0%;
 	}
 }
