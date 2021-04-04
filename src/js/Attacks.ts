@@ -58,8 +58,8 @@ export const Attacks: Record<PokemonType, Attack[]> = {
     {
       name: 'rock-throw',
       type: AttackType.special,
-      duration: 750,
-      cooldown: 1000,
+      duration: 500,
+      cooldown: 750,
     },
   ],
   [PokemonType.Ghost]: [],
