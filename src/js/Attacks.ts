@@ -102,6 +102,12 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       duration: 750,
       cooldown: 1000,
     },
+    {
+      name: 'razor-leaf',
+      type: AttackType.physical,
+      duration: 600,
+      cooldown: 850,
+    },
   ],
   [PokemonType.Ice]: [
     {
@@ -119,7 +125,14 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       cooldown: 750,
     },
   ],
-  [PokemonType.Poison]: [],
+  [PokemonType.Poison]: [
+    {
+      name: 'smog',
+      type: AttackType.special,
+      duration: 1000,
+      cooldown: 1010,
+    },
+  ],
   [PokemonType.Ground]: [
     {
       name: 'mud-slap',
@@ -153,7 +166,14 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       cooldown: 750,
     },
   ],
-  [PokemonType.Ghost]: [],
+  [PokemonType.Ghost]: [
+    {
+      name: 'shadow-claw',
+      type: AttackType.physical,
+      duration: 700,
+      cooldown: 900,
+    },
+  ],
   [PokemonType.Dragon]: [],
   [PokemonType.Dark]: [
     {
@@ -162,9 +182,22 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       duration: 500,
       cooldown: 750,
     },
+    {
+      name: 'dark-pulse',
+      type: AttackType.special,
+      duration: 1000,
+      cooldown: 1010,
+    },
   ],
   [PokemonType.Steel]: [],
-  [PokemonType.Fairy]: [],
+  [PokemonType.Fairy]: [
+    {
+      name: 'misty-explosion',
+      type: AttackType.special,
+      duration: 1000,
+      cooldown: 1010,
+    },
+  ],
 };
 
 export const selectAttack = (type: PokemonType, type2: PokemonType, attackType: AttackType, id = 0): Attack => {

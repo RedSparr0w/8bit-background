@@ -38,6 +38,12 @@
 		animation: attack13 0.75s steps(13) 1;
 	}
 
+	&.smog {
+		background-size: 3100% 100%;
+		background-image: url('../images/attacks/smog.png');
+		animation: attack31 1s steps(31) 1;
+	}
+
 	&.fire-blast {
 		background-size: 1100% 100%;
 		background-image: url('../images/attacks/fire-blast.png');
@@ -92,6 +98,12 @@
 		animation: attack5 0.25s steps(5) infinite;
 	}
 
+	&.razor-leaf {
+		background-size: 400% 100%;
+		background-image: url('../images/attacks/razor-leaf.png');
+		animation: attack4 0.25s steps(4) infinite;
+	}
+
 	&.ice-fang {
 		background-size: 900% 100%;
 		background-image: url('../images/attacks/ice-fang.png');
@@ -122,10 +134,28 @@
 		animation: attack12 0.5s steps(12) 1;
 	}
 
+	&.shadow-claw {
+		background-size: 1800% 100%;
+		background-image: url('../images/attacks/shadow-claw.png');
+		animation: attack18 0.35s steps(18) infinite;
+	}
+
 	&.bite {
 		background-size: 400% 100%;
 		background-image: url('../images/attacks/bite.png');
 		animation: attack4 0.25s steps(4) infinite;
+	}
+
+	&.dark-pulse {
+		background-size: 3100% 100%;
+		background-image: url('../images/attacks/dark-pulse.png');
+		animation: attack31 1s steps(31) infinite;
+	}
+
+	&.misty-explosion {
+		background-size: 3400% 100%;
+		background-image: url('../images/attacks/misty-explosion.png');
+		animation: attack34 1s steps(34) infinite;
 	}
 }
 
@@ -209,6 +239,16 @@
 	}
 }
 
+@keyframes attack18 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 105.8823% 0%;
+	}
+}
+
 @keyframes attack21 {
 	0% {
 		background-position: 0% 0%;
@@ -216,6 +256,26 @@
 
 	100% {
 		background-position: 105% 0%;
+	}
+}
+
+@keyframes attack31 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 103.2258% 0%;
+	}
+}
+
+@keyframes attack34 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 103.0303% 0%;
 	}
 }
 
