@@ -94,6 +94,12 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       duration: 600,
       cooldown: 850,
     },
+    {
+      name: 'thunder-shock',
+      type: AttackType.special,
+      duration: 1000,
+      cooldown: 1010,
+    },
   ],
   [PokemonType.Grass]: [
     {
@@ -188,6 +194,12 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       duration: 1000,
       cooldown: 1010,
     },
+    {
+      name: 'shadow-force',
+      type: AttackType.special,
+      duration: 1000,
+      cooldown: 1010,
+    },
   ],
   [PokemonType.Steel]: [],
   [PokemonType.Fairy]: [
@@ -196,6 +208,18 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       type: AttackType.special,
       duration: 1000,
       cooldown: 1010,
+    },
+    {
+      name: 'sparkly-swirl',
+      type: AttackType.special,
+      duration: 1000,
+      cooldown: 1010,
+    },
+    {
+      name: 'draining-kiss',
+      type: AttackType.special,
+      duration: 600,
+      cooldown: 850,
     },
   ],
 };
