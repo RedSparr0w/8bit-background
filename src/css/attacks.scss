@@ -1,0 +1,136 @@
+
+
+.attack {
+	position: fixed;
+	z-index: 10001;
+
+	&.cut {
+		left: 0;
+		bottom: 0;
+		background-size: 400% 100%;
+		background-image: url('../images/attacks/cut.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack4 0.25s steps(4) infinite;
+	}
+
+	&.cut2 {
+		left: 0;
+		bottom: 0;
+		background-size: 400% 100%;
+		background-image: url('../images/attacks/cut2.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack4 0.3s steps(4) infinite;
+	}
+
+	&.punch {
+		left: 0;
+		bottom: 0;
+		background-size: 400% 100%;
+		background-image: url('../images/attacks/punch.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack4 0.5s steps(4) 1;
+	}
+
+	&.fire-blast {
+		left: 0;
+		bottom: 0;
+		background-size: 1100% 100%;
+		background-image: url('../images/attacks/fire-blast.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack11 0.75s steps(11) 1;
+	}
+
+	&.fire-punch {
+		left: 0;
+		bottom: 0;
+		background-size: 1300% 100%;
+		background-image: url('../images/attacks/fire-punch.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack13 0.75s steps(13) 1;
+	}
+
+	&.bubble {
+		left: 0;
+		bottom: 0;
+		background-size: 900% 100%;
+		background-image: url('../images/attacks/bubble.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack9 0.75s steps(9) 1;
+	}
+
+	&.watergun {
+		left: 0;
+		bottom: 0;
+		background-size: 1100% 100%;
+		background-image: url('../images/attacks/watergun.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack11 0.75s steps(11) 1;
+	}
+
+	&.rock-throw {
+		left: 0;
+		bottom: 0;
+		background-size: 1200% 100%;
+		background-image: url('../images/attacks/rock-throw.png');
+		width: 4vh;
+		height: 4vh;
+		animation: attack12 0.5s steps(12) 1;
+	}
+}
+
+@keyframes attack4 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 133.3333% 0%;
+	}
+}
+
+@keyframes attack9 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 111.1111% 0%;
+	}
+}
+
+@keyframes attack11 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 110% 0%;
+	}
+}
+
+@keyframes attack12 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 109.0909% 0%;
+	}
+}
+
+@keyframes attack13 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 108.3333% 0%;
+	}
+}

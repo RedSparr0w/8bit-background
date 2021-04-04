@@ -36,8 +36,27 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       duration: 750,
       cooldown: 1000,
     },
+    {
+      name: 'fire-blast',
+      type: AttackType.special,
+      duration: 750,
+      cooldown: 1000,
+    },
   ],
-  [PokemonType.Water]: [],
+  [PokemonType.Water]: [
+    {
+      name: 'bubble',
+      type: AttackType.special,
+      duration: 750,
+      cooldown: 1000,
+    },
+    {
+      name: 'watergun',
+      type: AttackType.special,
+      duration: 750,
+      cooldown: 1000,
+    },
+  ],
   [PokemonType.Electric]: [],
   [PokemonType.Grass]: [],
   [PokemonType.Ice]: [],
