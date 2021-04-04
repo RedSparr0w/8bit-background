@@ -50,6 +50,12 @@
 		animation: attack13 0.75s steps(13) 1;
 	}
 
+	&.fire-fang {
+		background-size: 1000% 100%;
+		background-image: url('../images/attacks/fire-fang.png');
+		animation: attack10 0.6s steps(10) infinite;
+	}
+
 	&.bubble {
 		background-size: 900% 100%;
 		background-image: url('../images/attacks/bubble.png');
@@ -74,10 +80,22 @@
 		animation: attack4 0.25s steps(4) infinite;
 	}
 
+	&.thunder-fang {
+		background-size: 800% 100%;
+		background-image: url('../images/attacks/thunder-fang.png');
+		animation: attack8 0.6s steps(8) infinite;
+	}
+
 	&.seed-bomb {
 		background-size: 500% 100%;
 		background-image: url('../images/attacks/seed-bomb.png');
 		animation: attack5 0.25s steps(5) infinite;
+	}
+
+	&.ice-fang {
+		background-size: 900% 100%;
+		background-image: url('../images/attacks/ice-fang.png');
+		animation: attack9 0.6s steps(9) infinite;
 	}
 
 	&.mud-slap {
@@ -142,6 +160,16 @@
 }
 
 @keyframes attack9 {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 111.1111% 0%;
+	}
+}
+
+@keyframes attack10 {
 	0% {
 		background-position: 0% 0%;
 	}

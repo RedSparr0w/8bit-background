@@ -54,6 +54,12 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       duration: 750,
       cooldown: 1000,
     },
+    {
+      name: 'fire-fang',
+      type: AttackType.physical,
+      duration: 600,
+      cooldown: 850,
+    },
   ],
   [PokemonType.Water]: [
     {
@@ -82,6 +88,12 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       duration: 750,
       cooldown: 1000,
     },
+    {
+      name: 'thunder-fang',
+      type: AttackType.physical,
+      duration: 600,
+      cooldown: 850,
+    },
   ],
   [PokemonType.Grass]: [
     {
@@ -91,7 +103,14 @@ export const Attacks: Record<PokemonType, Attack[]> = {
       cooldown: 1000,
     },
   ],
-  [PokemonType.Ice]: [],
+  [PokemonType.Ice]: [
+    {
+      name: 'ice-fang',
+      type: AttackType.physical,
+      duration: 600,
+      cooldown: 850,
+    },
+  ],
   [PokemonType.Fighting]: [
     {
       name: 'punch',
