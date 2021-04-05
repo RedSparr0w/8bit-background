@@ -192,13 +192,15 @@ export class Pokemon {
       return;
     }
 
+    const direction = this.getDirection();
+
     this.attackElement = document.createElement('div');
     this.attackElement.classList.add('attack');
     this.attackElement.classList.add(attack.name);
+    this.attackElement.classList.add(`dir-${direction}`);
     document.body.appendChild(this.attackElement);
 
     const position = this.element.getBoundingClientRect();
-    const direction = this.getDirection();
     const newPosition = {
       left: position.left,
       top: position.top,

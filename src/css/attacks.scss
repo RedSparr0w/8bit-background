@@ -3,10 +3,14 @@
 .attack {
 	position: fixed;
 	z-index: 10001;
-    left: 0;
-    bottom: 0;
-    width: 4vh;
-    height: 4vh;
+	left: 0;
+	bottom: 0;
+	width: 4vh;
+	height: 4vh;
+	
+	&.dir-left {
+		transform: rotateY(180deg);
+	}
 
 	&.cut {
 		background-size: 400% 100%;
@@ -21,6 +25,8 @@
 	}
 
 	&.pound {
+		margin-top: 0.5vh;
+		height: 3vh;
 		background-size: 2100% 100%;
 		background-image: url('../images/attacks/pound.png');
 		animation: attack21 0.7s steps(21) infinite;
