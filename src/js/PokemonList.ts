@@ -40,7 +40,7 @@ export type PokemonListData = {
 }
 
 function createPokemonArray<T extends readonly PokemonListData[] & Array<{name: V}>, V extends string>(...args: T) {
-  return args.filter(p => Math.floor(p.id) == p.id && p.id <= 815);
+  return args.filter(p => Math.floor(p.id) == p.id && p.id <= 815 && p.id > 0);
 }
 
 const pokemonList = createPokemonArray(
