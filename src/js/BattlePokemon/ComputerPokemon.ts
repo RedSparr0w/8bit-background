@@ -78,10 +78,12 @@ export default class ComputerPokemon extends BattlePokemon {
     this.thinkInterval = global.setInterval(() => this.think(), 100);
   }
 
-  death(): void {
+  death(respawn = true): void {
     clearInterval(this.thinkInterval);
     super.death();
-    ActivePokemon.push(new ComputerPokemon(this.team));
+    if (respawn) {
+      ActivePokemon.push(new ComputerPokemon(this.team));
+    }
   }
 
   think(): void {

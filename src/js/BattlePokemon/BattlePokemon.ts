@@ -261,7 +261,7 @@ export default class BattlePokemon {
     return this.hp;
   }
 
-  death(): void {
+  death(respawn = true): void {
     console.log(this.pokemon.name, 'has fainted');
     clearTimeout(this.timeout);
     this.element?.remove();
@@ -272,7 +272,7 @@ export default class BattlePokemon {
     this.attackElement = null;
     const index = ActivePokemon.findIndex(p => p == this);
     ActivePokemon.splice(index, 1);
-    if (this.player_controlled) {
+    if (respawn && this.player_controlled) {
       ActivePokemon.push(new BattlePokemon(1, pokemonMap.random(), true));
     }
   }
