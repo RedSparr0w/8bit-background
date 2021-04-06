@@ -1,9 +1,9 @@
 import '../css/style.scss';
 import './Menu';
 import DynamicBackground from './DynamicBackground';
-import { activePokemon } from './BattlePokemon/BattlePokemon';
+import ActivePokemon from './BattlePokemon/ActivePokemon';
 
 export {
   DynamicBackground,
-  activePokemon,
+  ActivePokemon,
 };

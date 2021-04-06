@@ -3,6 +3,7 @@ import WindowSizes from '../WindowSizes';
 import { elementsColliding, getDistance, shuffleArray } from '../Functions';
 import { Attack, Attacks, AttackType, selectAttack } from '../Attacks';
 import Rand from '../Random';
+import ActivePokemon from './ActivePokemon';
 
 export class BattlePokemon {
   static MAX_POKEMON_ID = 815;
@@ -232,7 +233,7 @@ export class BattlePokemon {
       this.attackElement = null;
     }, attack.cooldown);
 
-    const enemies = activePokemon.filter(p => p.team != this.team);
+    const enemies = ActivePokemon.filter(p => p.team != this.team);
     enemies.forEach(p => {
       const colliding = elementsColliding(this.attackElement, p.element);
       if (colliding) {
@@ -269,10 +270,10 @@ export class BattlePokemon {
     this.element = null;
     this.hpElement = null;
     this.attackElement = null;
-    const index = activePokemon.findIndex(p => p == this);
-    activePokemon.splice(index, 1);
+    const index = ActivePokemon.findIndex(p => p == this);
+    ActivePokemon.splice(index, 1);
     if (this.player_controlled) {
-      activePokemon.push(new BattlePokemon(1, pokemonMap.random(), true));
+      ActivePokemon.push(new BattlePokemon(1, pokemonMap.random(), true));
     }
   }
 }
@@ -342,7 +343,7 @@ export class ComputerPokemon extends BattlePokemon {
   death(): void {
     clearInterval(this.thinkInterval);
     super.death();
-    activePokemon.push(new ComputerPokemon(this.team));
+    ActivePokemon.push(new ComputerPokemon(this.team));
   }
 
   think(): void {
@@ -448,7 +449,7 @@ export class ComputerPokemon extends BattlePokemon {
   getClosestEnemyPosition(): DOMRect {
     let enemy: BattlePokemon | ComputerPokemon = null;
     let enemyDistance = Infinity;
-    activePokemon.filter(p => p.team != this.team)?.forEach(e => {
+    ActivePokemon.filter(p => p.team != this.team)?.forEach(e => {
       const distance = getDistance(e.element, this.element);
       if (distance < enemyDistance) {
         enemy = e;
@@ -458,11 +459,3 @@ export class ComputerPokemon extends BattlePokemon {
     return enemy.element.getBoundingClientRect();
   }
 }
-
-export const activePokemon: Array<BattlePokemon> = [
-  new BattlePokemon(1, pokemonMap.random(), true), // players pokemon
-  new ComputerPokemon(1),
-  new ComputerPokemon(1),
-  new ComputerPokemon(2),
-  new ComputerPokemon(2),
-];
