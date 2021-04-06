@@ -22,4 +22,10 @@ export default class Rand {
     const arr = Object.keys(_enum).map(Number).filter((item) => item >= 0);
     return this.fromArray(arr);
   }
+
+  public static fromChance(chance: number): boolean {
+    const c = Math.abs(chance);
+    // If chance more than 1, then assume 1/x chance, else assume its a percentage chance, 0.2 (20%)
+    return c > 1 ? !this.intBetween(0, c - 1) : Math.random() < c;
+  }
 }
