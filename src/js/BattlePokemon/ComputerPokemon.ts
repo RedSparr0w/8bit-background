@@ -7,11 +7,22 @@ import ActivePokemon from './ActivePokemon';
 import BattlePokemon from './BattlePokemon';
 
 export default class ComputerPokemon extends BattlePokemon {
+  public static TICK = {
+    ENEMY_CHECK: 10,
+  }
+
+  // Currently focused on enemy
+  public enemy: BattlePokemon;
+  // Interval between decisions
   public thinkInterval: NodeJS.Timeout;
+  // Increases 1 every tick
+  public tick = 0;
+  // Decision stuff
   public retreatChance = 0;
   public retreatCounter = 0;
   public braveryChance = 0;
   public braveryCounter = 0;
+  // Movement
   public moveToOrder = [
     // move up
     (dx: number, dy: number, c1: number, c2: number): boolean => {
@@ -74,56 +85,88 @@ export default class ComputerPokemon extends BattlePokemon {
   }
 
   think(): void {
+    // Increase tick
+    this.tick++;
+
+    this.updateEnemy();
+
     // TODO: Factor in current health
     this.braveryCounter += this.braveryCounter <= 5 && Math.random() <= this.braveryChance ? 10 + Math.floor(Math.random() * 30) : 0;
     if (this.braveryCounter > 0) {
       this.braveryCounter--;
-      return this.moveToClosestEnemy();
+      return this.moveToEnemy();
     }
 
     // TODO: Factor in current health
     this.retreatCounter += this.retreatCounter <= 5 && Math.random() <= this.retreatChance ? 5 + Math.floor(Math.random() * 30) : 0;
     if (this.retreatCounter > 0) {
       this.retreatCounter--;
-      return this.moveAwayClosestEnemy();
+      return this.moveAwayFromEnemy();
     }
     // If already attacking retreat
     if (this.attackElement) {
-      this.moveAwayClosestEnemy();
+      this.moveAwayFromEnemy();
     } else { // Else move towards the enemy
-      this.moveToClosestEnemy();
+      this.moveToEnemy();
     }
   }
 
-  getPosition(): DOMRect {
+  getMyPosition(): DOMRect {
     return this.element.getBoundingClientRect();
   }
 
-  // TODO: Select a target, then keep that target for next 10? ticks, check for a new target, less computations
-  moveToClosestEnemy(): void {
-    const enemyPos = this.getClosestEnemyPosition();
-    if (!enemyPos) {
+  updateEnemy(): BattlePokemon {
+    if (this.enemy?.element && this.tick % ComputerPokemon.TICK.ENEMY_CHECK) {
       return;
     }
-    const pos = this.getPosition();
+    let enemy: BattlePokemon | ComputerPokemon = null;
+    let enemyDistance = Infinity;
+    ActivePokemon.filter(p => p.team != this.team)?.forEach(e => {
+      const distance = getDistance(e.element, this.element);
+      if (distance < enemyDistance) {
+        enemy = e;
+        enemyDistance = distance;
+      }
+    });
+    this.enemy = enemy;
+  }
+
+  // TODO: Select a target, then keep that target for next 10? ticks, check for a new target, less computations
+  moveToEnemy(): void {
+    if (!this.enemy) {
+      return;
+    }
+
+    // Calculate where enemy is compared to us
+    const enemyPos = this.getEnemyPosition();
+    const pos = this.getMyPosition();
     const distX = enemyPos.x - pos.x;
     const distY = pos.y - enemyPos.y;
+
+    // Stop moving
     this.movement.x = 0;
     this.movement.y = 0;
+
     const closeDist = WindowSizes.vh * 5;
     const closestDist = WindowSizes.vh * 0.9;
+
+    // Check if we should move
     const moved = this.moveToOrder.some(m => m(distX, distY, closeDist, closestDist));
-    if (!moved && Math.abs(distX) > Math.abs(distY)) {
-      if (distX <= 0) {
-        this.faceLeft();
-      } else {
-        this.faceRight();
-      }
-    } else if (!moved && Math.abs(distY) > Math.abs(distX)) {
-      if (distY <= 0) {
-        this.faceDown();
-      } else {
-        this.faceUp();
+
+    // If we haven't moved, we must be near the enemy, face the enemy
+    if (!moved) {
+      if (Math.abs(distX) > Math.abs(distY)) {
+        if (distX <= 0) {
+          this.faceLeft();
+        } else {
+          this.faceRight();
+        }
+      } else if (Math.abs(distY) > Math.abs(distX)) {
+        if (distY <= 0) {
+          this.faceDown();
+        } else {
+          this.faceUp();
+        }
       }
     }
 
@@ -134,16 +177,21 @@ export default class ComputerPokemon extends BattlePokemon {
     }
   }
 
-  moveAwayClosestEnemy(): void {
-    const enemyPos = this.getClosestEnemyPosition();
-    if (!enemyPos) {
+  moveAwayFromEnemy(): void {
+    if (!this.enemy) {
       return;
     }
-    const pos = this.getPosition();
+
+    // Calculate where enemy is compared to us
+    const enemyPos = this.getEnemyPosition();
+    const pos = this.getMyPosition();
     const distX = enemyPos.x - pos.x;
     const distY = pos.y - enemyPos.y;
+
+    // Stop moving
     this.movement.x = 0;
     this.movement.y = 0;
+
     const furthestDist = WindowSizes.vh * 30;
     const closestDist = WindowSizes.vh * 0.2;
     const totalDist = (Math.abs(distX) + Math.abs(distY));
@@ -173,16 +221,7 @@ export default class ComputerPokemon extends BattlePokemon {
     }
   }
 
-  getClosestEnemyPosition(): DOMRect {
-    let enemy: BattlePokemon | ComputerPokemon = null;
-    let enemyDistance = Infinity;
-    ActivePokemon.filter(p => p.team != this.team)?.forEach(e => {
-      const distance = getDistance(e.element, this.element);
-      if (distance < enemyDistance) {
-        enemy = e;
-        enemyDistance = distance;
-      }
-    });
-    return enemy.element.getBoundingClientRect();
+  getEnemyPosition(): DOMRect {
+    return this.enemy.element.getBoundingClientRect();
   }
 }
