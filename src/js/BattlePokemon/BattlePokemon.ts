@@ -1,17 +1,17 @@
-import { pokemonMap, PokemonListData, minSpeed, maxSpeed } from './PokemonList';
-import WindowSizes from './WindowSizes';
-import { elementsColliding, getDistance, shuffleArray } from './Functions';
-import { Attack, Attacks, AttackType, selectAttack } from './Attacks';
-import Rand from './Random';
+import { pokemonMap, PokemonListData, minSpeed, maxSpeed } from '../PokemonList';
+import WindowSizes from '../WindowSizes';
+import { elementsColliding, getDistance, shuffleArray } from '../Functions';
+import { Attack, Attacks, AttackType, selectAttack } from '../Attacks';
+import Rand from '../Random';
 
-export class Pokemon {
+export class BattlePokemon {
   static MAX_POKEMON_ID = 815;
   static SHINY_CHANCE = 512;
+
   public shiny = false;
   public element: HTMLDivElement;
   public hpElement: HTMLProgressElement;
   public timeout: NodeJS.Timeout;
-  public keydown = false;
   public hp: number;
   public speed: number;
   public attackElement: HTMLDivElement;
@@ -19,7 +19,6 @@ export class Pokemon {
     [AttackType.physical]: Attack,
     [AttackType.special]: Attack,
   };
-
   public movement = {
     x: 0,
     y: 0,
@@ -67,7 +66,7 @@ export class Pokemon {
   }
 
   calculateShiny(): boolean {
-    return !Math.floor(Math.random() * Pokemon.SHINY_CHANCE);
+    return !Math.floor(Math.random() * BattlePokemon.SHINY_CHANCE);
   }
 
   spawn(): void {
@@ -273,13 +272,13 @@ export class Pokemon {
     const index = activePokemon.findIndex(p => p == this);
     activePokemon.splice(index, 1);
     if (this.player_controlled) {
-      activePokemon.push(new Pokemon(1, pokemonMap.random(), true));
+      activePokemon.push(new BattlePokemon(1, pokemonMap.random(), true));
     }
   }
 }
 
 
-export class ComputerPokemon extends Pokemon {
+export class ComputerPokemon extends BattlePokemon {
   public thinkInterval: NodeJS.Timeout;
   public retreatChance = 0;
   public retreatCounter = 0;
@@ -447,7 +446,7 @@ export class ComputerPokemon extends Pokemon {
   }
 
   getClosestEnemyPosition(): DOMRect {
-    let enemy: Pokemon | ComputerPokemon = null;
+    let enemy: BattlePokemon | ComputerPokemon = null;
     let enemyDistance = Infinity;
     activePokemon.filter(p => p.team != this.team)?.forEach(e => {
       const distance = getDistance(e.element, this.element);
@@ -460,8 +459,8 @@ export class ComputerPokemon extends Pokemon {
   }
 }
 
-export const activePokemon: Array<Pokemon> = [
-  new Pokemon(1, pokemonMap.random(), true), // players pokemon
+export const activePokemon: Array<BattlePokemon> = [
+  new BattlePokemon(1, pokemonMap.random(), true), // players pokemon
   new ComputerPokemon(1),
   new ComputerPokemon(1),
   new ComputerPokemon(2),
