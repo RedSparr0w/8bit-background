@@ -1,0 +1,52 @@
+#menu {
+  height: 100vh;
+  width: 0;
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+
+  a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  a:hover {
+    color: whitesmoke;
+  }
+
+  #closeMenu {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+}
+
+#openMenu {
+  text-decoration: none;
+  height: 40px;
+  width: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  color: whitesmoke;
+  background-color: #111;
+  font-size: 28px;
+  text-align: center;
+}
+
+@media screen and (max-height: 450px) {
+  #menu {padding-top: 15px;}
+  #menu a {font-size: 18px;}
+}

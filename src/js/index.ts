@@ -1,5 +1,5 @@
 import '../css/style.scss';
-import { pokemonMap, PokemonListData, minSpeed, maxSpeed } from './PokemonList';
+import './Menu';
 import DynamicBackground from './DynamicBackground';
 import { activePokemon } from './Pokemon';
 
