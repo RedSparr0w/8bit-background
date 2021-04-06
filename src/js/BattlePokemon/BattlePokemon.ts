@@ -140,7 +140,7 @@ export default class BattlePokemon {
       });
     }
 
-    this.timeout = global.setInterval(() => this.updatePosition(), 160 - (this.speed * 5));
+    this.timeout = global.setInterval(() => this.updatePosition(), 150 - (this.speed * 5));
   }
 
   faceDirection(direction: string): void {

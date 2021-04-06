@@ -8,7 +8,7 @@ import BattlePokemon from './BattlePokemon';
 
 export default class ComputerPokemon extends BattlePokemon {
   public static TICK = {
-    ENEMY_CHECK: 10,
+    ENEMY_CHECK: 20,
   }
 
   // Currently focused on enemy
@@ -75,7 +75,7 @@ export default class ComputerPokemon extends BattlePokemon {
     // TODO: Make it have a "brain" to choose who to track/attack or move randomly etc
     this.retreatChance = Math.random() * 0.02;
     this.braveryChance = Math.random() * 0.1;
-    this.thinkInterval = global.setInterval(() => this.think(), 100);
+    this.thinkInterval = global.setInterval(() => this.think(), 50);
   }
 
   death(respawn = true): void {
