@@ -233,7 +233,7 @@ export default class BattlePokemon {
       this.attackElement = null;
     }, attack.cooldown);
 
-    const enemies = ActivePokemon.filter(p => p.team != this.team);
+    const enemies = ActivePokemon.list.filter(p => p.team != this.team);
     enemies.forEach(p => {
       const colliding = elementsColliding(this.attackElement, p.element);
       if (colliding) {
@@ -270,10 +270,8 @@ export default class BattlePokemon {
     this.element = null;
     this.hpElement = null;
     this.attackElement = null;
-    const index = ActivePokemon.findIndex(p => p == this);
-    ActivePokemon.splice(index, 1);
-    if (respawn && this.player_controlled) {
-      ActivePokemon.push(new BattlePokemon(1, pokemonMap.random(), true));
+    if (respawn) {
+      ActivePokemon.respawnPokemon(this);
     }
   }
 }

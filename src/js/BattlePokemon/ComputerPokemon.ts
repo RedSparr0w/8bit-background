@@ -80,10 +80,7 @@ export default class ComputerPokemon extends BattlePokemon {
 
   death(respawn = true): void {
     clearInterval(this.thinkInterval);
-    super.death();
-    if (respawn) {
-      ActivePokemon.push(new ComputerPokemon(this.team));
-    }
+    super.death(respawn);
   }
 
   think(): void {
@@ -123,7 +120,7 @@ export default class ComputerPokemon extends BattlePokemon {
     }
     let enemy: BattlePokemon | ComputerPokemon = null;
     let enemyDistance = Infinity;
-    ActivePokemon.filter(p => p.team != this.team)?.forEach(e => {
+    ActivePokemon.list.filter(p => p.team != this.team)?.forEach(e => {
       const distance = getDistance(e.element, this.element);
       if (distance < enemyDistance) {
         enemy = e;

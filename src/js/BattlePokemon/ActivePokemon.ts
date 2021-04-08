@@ -1,12 +1,57 @@
 import BattlePokemon from './BattlePokemon';
 import ComputerPokemon from './ComputerPokemon';
 
-const ActivePokemon: Array<BattlePokemon> = [
-  new BattlePokemon(1, undefined, true), // players pokemon
-  new ComputerPokemon(1),
-  new ComputerPokemon(1),
-  new ComputerPokemon(2),
-  new ComputerPokemon(2),
-];
+class ActivePokemon {
+  static list: BattlePokemon[] = [];
+
+  static add(): void {
+    const team1Count = this.list.filter(p => p.team == 1);
+    const team2Count = this.list.filter(p => p.team == 2);
+    const team = team1Count > team2Count ? 2 : 1;
+    this.list.push(new ComputerPokemon(team));
+  }
+
+  static addPlayer(team = 1): void {
+    const index = this.list.findIndex(p => p.player_controlled);
+    if (index < 0) {
+      this.list.push(new BattlePokemon(team, undefined, true));
+    }
+  }
+
+  static remove(): void {
+    const team1Count = this.list.filter(p => p.team == 1);
+    const team2Count = this.list.filter(p => p.team == 2);
+    const team = team1Count > team2Count ? 1 : 2;
+    const index = this.list.findIndex(p => p.team == team);
+    if (index >= 0) {
+      this.list[index].death(false);
+      this.list.splice(index, 1);
+    }
+  }
+
+  static removePlayer(): void {
+    const index = this.list.findIndex(p => p.player_controlled);
+    if (index >= 0) {
+      this.list[index].death(false);
+      this.list.splice(index, 1);
+    }
+  }
+
+  static respawnPokemon(pokemon: BattlePokemon): void {
+    const index = this.list.findIndex(p => p == pokemon);
+    if (index >= 0) {
+      this.list.splice(index, 1);
+    }
+    pokemon.player_controlled ? this.addPlayer() : this.add();
+  }
+}
+
+document.getElementById('addPokemon').addEventListener('click', () => {
+  ActivePokemon.add();
+});
+
+document.getElementById('removePokemon').addEventListener('click', () => {
+  ActivePokemon.remove();
+});
 
 export default ActivePokemon;
