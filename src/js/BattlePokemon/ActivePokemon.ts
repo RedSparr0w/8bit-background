@@ -6,8 +6,8 @@ class ActivePokemon {
   static list: BattlePokemon[] = [];
 
   static add(): void {
-    const team1Count = this.list.filter(p => p.team == 1);
-    const team2Count = this.list.filter(p => p.team == 2);
+    const team1Count = this.list.filter(p => p.team == 1).length;
+    const team2Count = this.list.filter(p => p.team == 2).length;
     const team = team1Count > team2Count ? 2 : 1;
     this.list.push(new ComputerPokemon(team));
   }
