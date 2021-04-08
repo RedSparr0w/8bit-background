@@ -9,6 +9,5 @@ class WindowSizes {
   }
 }
 WindowSizes.calculateValues();
-window.onresize = () => WindowSizes.calculateValues();
 
 export default WindowSizes;
