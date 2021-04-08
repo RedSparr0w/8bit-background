@@ -88,26 +88,26 @@ export default class BattlePokemon {
 
     if (this.player_controlled) {
       document.body.addEventListener('keydown', (e: KeyboardEvent) => {
-        switch (e.key) {
-          case 'q':
+        switch (e.code) {
+          case 'KeyQ':
             this.attack(AttackType.physical);
             break;
-          case 'e':
+          case 'KeyE':
             this.attack(AttackType.special);
             break;
-          case 'w':
+          case 'KeyW':
             this.movement.x = 0;
             this.movement.y = 1;
             break;
-          case 'a':
+          case 'KeyA':
             this.movement.x = -1;
             this.movement.y = 0;
             break;
-          case 's':
+          case 'KeyS':
             this.movement.x = 0;
             this.movement.y = -1;
             break;
-          case 'd':
+          case 'KeyD':
             this.movement.x = 1;
             this.movement.y = 0;
             break;
@@ -115,23 +115,23 @@ export default class BattlePokemon {
       });
 
       document.body.addEventListener('keyup', (e: KeyboardEvent) => {
-        switch (e.key) {
-          case 'w':
+        switch (e.code) {
+          case 'KeyW':
             if (this.movement.y == 1) {
               this.movement.y = 0;
             }
             break;
-          case 's':
+          case 'KeyS':
             if (this.movement.y == -1) {
               this.movement.y = 0;
             }
             break;
-          case 'a':
+          case 'KeyA':
             if (this.movement.x == -1) {
               this.movement.x = 0;
             }
             break;
-          case 'd':
+          case 'KeyD':
             if (this.movement.x == 1) {
               this.movement.x = 0;
             }
