@@ -1,5 +1,6 @@
 import BattlePokemon from './BattlePokemon';
 import ComputerPokemon from './ComputerPokemon';
+import PlayerPokemon from './PlayerPokemon';
 
 class ActivePokemon {
   static list: BattlePokemon[] = [];
@@ -14,7 +15,7 @@ class ActivePokemon {
   static addPlayer(team = 1): void {
     const index = this.list.findIndex(p => p.player_controlled);
     if (index < 0) {
-      this.list.push(new BattlePokemon(team, undefined, true));
+      this.list.push(new PlayerPokemon(team, undefined));
     }
   }
 
