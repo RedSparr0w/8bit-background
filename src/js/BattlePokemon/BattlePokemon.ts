@@ -75,7 +75,7 @@ export default class BattlePokemon {
     this.element.style.bottom = `${Math.floor(Math.random() * 15)}vh`;
     this.element.style.left = `${this.team <= 1 ? 0 : WindowSizes.vhw}vh`;
     this.element.style.backgroundImage = `${this.shiny ? 'url(\'images/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${this.pokemon.id.toString().padStart(3, '0')}${this.shiny ? 's' : ''}.png')`;
-    this.element.classList.add('pokemonSprite');
+    this.element.classList.add('battlePokemonSprite');
     this.element.classList.add(`speed-${this.speed}`);
     this.element.classList.add('walk-right');
     this.hpElement = document.createElement('progress');
