@@ -45,6 +45,14 @@ class ActivePokemon {
     }
     pokemon.player_controlled ? this.addPlayer() : this.add();
   }
+
+  static clearAll(): void {
+    let index = this.list.length;
+    while (index-- > 0) {
+      this.list[index].death(false);
+      this.list.splice(index, 1);
+    }
+  }
 }
 
 document.getElementById('addPokemon').addEventListener('click', () => {

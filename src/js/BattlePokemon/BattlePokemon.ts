@@ -208,7 +208,6 @@ export default class BattlePokemon {
   }
 
   death(respawn = true): void {
-    console.log(this.pokemon.name, 'has fainted');
     clearTimeout(this.timeout);
     this.element?.remove();
     this.hpElement?.remove();
