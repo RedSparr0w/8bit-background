@@ -1,14 +1,14 @@
 body {
-	display: block;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
+  display: block;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
-@import './menu.scss';
-@import './dynamic-background.scss';
-@import './attacks.scss';
-@import './pokemon.scss';
+@import "./menu.scss";
+@import "./dynamic-background.scss";
+@import "./attacks.scss";
+@import "./pokemon.scss";

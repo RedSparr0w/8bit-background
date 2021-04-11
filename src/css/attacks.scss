@@ -1,374 +1,372 @@
-
-
 .attack {
-	position: fixed;
-	z-index: 10001;
-	left: 0;
-	bottom: 0;
-	width: 4vh;
-	height: 4vh;
-	
-	&.dir-left {
-		transform: rotateY(180deg);
-	}
+  position: fixed;
+  z-index: 10001;
+  left: 0;
+  bottom: 0;
+  width: 4vh;
+  height: 4vh;
 
-	&.cut {
-		background-size: 400% 100%;
-		background-image: url('../images/attacks/cut.png');
-		animation: attack4 0.25s steps(4) infinite;
-	}
+  &.dir-left {
+    transform: rotateY(180deg);
+  }
 
-	&.cut2 {
-		background-size: 400% 100%;
-		background-image: url('../images/attacks/cut2.png');
-		animation: attack4 0.3s steps(4) infinite;
-	}
+  &.cut {
+    background-size: 400% 100%;
+    background-image: url("../images/attacks/cut.png");
+    animation: attack4 0.25s steps(4) infinite;
+  }
 
-	&.pound {
-		margin-top: 0.5vh;
-		height: 3vh;
-		background-size: 2100% 100%;
-		background-image: url('../images/attacks/pound.png');
-		animation: attack21 0.7s steps(21) infinite;
-	}
+  &.cut2 {
+    background-size: 400% 100%;
+    background-image: url("../images/attacks/cut2.png");
+    animation: attack4 0.3s steps(4) infinite;
+  }
 
-	&.swift {
-		background-size: 1100% 100%;
-		background-image: url('../images/attacks/swift.png');
-		animation: attack11 0.75s steps(11) 1;
-	}
+  &.pound {
+    margin-top: 0.5vh;
+    height: 3vh;
+    background-size: 2100% 100%;
+    background-image: url("../images/attacks/pound.png");
+    animation: attack21 0.7s steps(21) infinite;
+  }
 
-	&.punch {
-		background-size: 1300% 100%;
-		background-image: url('../images/attacks/punch.png');
-		animation: attack13 0.75s steps(13) 1;
-	}
+  &.swift {
+    background-size: 1100% 100%;
+    background-image: url("../images/attacks/swift.png");
+    animation: attack11 0.75s steps(11) 1;
+  }
 
-	&.smog {
-		background-size: 3100% 100%;
-		background-image: url('../images/attacks/smog.png');
-		animation: attack31 1s steps(31) 1;
-	}
+  &.punch {
+    background-size: 1300% 100%;
+    background-image: url("../images/attacks/punch.png");
+    animation: attack13 0.75s steps(13) 1;
+  }
 
-	&.fire-blast {
-		background-size: 1100% 100%;
-		background-image: url('../images/attacks/fire-blast.png');
-		animation: attack11 0.75s steps(11) 1;
-	}
+  &.smog {
+    background-size: 3100% 100%;
+    background-image: url("../images/attacks/smog.png");
+    animation: attack31 1s steps(31) 1;
+  }
 
-	&.fire-punch {
-		background-size: 1300% 100%;
-		background-image: url('../images/attacks/fire-punch.png');
-		animation: attack13 0.75s steps(13) 1;
-	}
+  &.fire-blast {
+    background-size: 1100% 100%;
+    background-image: url("../images/attacks/fire-blast.png");
+    animation: attack11 0.75s steps(11) 1;
+  }
 
-	&.fire-fang {
-		background-size: 1000% 100%;
-		background-image: url('../images/attacks/fire-fang.png');
-		animation: attack10 0.6s steps(10) infinite;
-	}
+  &.fire-punch {
+    background-size: 1300% 100%;
+    background-image: url("../images/attacks/fire-punch.png");
+    animation: attack13 0.75s steps(13) 1;
+  }
 
-	&.bubble {
-		background-size: 900% 100%;
-		background-image: url('../images/attacks/bubble.png');
-		animation: attack9 0.75s steps(9) 1;
-	}
+  &.fire-fang {
+    background-size: 1000% 100%;
+    background-image: url("../images/attacks/fire-fang.png");
+    animation: attack10 0.6s steps(10) infinite;
+  }
 
-	&.splash {
-		background-size: 1100% 100%;
-		background-image: url('../images/attacks/splash.png');
-		animation: attack11 0.75s steps(11) 1;
-	}
+  &.bubble {
+    background-size: 900% 100%;
+    background-image: url("../images/attacks/bubble.png");
+    animation: attack9 0.75s steps(9) 1;
+  }
 
-	&.water-gun {
-		background-size: 900% 100%;
-		background-image: url('../images/attacks/water-gun.png');
-		animation: attack9 0.75s steps(9) 1;
-	}
+  &.splash {
+    background-size: 1100% 100%;
+    background-image: url("../images/attacks/splash.png");
+    animation: attack11 0.75s steps(11) 1;
+  }
 
-	&.spark {
-		background-size: 400% 100%;
-		background-image: url('../images/attacks/spark.png');
-		animation: attack4 0.25s steps(4) infinite;
-	}
+  &.water-gun {
+    background-size: 900% 100%;
+    background-image: url("../images/attacks/water-gun.png");
+    animation: attack9 0.75s steps(9) 1;
+  }
 
-	&.thunder-fang {
-		background-size: 800% 100%;
-		background-image: url('../images/attacks/thunder-fang.png');
-		animation: attack8 0.6s steps(8) infinite;
-	}
+  &.spark {
+    background-size: 400% 100%;
+    background-image: url("../images/attacks/spark.png");
+    animation: attack4 0.25s steps(4) infinite;
+  }
 
-	&.thunder-shock {
-		background-size: 4200% 100%;
-		background-image: url('../images/attacks/thunder-shock.png');
-		animation: attack42 1s steps(42) infinite;
-	}
+  &.thunder-fang {
+    background-size: 800% 100%;
+    background-image: url("../images/attacks/thunder-fang.png");
+    animation: attack8 0.6s steps(8) infinite;
+  }
 
-	&.seed-bomb {
-		background-size: 500% 100%;
-		background-image: url('../images/attacks/seed-bomb.png');
-		animation: attack5 0.25s steps(5) infinite;
-	}
+  &.thunder-shock {
+    background-size: 4200% 100%;
+    background-image: url("../images/attacks/thunder-shock.png");
+    animation: attack42 1s steps(42) infinite;
+  }
 
-	&.razor-leaf {
-		background-size: 400% 100%;
-		background-image: url('../images/attacks/razor-leaf.png');
-		animation: attack4 0.25s steps(4) infinite;
-	}
+  &.seed-bomb {
+    background-size: 500% 100%;
+    background-image: url("../images/attacks/seed-bomb.png");
+    animation: attack5 0.25s steps(5) infinite;
+  }
 
-	&.ice-fang {
-		background-size: 900% 100%;
-		background-image: url('../images/attacks/ice-fang.png');
-		animation: attack9 0.6s steps(9) infinite;
-	}
+  &.razor-leaf {
+    background-size: 400% 100%;
+    background-image: url("../images/attacks/razor-leaf.png");
+    animation: attack4 0.25s steps(4) infinite;
+  }
 
-	&.mud-slap {
-		background-size: 800% 100%;
-		background-image: url('../images/attacks/mud-slap.png');
-		animation: attack8 0.5s steps(8) 1;
-	}
+  &.ice-fang {
+    background-size: 900% 100%;
+    background-image: url("../images/attacks/ice-fang.png");
+    animation: attack9 0.6s steps(9) infinite;
+  }
 
-	&.gust {
-		background-size: 5200% 100%;
-		background-image: url('../images/attacks/gust.png');
-		animation: attack52 0.75s steps(52) 1;
-	}
+  &.mud-slap {
+    background-size: 800% 100%;
+    background-image: url("../images/attacks/mud-slap.png");
+    animation: attack8 0.5s steps(8) 1;
+  }
 
-	&.air-cutter {
-        margin-top: 1vh;
-        height: 2vh;
-		background-size: 800% 100%;
-		background-image: url('../images/attacks/air-cutter.png');
-		animation: attack8 0.75s steps(8) 1;
-	}
+  &.gust {
+    background-size: 5200% 100%;
+    background-image: url("../images/attacks/gust.png");
+    animation: attack52 0.75s steps(52) 1;
+  }
 
-	&.psycho-cut {
-		background-size: 1400% 100%;
-		background-image: url('../images/attacks/psycho-cut.png');
-		animation: attack14 0.6s steps(14) 1;
-	}
+  &.air-cutter {
+    margin-top: 1vh;
+    height: 2vh;
+    background-size: 800% 100%;
+    background-image: url("../images/attacks/air-cutter.png");
+    animation: attack8 0.75s steps(8) 1;
+  }
 
-	&.string-shot {
-		background-size: 1100% 100%;
-		background-image: url('../images/attacks/string-shot.png');
-		animation: attack11 0.5s steps(11) 1;
-	}
+  &.psycho-cut {
+    background-size: 1400% 100%;
+    background-image: url("../images/attacks/psycho-cut.png");
+    animation: attack14 0.6s steps(14) 1;
+  }
 
-	&.rock-throw {
-		background-size: 1200% 100%;
-		background-image: url('../images/attacks/rock-throw.png');
-		animation: attack12 0.5s steps(12) 1;
-	}
+  &.string-shot {
+    background-size: 1100% 100%;
+    background-image: url("../images/attacks/string-shot.png");
+    animation: attack11 0.5s steps(11) 1;
+  }
 
-	&.shadow-claw {
-		background-size: 1800% 100%;
-		background-image: url('../images/attacks/shadow-claw.png');
-		animation: attack18 0.35s steps(18) infinite;
-	}
+  &.rock-throw {
+    background-size: 1200% 100%;
+    background-image: url("../images/attacks/rock-throw.png");
+    animation: attack12 0.5s steps(12) 1;
+  }
 
-	&.bite {
-		background-size: 400% 100%;
-		background-image: url('../images/attacks/bite.png');
-		animation: attack4 0.25s steps(4) infinite;
-	}
+  &.shadow-claw {
+    background-size: 1800% 100%;
+    background-image: url("../images/attacks/shadow-claw.png");
+    animation: attack18 0.35s steps(18) infinite;
+  }
 
-	&.dark-pulse {
-		background-size: 3100% 100%;
-		background-image: url('../images/attacks/dark-pulse.png');
-		animation: attack31 1s steps(31) infinite;
-	}
+  &.bite {
+    background-size: 400% 100%;
+    background-image: url("../images/attacks/bite.png");
+    animation: attack4 0.25s steps(4) infinite;
+  }
 
-	&.shadow-force {
-		background-size: 3700% 100%;
-		background-image: url('../images/attacks/shadow-force.png');
-		animation: attack37 1s steps(37) infinite;
-	}
+  &.dark-pulse {
+    background-size: 3100% 100%;
+    background-image: url("../images/attacks/dark-pulse.png");
+    animation: attack31 1s steps(31) infinite;
+  }
 
-	&.misty-explosion {
-		background-size: 3400% 100%;
-		background-image: url('../images/attacks/misty-explosion.png');
-		animation: attack34 1s steps(34) infinite;
-	}
+  &.shadow-force {
+    background-size: 3700% 100%;
+    background-image: url("../images/attacks/shadow-force.png");
+    animation: attack37 1s steps(37) infinite;
+  }
 
-	&.sparkly-swirl {
-		background-size: 4200% 100%;
-		background-image: url('../images/attacks/sparkly-swirl.png');
-		animation: attack42 1s steps(42) infinite;
-	}
+  &.misty-explosion {
+    background-size: 3400% 100%;
+    background-image: url("../images/attacks/misty-explosion.png");
+    animation: attack34 1s steps(34) infinite;
+  }
 
-	&.draining-kiss {
-		background-size: 1600% 100%;
-		background-image: url('../images/attacks/draining-kiss.png');
-		animation: attack16 1s steps(16) infinite;
-	}
+  &.sparkly-swirl {
+    background-size: 4200% 100%;
+    background-image: url("../images/attacks/sparkly-swirl.png");
+    animation: attack42 1s steps(42) infinite;
+  }
+
+  &.draining-kiss {
+    background-size: 1600% 100%;
+    background-image: url("../images/attacks/draining-kiss.png");
+    animation: attack16 1s steps(16) infinite;
+  }
 }
 
 @keyframes attack4 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 133.3333% 0%;
-	}
+  100% {
+    background-position: 133.3333% 0%;
+  }
 }
 
 @keyframes attack5 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 125% 0%;
-	}
+  100% {
+    background-position: 125% 0%;
+  }
 }
 
 @keyframes attack8 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 114.2857% 0%;
-	}
+  100% {
+    background-position: 114.2857% 0%;
+  }
 }
 
 @keyframes attack9 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 111.1111% 0%;
-	}
+  100% {
+    background-position: 111.1111% 0%;
+  }
 }
 
 @keyframes attack10 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 111.1111% 0%;
-	}
+  100% {
+    background-position: 111.1111% 0%;
+  }
 }
 
 @keyframes attack11 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 110% 0%;
-	}
+  100% {
+    background-position: 110% 0%;
+  }
 }
 
 @keyframes attack12 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 109.0909% 0%;
-	}
+  100% {
+    background-position: 109.0909% 0%;
+  }
 }
 
 @keyframes attack13 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 108.3333% 0%;
-	}
+  100% {
+    background-position: 108.3333% 0%;
+  }
 }
 
 @keyframes attack14 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 107.6923% 0%;
-	}
+  100% {
+    background-position: 107.6923% 0%;
+  }
 }
 
 @keyframes attack16 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 106.6666% 0%;
-	}
+  100% {
+    background-position: 106.6666% 0%;
+  }
 }
 
 @keyframes attack18 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 105.8823% 0%;
-	}
+  100% {
+    background-position: 105.8823% 0%;
+  }
 }
 
 @keyframes attack21 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 105% 0%;
-	}
+  100% {
+    background-position: 105% 0%;
+  }
 }
 
 @keyframes attack31 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 103.2258% 0%;
-	}
+  100% {
+    background-position: 103.2258% 0%;
+  }
 }
 
 @keyframes attack34 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 103.0303% 0%;
-	}
+  100% {
+    background-position: 103.0303% 0%;
+  }
 }
 
 @keyframes attack37 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 102.7777% 0%;
-	}
+  100% {
+    background-position: 102.7777% 0%;
+  }
 }
 
 @keyframes attack42 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 102.4390% 0%;
-	}
+  100% {
+    background-position: 102.439% 0%;
+  }
 }
 
 @keyframes attack52 {
-	0% {
-		background-position: 0% 0%;
-	}
+  0% {
+    background-position: 0% 0%;
+  }
 
-	100% {
-		background-position: 101.9607% 0%;
-	}
+  100% {
+    background-position: 101.9607% 0%;
+  }
 }
