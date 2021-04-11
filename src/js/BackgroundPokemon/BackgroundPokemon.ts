@@ -3,7 +3,10 @@ import Rand from '../Random';
 
 export default class BackgroundPokemon {
   static MAX_POKEMON_ID = 815;
+
+  // Changable options
   static SHINY_CHANCE = 512;
+  static MAX_DELAY = 7;
 
   // All the flying pokemon IDs (these pokemon can spawn in the sky)
   static flyingPokemon = [
@@ -51,7 +54,7 @@ export default class BackgroundPokemon {
 
   static start(): void {
     // Random delay up to 7 seconds
-    const delay = Rand.intBetween(0.2 * SECOND, 7 * SECOND);
+    const delay = Rand.intBetween(0.2 * SECOND, this.MAX_DELAY * SECOND);
 
     // Assign our timeout function so we can stop it later
     this.timeout = setTimeout(() => {
@@ -66,3 +69,15 @@ export default class BackgroundPokemon {
     [...document.querySelectorAll('.backgroundPokemonSprite')].forEach(el => el.remove());
   }
 }
+
+document.getElementById('maxDelay').onchange = (e) => {
+  const val = (e.target as HTMLInputElement).value;
+  document.getElementById('maxDelayValue').innerText = val;
+  BackgroundPokemon.MAX_DELAY = parseInt(val) || 7;
+};
+
+document.getElementById('shinyChance').onchange = (e) => {
+  const val = (e.target as HTMLInputElement).value;
+  document.getElementById('shinyChanceValue').innerText = val;
+  BackgroundPokemon.SHINY_CHANCE = parseInt(val) || 512;
+};

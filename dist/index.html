@@ -22,6 +22,14 @@
     </select>
     <hr/>
     <div id="passiveOptions" class="menuOptions" style="display: none;">
+      <label for="maxDelay" class="form-label">Max appearance delay: <span id="maxDelayValue">7</span>s</label>
+      <div class="input-group mb-3 col-12">
+        <input type="range" class="form-range" min="1" max="10" value="7" id="maxDelay">
+      </div>
+      <label for="shinyChance" class="form-label">Shiny chance: 1/<span id="shinyChanceValue">512</span></label>
+      <div class="input-group mb-3 col-12">
+        <input type="range" class="form-range" min="1" max="1024" value="512" id="shinyChance">
+      </div>
     </div>
     <div id="activeOptions" class="menuOptions" style="display: none;">
       <label class="form-label">Pokemon amount:</label>
