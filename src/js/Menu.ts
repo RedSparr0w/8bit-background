@@ -13,8 +13,15 @@ document.getElementById('closeMenu').onclick = (): void => {
 
 document.getElementById('pokemonDisplay').onchange = (e): void => {
   const val = (e.target as HTMLSelectElement).value;
+
+  // Stop all current pokemon activities
   BackgroundPokemon.stop();
   ActivePokemon.clearAll();
+
+  // Hide all options
+  [...document.querySelectorAll('.menuOptions')].forEach((el: HTMLDivElement) => el.style.display = 'none');
+
+  // Start selected pokemon activity
   switch (val) {
     case 'passive':
       BackgroundPokemon.start();
@@ -28,6 +35,12 @@ document.getElementById('pokemonDisplay').onchange = (e): void => {
 
   // Save the last selected option in settings/local storage
   localStorage.pokemonDisplay = val;
+
+  // Show possible options
+  const elToShow = document.getElementById(`${val}Options`);
+  if (elToShow) {
+    elToShow.style.display = 'block';
+  }
 };
 
 (document.getElementById('pokemonDisplay') as HTMLSelectElement).value = localStorage.pokemonDisplay || 'none';

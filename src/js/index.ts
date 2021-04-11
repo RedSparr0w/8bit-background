@@ -11,15 +11,6 @@ window.onresize = () => {
   WindowSizes.calculateValues();
 };
 
-// Add some pokemon
-// ActivePokemon.addPlayer();
-// ActivePokemon.add();
-// ActivePokemon.add();
-// ActivePokemon.add();
-// ActivePokemon.add();
-
-BackgroundPokemon.start();
-
 export {
   DynamicBackground,
   BackgroundPokemon,

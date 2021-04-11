@@ -63,6 +63,6 @@ export default class BackgroundPokemon {
 
   static stop(): void {
     clearTimeout(this.timeout);
-    [...document.querySelectorAll('.backgroundPokemonSprite')].forEach(e => e.remove());
+    [...document.querySelectorAll('.backgroundPokemonSprite')].forEach(el => el.remove());
   }
 }
