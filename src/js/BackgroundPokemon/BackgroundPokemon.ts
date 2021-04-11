@@ -1,4 +1,5 @@
 import { MINUTE, SECOND } from '../Constants';
+import { maxSpeed, minSpeed, pokemonMap } from '../PokemonList';
 import Rand from '../Random';
 
 export default class BackgroundPokemon {
@@ -26,16 +27,17 @@ export default class BackgroundPokemon {
 
   // Add a pokemon to the scene
   static addPokemon(id: number): void {
-    const pokemonSpeed = Math.random() * this.MAX_SPEED_STAT + this.MIN_SPEED_STAT;
-    let moveSpeed = Math.floor(((pokemonSpeed - this.MIN_SPEED_STAT) / (this.MAX_SPEED_STAT - this.MIN_SPEED_STAT)) * this.MAX_SPEED);
+    const pokemon = pokemonMap[id];
+    const speedSpread = maxSpeed - minSpeed;
+    let moveSpeed = Math.round(((pokemon.base.speed - minSpeed) / speedSpread) * this.MAX_SPEED);
     // Adjust speed by -1 → +1 randomly
     moveSpeed += Math.floor(Math.random() * 3) - 1;
     moveSpeed = Math.max(0, Math.min(this.MAX_SPEED, moveSpeed));
     const flying = this.flyingPokemon.includes(id);
-    const shiny = !Math.floor(Math.random() * this.SHINY_CHANCE);
+    const shiny = Rand.fromChance(this.SHINY_CHANCE);
 
     const pokeElement = document.createElement('div');
-    const bottom = flying ? Rand.intBetween(20, 90) : Rand.intBetween(0, 15);
+    const bottom = flying ? Rand.intBetween(20, 90) : Rand.intBetween(0, 14);
     pokeElement.style.bottom = `${bottom}vh`;
     pokeElement.style.zIndex = `${1e4 - bottom}`;
     pokeElement.style.backgroundImage = `${shiny ? 'url(\'images/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${id.toString().padStart(3, '0')}${shiny ? 's' : ''}.png')`;
