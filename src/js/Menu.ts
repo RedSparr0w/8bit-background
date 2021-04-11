@@ -43,5 +43,5 @@ document.getElementById('pokemonDisplay').onchange = (e): void => {
   }
 };
 
-(document.getElementById('pokemonDisplay') as HTMLSelectElement).value = localStorage.pokemonDisplay || 'none';
+(document.getElementById('pokemonDisplay') as HTMLSelectElement).value = localStorage.pokemonDisplay || 'passive';
 (document.getElementById('pokemonDisplay') as HTMLSelectElement).dispatchEvent(new Event('change'));
