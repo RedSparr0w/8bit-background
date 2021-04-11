@@ -1,5 +1,5 @@
 #menu {
-  height: 100vh;
+  max-height: 100vh;
   width: 250px;
   position: fixed;
   z-index: 20000;
@@ -7,20 +7,12 @@
   left: -250px;
   overflow-x: hidden;
   padding-top: 60px;
+  padding-bottom: 30px;
   transition: 0.5s;
   background: inherit;
 
-  a.link {
-    padding: 8px 8px 8px 32px;
+  a {
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
-
-  a:hover {
-    color: whitesmoke;
   }
 
   #closeMenu {
@@ -40,8 +32,7 @@
   top: 0;
   left: 0;
   z-index: 10000;
-  color: whitesmoke;
-  background-color: #111;
+  background-color: inherit;
   font-size: 28px;
   text-align: center;
 }
