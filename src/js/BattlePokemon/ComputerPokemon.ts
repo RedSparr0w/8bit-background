@@ -66,6 +66,16 @@ export default class ComputerPokemon extends BattlePokemon {
         return true;
       }
     },
+    // move Random if in same position as the target
+    (dx: number, dy: number, c1: number, c2: number): boolean => {
+      if (!dx && !dy) {
+        this.movement.x = Rand.intBetween(-1, 1);
+        if (!this.movement.x) {
+          this.movement.y = Rand.boolean() ? -1 : 1;
+        }
+        return true;
+      }
+    },
   ]
 
   constructor(team = 1, p = pokemonMap.random()) {
