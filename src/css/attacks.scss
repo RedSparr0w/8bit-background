@@ -1,0 +1,76 @@
+@mixin attack($name, $frames, $time) {
+  &.#{$name} {
+    background-size: 100% * $frames 100%;
+    background-image: url("../images/attacks/#{$name}.png");
+    animation: attack#{$frames} $time steps($frames) infinite;
+  }
+}
+
+.attack {
+  position: fixed;
+  z-index: 10001;
+  left: 0;
+  bottom: 0;
+  width: 4vh;
+  height: 4vh;
+
+  &.dir-left {
+    transform: rotateY(180deg);
+  }
+
+  /* Insert all of our attacks */
+  @include attack("cut", 4, 0.25s);
+  @include attack("cut2", 4, 0.3s);
+  @include attack("pound", 21, 0.7s);
+  @include attack("swift", 11, 0.75s);
+  @include attack("punch", 13, 0.75s);
+  @include attack("smog", 31, 1s);
+  @include attack("fire-blast", 11, 0.75s);
+  @include attack("fire-punch", 13, 0.75s);
+  @include attack("fire-fang", 10, 0.6s);
+  @include attack("bubble", 9, 0.75s);
+  @include attack("splash", 11, 0.75s);
+  @include attack("water-gun", 9, 0.75s);
+  @include attack("spark", 4, 0.25s);
+  @include attack("thunder-fang", 8, 0.6s);
+  @include attack("thunder-shock", 42, 1s);
+  @include attack("seed-bomb", 5, 0.25s);
+  @include attack("razor-leaf", 4, 0.25s);
+  @include attack("ice-fang", 9, 0.6s);
+  @include attack("mud-slap", 8, 0.5s);
+  @include attack("gust", 52, 0.75s);
+  @include attack("air-cutter", 8, 0.75s);
+  @include attack("psycho-cut", 14, 0.6s);
+  @include attack("string-shot", 11, 0.5s);
+  @include attack("rock-throw", 12, 0.5s);
+  @include attack("shadow-claw", 18, 0.35s);
+  @include attack("bite", 4, 0.25s);
+  @include attack("dark-pulse", 31, 1s);
+  @include attack("shadow-force", 37, 1s);
+  @include attack("misty-explosion", 34, 1s);
+  @include attack("sparkly-swirl", 42, 1s);
+  @include attack("draining-kiss", 16, 1s);
+
+  /* Manual adjustments for height */
+  &.pound {
+    margin-top: 0.5vh;
+    height: 3vh;
+  }
+
+  &.air-cutter {
+    margin-top: 1vh;
+    height: 2vh;
+  }
+}
+
+@for $i from 0 through 60 {
+  @keyframes attack#{$i} {
+    0% {
+      background-position: 0% 0%;
+    }
+  
+    100% {
+      background-position: #{100% + 100% / ($i - 1%)} 0%;
+    }
+  }
+}

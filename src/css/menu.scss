@@ -1,0 +1,48 @@
+#menu {
+  max-height: 100vh;
+  width: 250px;
+  position: fixed;
+  z-index: 20000;
+  top: 0;
+  left: -250px;
+  overflow-x: hidden;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  transition: 0.5s;
+  background: inherit;
+
+  a {
+    text-decoration: none;
+  }
+
+  #closeMenu {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+}
+
+#openMenu {
+  text-decoration: none;
+  height: 40px;
+  width: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  background-color: inherit;
+  font-size: 28px;
+  text-align: center;
+}
+
+@media screen and (max-height: 450px) {
+  #menu {
+    padding-top: 15px;
+  }
+
+  #menu a {
+    font-size: 18px;
+  }
+}
