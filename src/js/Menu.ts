@@ -30,6 +30,7 @@ document.getElementById('pokemonDisplay').onchange = (e): void => {
       for (let i = 4; i >  0; i--) {
         ActivePokemon.add();
       }
+      document.getElementById('playerControlledPokemon').dispatchEvent(new Event('change'));
       break;
   }
 

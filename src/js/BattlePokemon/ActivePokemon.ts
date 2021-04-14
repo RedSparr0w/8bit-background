@@ -63,4 +63,8 @@ document.getElementById('removePokemon').addEventListener('click', () => {
   ActivePokemon.remove();
 });
 
+document.getElementById('playerControlledPokemon').addEventListener('change', (e) => {
+  (e.target as HTMLInputElement).checked ? ActivePokemon.addPlayer() : ActivePokemon.removePlayer();
+});
+
 export default ActivePokemon;
