@@ -1,3 +1,11 @@
+@mixin attack($name, $frames, $time) {
+  &.#{$name} {
+    background-size: 100% * $frames 100%;
+    background-image: url("../images/attacks/#{$name}.png");
+    animation: attack#{$frames} $time steps($frames) infinite;
+  }
+}
+
 .attack {
   position: fixed;
   z-index: 10001;
@@ -10,194 +18,48 @@
     transform: rotateY(180deg);
   }
 
-  &.cut {
-    background-size: 400% 100%;
-    background-image: url("../images/attacks/cut.png");
-    animation: attack4 0.25s steps(4) infinite;
-  }
+  /* Insert all of our attacks */
+  @include attack("cut", 4, 0.25s);
+  @include attack("cut2", 4, 0.3s);
+  @include attack("pound", 21, 0.7s);
+  @include attack("swift", 11, 0.75s);
+  @include attack("punch", 13, 0.75s);
+  @include attack("smog", 31, 1s);
+  @include attack("fire-blast", 11, 0.75s);
+  @include attack("fire-punch", 13, 0.75s);
+  @include attack("fire-fang", 10, 0.6s);
+  @include attack("bubble", 9, 0.75s);
+  @include attack("splash", 11, 0.75s);
+  @include attack("water-gun", 9, 0.75s);
+  @include attack("spark", 4, 0.25s);
+  @include attack("thunder-fang", 8, 0.6s);
+  @include attack("thunder-shock", 42, 1s);
+  @include attack("seed-bomb", 5, 0.25s);
+  @include attack("razor-leaf", 4, 0.25s);
+  @include attack("ice-fang", 9, 0.6s);
+  @include attack("mud-slap", 8, 0.5s);
+  @include attack("gust", 52, 0.75s);
+  @include attack("air-cutter", 8, 0.75s);
+  @include attack("psycho-cut", 14, 0.6s);
+  @include attack("string-shot", 11, 0.5s);
+  @include attack("rock-throw", 12, 0.5s);
+  @include attack("shadow-claw", 18, 0.35s);
+  @include attack("bite", 4, 0.25s);
+  @include attack("dark-pulse", 31, 1s);
+  @include attack("shadow-force", 37, 1s);
+  @include attack("misty-explosion", 34, 1s);
+  @include attack("sparkly-swirl", 42, 1s);
+  @include attack("draining-kiss", 16, 1s);
 
-  &.cut2 {
-    background-size: 400% 100%;
-    background-image: url("../images/attacks/cut2.png");
-    animation: attack4 0.3s steps(4) infinite;
-  }
-
+  /* Manual adjustments for height */
   &.pound {
     margin-top: 0.5vh;
     height: 3vh;
-    background-size: 2100% 100%;
-    background-image: url("../images/attacks/pound.png");
-    animation: attack21 0.7s steps(21) infinite;
-  }
-
-  &.swift {
-    background-size: 1100% 100%;
-    background-image: url("../images/attacks/swift.png");
-    animation: attack11 0.75s steps(11) 1;
-  }
-
-  &.punch {
-    background-size: 1300% 100%;
-    background-image: url("../images/attacks/punch.png");
-    animation: attack13 0.75s steps(13) 1;
-  }
-
-  &.smog {
-    background-size: 3100% 100%;
-    background-image: url("../images/attacks/smog.png");
-    animation: attack31 1s steps(31) 1;
-  }
-
-  &.fire-blast {
-    background-size: 1100% 100%;
-    background-image: url("../images/attacks/fire-blast.png");
-    animation: attack11 0.75s steps(11) 1;
-  }
-
-  &.fire-punch {
-    background-size: 1300% 100%;
-    background-image: url("../images/attacks/fire-punch.png");
-    animation: attack13 0.75s steps(13) 1;
-  }
-
-  &.fire-fang {
-    background-size: 1000% 100%;
-    background-image: url("../images/attacks/fire-fang.png");
-    animation: attack10 0.6s steps(10) infinite;
-  }
-
-  &.bubble {
-    background-size: 900% 100%;
-    background-image: url("../images/attacks/bubble.png");
-    animation: attack9 0.75s steps(9) 1;
-  }
-
-  &.splash {
-    background-size: 1100% 100%;
-    background-image: url("../images/attacks/splash.png");
-    animation: attack11 0.75s steps(11) 1;
-  }
-
-  &.water-gun {
-    background-size: 900% 100%;
-    background-image: url("../images/attacks/water-gun.png");
-    animation: attack9 0.75s steps(9) 1;
-  }
-
-  &.spark {
-    background-size: 400% 100%;
-    background-image: url("../images/attacks/spark.png");
-    animation: attack4 0.25s steps(4) infinite;
-  }
-
-  &.thunder-fang {
-    background-size: 800% 100%;
-    background-image: url("../images/attacks/thunder-fang.png");
-    animation: attack8 0.6s steps(8) infinite;
-  }
-
-  &.thunder-shock {
-    background-size: 4200% 100%;
-    background-image: url("../images/attacks/thunder-shock.png");
-    animation: attack42 1s steps(42) infinite;
-  }
-
-  &.seed-bomb {
-    background-size: 500% 100%;
-    background-image: url("../images/attacks/seed-bomb.png");
-    animation: attack5 0.25s steps(5) infinite;
-  }
-
-  &.razor-leaf {
-    background-size: 400% 100%;
-    background-image: url("../images/attacks/razor-leaf.png");
-    animation: attack4 0.25s steps(4) infinite;
-  }
-
-  &.ice-fang {
-    background-size: 900% 100%;
-    background-image: url("../images/attacks/ice-fang.png");
-    animation: attack9 0.6s steps(9) infinite;
-  }
-
-  &.mud-slap {
-    background-size: 800% 100%;
-    background-image: url("../images/attacks/mud-slap.png");
-    animation: attack8 0.5s steps(8) 1;
-  }
-
-  &.gust {
-    background-size: 5200% 100%;
-    background-image: url("../images/attacks/gust.png");
-    animation: attack52 0.75s steps(52) 1;
   }
 
   &.air-cutter {
     margin-top: 1vh;
     height: 2vh;
-    background-size: 800% 100%;
-    background-image: url("../images/attacks/air-cutter.png");
-    animation: attack8 0.75s steps(8) 1;
-  }
-
-  &.psycho-cut {
-    background-size: 1400% 100%;
-    background-image: url("../images/attacks/psycho-cut.png");
-    animation: attack14 0.6s steps(14) 1;
-  }
-
-  &.string-shot {
-    background-size: 1100% 100%;
-    background-image: url("../images/attacks/string-shot.png");
-    animation: attack11 0.5s steps(11) 1;
-  }
-
-  &.rock-throw {
-    background-size: 1200% 100%;
-    background-image: url("../images/attacks/rock-throw.png");
-    animation: attack12 0.5s steps(12) 1;
-  }
-
-  &.shadow-claw {
-    background-size: 1800% 100%;
-    background-image: url("../images/attacks/shadow-claw.png");
-    animation: attack18 0.35s steps(18) infinite;
-  }
-
-  &.bite {
-    background-size: 400% 100%;
-    background-image: url("../images/attacks/bite.png");
-    animation: attack4 0.25s steps(4) infinite;
-  }
-
-  &.dark-pulse {
-    background-size: 3100% 100%;
-    background-image: url("../images/attacks/dark-pulse.png");
-    animation: attack31 1s steps(31) infinite;
-  }
-
-  &.shadow-force {
-    background-size: 3700% 100%;
-    background-image: url("../images/attacks/shadow-force.png");
-    animation: attack37 1s steps(37) infinite;
-  }
-
-  &.misty-explosion {
-    background-size: 3400% 100%;
-    background-image: url("../images/attacks/misty-explosion.png");
-    animation: attack34 1s steps(34) infinite;
-  }
-
-  &.sparkly-swirl {
-    background-size: 4200% 100%;
-    background-image: url("../images/attacks/sparkly-swirl.png");
-    animation: attack42 1s steps(42) infinite;
-  }
-
-  &.draining-kiss {
-    background-size: 1600% 100%;
-    background-image: url("../images/attacks/draining-kiss.png");
-    animation: attack16 1s steps(16) infinite;
   }
 }
 
