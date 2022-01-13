@@ -100,14 +100,14 @@ export default class ComputerPokemon extends BattlePokemon {
     this.updateEnemy();
 
     // TODO: Factor in current health
-    this.braveryCounter += this.braveryCounter <= 6 && Rand.fromChance(this.braveryChance) ? Rand.intBetween(20, 100) : 0;
+    this.braveryCounter += this.braveryCounter <= 6 && Rand.chance(this.braveryChance) ? Rand.intBetween(20, 100) : 0;
     if (this.braveryCounter > 0) {
       this.braveryCounter--;
       return this.moveToEnemy();
     }
 
     // TODO: Factor in current health
-    this.retreatCounter += this.retreatCounter <= 6 && Rand.fromChance(this.retreatChance) ? Rand.intBetween(10, 60) : 0;
+    this.retreatCounter += this.retreatCounter <= 6 && Rand.chance(this.retreatChance) ? Rand.intBetween(10, 60) : 0;
     if (this.retreatCounter > 0) {
       this.retreatCounter--;
       return this.moveAwayFromEnemy();

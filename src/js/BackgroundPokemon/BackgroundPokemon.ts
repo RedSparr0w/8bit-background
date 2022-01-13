@@ -34,7 +34,7 @@ export default class BackgroundPokemon {
     moveSpeed += Math.floor(Math.random() * 3) - 1;
     moveSpeed = Math.max(0, Math.min(this.MAX_SPEED, moveSpeed));
     const flying = this.flyingPokemon.includes(id);
-    const shiny = Rand.fromChance(this.SHINY_CHANCE);
+    const shiny = Rand.chance(this.SHINY_CHANCE);
 
     const pokeElement = document.createElement('div');
     const bottom = flying ? Rand.intBetween(20, 90) : Rand.intBetween(0, 14);
