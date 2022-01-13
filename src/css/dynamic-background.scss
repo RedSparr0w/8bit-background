@@ -10,11 +10,11 @@
 
   .sky {
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
     position: fixed;
     left: 0;
     top: 0;
-    background-size: auto 120vh;
+    background-size: auto 80vh;
     background-repeat: repeat-x;
     z-index: -5;
   }
@@ -68,13 +68,13 @@
   }
 
   .ground {
-    height: 20vh;
+    height: 50vh;
     width: 100vw;
     position: fixed;
     left: 0;
     bottom: 0;
     background-repeat: repeat-x;
-    background-size: auto 22vh;
+    background-size: auto 51vh;
     z-index: -2;
   }
 

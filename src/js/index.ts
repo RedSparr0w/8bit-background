@@ -7,8 +7,8 @@ import WindowSizes from './WindowSizes';
 
 // Update WindowSize info and Dynamic background on window resize
 window.onresize = () => {
-  DynamicBackground.updateScene();
   WindowSizes.calculateValues();
+  DynamicBackground.updateScene();
 };
 
 export {

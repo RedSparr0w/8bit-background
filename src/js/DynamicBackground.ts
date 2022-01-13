@@ -5,7 +5,7 @@ class DynamicBackground {
 
   /* SUN & MOON */
   static setSunMoonPosition = (date = new Date()): void => {
-    const h = window.innerHeight;
+    const h = window.innerHeight / 1.5;
     const w = window.innerWidth / 1.2;
 
     // Get the hours and minutes.
@@ -17,10 +17,10 @@ class DynamicBackground {
     const moonRad = (((hours + 12) * 60 + mins) / (24 * 60)) * Math.PI * 2;
 
     // Calculate the axis
-    const sunX = (w / 1.8) - (w * Math.sin(sunRad)) / 2;
+    const sunX = (w / 2) - (w * Math.sin(sunRad)) / 2;
     const sunY = (h / 2) + (h * Math.cos(sunRad)) / 2;
-    const moonX = (w / 1.8) - (w * Math.sin(moonRad)) / 2;
-    const moonY = (h / 1.4) + (h * Math.cos(moonRad)) / 2;
+    const moonX = (w / 2) - (w * Math.sin(moonRad)) / 2;
+    const moonY = (h / 2) + (h * Math.cos(moonRad)) / 2;
 
     // Apply the positions based on our previous calculations
     const sun = document.getElementById('sun');
@@ -75,7 +75,7 @@ class DynamicBackground {
   static startScene = (): void => {
     // Update the background now then every minute
     DynamicBackground.updateScene();
-    DynamicBackground.autoUpdateScene = setInterval(DynamicBackground.updateScene, MINUTE);
+    DynamicBackground.autoUpdateScene = setInterval(DynamicBackground.updateScene, MINUTE / 2);
   };
 
   static stopScene = (): void => {
@@ -84,6 +84,6 @@ class DynamicBackground {
   };
 }
 
-DynamicBackground.startScene();
+// DynamicBackground.startScene();
 
 export default DynamicBackground;
