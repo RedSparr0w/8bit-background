@@ -7,8 +7,8 @@ class ActivePokemon {
   static boss: BattlePokemon;
   static list: BattlePokemon[] = [];
 
-  static spawnBoss(): void {
-    this.boss = new BossPokemon(pokemonMap['Arceus (normal)']);
+  static spawnBoss(p = pokemonMap.random()): void {
+    this.boss = new BossPokemon(p);
   }
 
   static add(team = 1): void {

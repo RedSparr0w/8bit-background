@@ -116,22 +116,17 @@ export default class BossPokemon extends BattlePokemon {
 
     this.attackElement = document.createElement('div');
     this.attackElement.classList.add('attack');
+    this.attackElement.classList.add('big');
     this.attackElement.classList.add(attack.name);
     this.attackElement.classList.add(`dir-${direction}`);
     document.body.appendChild(this.attackElement);
 
     const enemyPosition = this.enemy.element.getBoundingClientRect();
+    const attackPosition = this.attackElement.getBoundingClientRect();
+    const offset = ((attackPosition.width - enemyPosition.width) / 2);
 
-    const width = this.attackElement.clientWidth;
-
-    if (direction == 'left') {
-      this.attackElement.style.left = `${enemyPosition.left - 20}px`;
-    }
-    if (direction == 'right') {
-      this.attackElement.style.left = `${enemyPosition.left + 20}px`;
-    }
-
-    this.attackElement.style.top = `${this.enemy.element.getBoundingClientRect().top}px`;
+    this.attackElement.style.left = `${enemyPosition.left - offset}px`;
+    this.attackElement.style.top = `${this.enemy.element.getBoundingClientRect().top - offset}px`;
 
     setTimeout(() => {
       this.attackElement?.remove();

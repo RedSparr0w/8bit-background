@@ -14,36 +14,14 @@
   <a href="#" id="openMenu">☰</a>
   <div id="menu" class="px-2">
     <a href="#" id="closeMenu">&times;</a>
-    <label for="pokemonDisplay" class="form-label">Pokémon Display:</label>
-    <select id="pokemonDisplay" class="form-control">
-      <option value="none">None</option>
-      <option value="passive">Peaceful</option>
-      <option value="active">Fighting</option>
-    </select>
-    <hr/>
-    <div id="passiveOptions" class="menuOptions" style="display: none;">
-      <label for="maxDelay" class="form-label">Max appearance delay: <span id="maxDelayValue">7</span>s</label>
-      <div class="input-group mb-3 col-12">
-        <input type="range" class="form-range" min="1" max="10" value="7" id="maxDelay">
-      </div>
-      <label for="shinyChance" class="form-label">Shiny chance: 1/<span id="shinyChanceValue">512</span></label>
-      <div class="input-group mb-3 col-12">
-        <input type="range" class="form-range" min="1" max="1024" value="512" id="shinyChance">
-      </div>
-    </div>
-    <div id="activeOptions" class="menuOptions" style="display: none;">
+    <div id="activeOptions" class="menuOptions">
       <label class="form-label">Pokémon amount:</label>
       <div class="input-group mb-3 col-12 p-0">
         <button class="btn btn-outline-light col-6" type="button" id="removePokemon">-</button>
         <button class="btn btn-outline-light col-6" type="button" id="addPokemon">+</button>
       </div>
-      <div class="form-check form-switch" style="padding-left: 0;">
-        <label class="form-label" for="playerControlledPokemon">Player controlled Pokémon:&nbsp;</label>
-        <input class="form-check-input" type="checkbox" id="playerControlledPokemon" style="margin-left: 5px;">
-      </div>
-      <label class="m-0">Movement: <kbd>WASD</kbd></label><br/>
-      <label class="m-0">Physical Attack: <kbd>Q</kbd></label><br/>
-      <label class="m-0">Special Attack: <kbd>E</kbd></label><br/>
+      <label class="m-0">Add Pokemon: <kbd>=+</kbd></label><br/>
+      <label class="m-0">Remove Pokemom: <kbd>-_</kbd></label><br/>
     </div>
   </div>
 

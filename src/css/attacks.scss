@@ -17,6 +17,11 @@
   width: $base-size;
   height: $base-size;
 
+  &.big {
+    width: $base-size * 1.8;
+    height: $base-size * 1.8;
+  }
+
   &.dir-left {
     transform: rotateY(180deg);
   }
