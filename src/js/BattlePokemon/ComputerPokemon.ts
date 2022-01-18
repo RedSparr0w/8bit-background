@@ -86,7 +86,7 @@ export default class ComputerPokemon extends BattlePokemon {
     // Stop moving
     this.movement.x = dist > 0 ? 1 : dist < 0 ? -1 : 0;
 
-    const closeDist = WindowSizes.vh * 10;
+    const closeDist = WindowSizes.vw * 0;
 
     if (dist < 0) {
       this.faceLeft();
