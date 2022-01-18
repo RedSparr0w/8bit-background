@@ -9,7 +9,7 @@ class WindowSizes {
 
   public static calculateValues(): void {
     WindowSizes.vh = Math.round(window.innerHeight / 100);
-    WindowSizes.vhw = Math.floor(window.innerWidth / WindowSizes.vh) - 8;
+    WindowSizes.vhw = Math.floor(window.innerWidth / WindowSizes.vh);
     WindowSizes.vw = Math.round(window.innerWidth / 100);
   }
 }

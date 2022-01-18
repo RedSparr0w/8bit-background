@@ -43,3 +43,16 @@ for (let i = 4; i >  0; i--) {
 
 // (document.getElementById('pokemonDisplay') as HTMLSelectElement).value = localStorage.pokemonDisplay || 'passive';
 // (document.getElementById('pokemonDisplay') as HTMLSelectElement).dispatchEvent(new Event('change'));
+
+document.body.addEventListener('keydown', (e: KeyboardEvent) => {
+  switch (e.code) {
+    case 'Minus':
+    case 'NumpadSubtract':
+      ActivePokemon.remove(1);
+      break;
+    case 'Equal':
+    case 'NumpadAdd':
+      ActivePokemon.add(1);
+      break;
+  }
+});

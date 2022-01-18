@@ -44,7 +44,7 @@ export default class BattlePokemon {
   }
 
   updatePosition(): void {
-    if (!this.movement.x && !this.movement.y) {
+    if (!this.movement.x) {
       return;
     }
     // Update the firection the player is facing
@@ -53,15 +53,11 @@ export default class BattlePokemon {
       direction = 'right';
     } else if (this.movement.x == -1) {
       direction = 'left';
-    } else if (this.movement.y == 1) {
-      direction = 'up';
-    } else if (this.movement.y == -1) {
-      direction = 'down';
     }
     this.faceDirection(direction);
 
     // TODO: Calculate actual max it can go to the right
-    this.element.style.left = `${Math.max(0, Math.min(WindowSizes.vhw, parseFloat(this.element.style.left) + (this.movement.x * 2)))}vh`;
+    this.element.style.left = `${Math.max(-20, Math.min(WindowSizes.vhw + 30, parseFloat(this.element.style.left) + (this.movement.x * 2)))}vh`;
     this.element.style.zIndex = (1e4 - (parseFloat(this.element.style.bottom) * 10)).toString();
   }
 
@@ -72,7 +68,7 @@ export default class BattlePokemon {
   spawn(): void {
     this.element = document.createElement('div');
     this.element.style.bottom = `${Math.floor(Math.random() * 60) + 10}vh`;
-    this.element.style.left = `${Math.round(Math.random()) ? 0 : WindowSizes.vhw}vh`;
+    this.element.style.left = `${Math.round(Math.random()) ? -20 : WindowSizes.vhw + 30}vh`;
     this.element.style.backgroundImage = `${this.shiny ? 'url(\'images/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${this.pokemon.id.toString().padStart(3, '0')}${this.shiny ? 's' : ''}.png')`;
     this.element.classList.add('battlePokemonSprite');
     this.element.classList.add(`speed-${this.speed}`);
