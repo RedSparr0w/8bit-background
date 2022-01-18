@@ -61,8 +61,7 @@ export default class BattlePokemon {
     this.faceDirection(direction);
 
     // TODO: Calculate actual max it can go to the right
-    this.element.style.left = `${Math.max(0, Math.min(WindowSizes.vhw, parseFloat(this.element.style.left) + this.movement.x))}vh`;
-    this.element.style.bottom = `${Math.max(0, Math.min(14, parseFloat(this.element.style.bottom) + this.movement.y))}vh`;
+    this.element.style.left = `${Math.max(0, Math.min(WindowSizes.vhw, parseFloat(this.element.style.left) + (this.movement.x * 2)))}vh`;
     this.element.style.zIndex = (1e4 - (parseFloat(this.element.style.bottom) * 10)).toString();
   }
 
@@ -72,8 +71,8 @@ export default class BattlePokemon {
 
   spawn(): void {
     this.element = document.createElement('div');
-    this.element.style.bottom = `${Math.floor(Math.random() * 15)}vh`;
-    this.element.style.left = `${this.team <= 1 ? 0 : WindowSizes.vhw}vh`;
+    this.element.style.bottom = `${Math.floor(Math.random() * 60) + 10}vh`;
+    this.element.style.left = `${Math.round(Math.random()) ? 0 : WindowSizes.vhw}vh`;
     this.element.style.backgroundImage = `${this.shiny ? 'url(\'images/pokemon/sparkle.png\'), ' : ''}url('images/pokemon/${this.pokemon.id.toString().padStart(3, '0')}${this.shiny ? 's' : ''}.png')`;
     this.element.classList.add('battlePokemonSprite');
     this.element.classList.add(`speed-${this.speed}`);
@@ -179,16 +178,13 @@ export default class BattlePokemon {
       this.attackElement = null;
     }, attack.cooldown);
 
-    const enemies = ActivePokemon.list.filter(p => p.team != this.team);
-    enemies.forEach(p => {
-      const colliding = elementsColliding(this.attackElement, p.element);
-      if (colliding) {
-        p.takeDamage((type == AttackType.physical ? this.pokemon.base.attack : this.pokemon.base.specialAttack) / 10);
-        if (p.hp <= 0) {
-          this.heal();
-        }
+    const colliding = elementsColliding(this.attackElement, ActivePokemon.boss.element);
+    if (colliding) {
+      ActivePokemon.boss.takeDamage((type == AttackType.physical ? this.pokemon.base.attack : this.pokemon.base.specialAttack) / 10);
+      if (ActivePokemon.boss.hp <= 0) {
+        this.heal();
       }
-    });
+    }
   }
 
   heal(amount = this.pokemon.base.hitpoints / 5): number {

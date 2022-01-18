@@ -1,4 +1,3 @@
-import BackgroundPokemon from './BackgroundPokemon/BackgroundPokemon';
 import ActivePokemon from './BattlePokemon/ActivePokemon';
 
 const menu = document.getElementById('menu');
@@ -15,7 +14,6 @@ document.getElementById('pokemonDisplay').onchange = (e): void => {
   const val = (e.target as HTMLSelectElement).value;
 
   // Stop all current pokemon activities
-  BackgroundPokemon.stop();
   ActivePokemon.clearAll();
 
   // Hide all options
@@ -23,12 +21,10 @@ document.getElementById('pokemonDisplay').onchange = (e): void => {
 
   // Start selected pokemon activity
   switch (val) {
-    case 'passive':
-      BackgroundPokemon.start();
-      break;
     case 'active':
+      ActivePokemon.spawnBoss();
       for (let i = 4; i >  0; i--) {
-        ActivePokemon.add();
+        ActivePokemon.add(1);
       }
       document.getElementById('playerControlledPokemon').dispatchEvent(new Event('change'));
       break;

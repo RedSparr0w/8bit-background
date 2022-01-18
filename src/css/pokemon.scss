@@ -1,14 +1,28 @@
+@import './variables.scss';
+
 .battlePokemonSprite,
 .backgroundPokemonSprite {
+  image-rendering: pixelated;
   position: fixed;
-  height: 4vh;
-  width: 4vh;
+  height: $base-size;
+  width: $base-size;
   background-size: 400% 400%;
 
   /* Not used currently, maybe in the future.. */
   &.big {
-    height: 6vh;
-    width: 6vh;
+    height: $base-size * 4;
+    width: $base-size * 4;
+
+    progress {
+      position: absolute;
+      top: 0px;
+      left: -50%;
+      width: 200%;
+      height: 20px;
+      /* Important Thing */
+      -webkit-appearance: none;
+      border: none;
+    }
   }
 
   z-index: 0;

@@ -2,17 +2,30 @@ export const elementsColliding = (div1: HTMLElement, div2: HTMLElement): boolean
   const d1 = div1.getBoundingClientRect();
   const d2 = div2.getBoundingClientRect();
 
-  return !(d1.bottom < d2.top || d1.top > d2.bottom || d1.right < d2.left || d1.left > d2.right);
+  return !(
+    d1.bottom < d2.top || d1.top > d2.bottom || d1.right < d2.left || d1.left > d2.right ||
+    d2.bottom < d1.top || d2.top > d1.bottom || d2.right < d1.left || d2.left > d1.right
+  );
 };
 
 export const getDistance = (div1: HTMLElement, div2: HTMLElement): number => {
   const d1 = div1.getBoundingClientRect();
   const d2 = div2.getBoundingClientRect();
 
-  const distX = Math.abs(d1.x - d2.x);
-  const distY = Math.abs(d1.y - d2.y);
+  const d1minX = d1.x;
+  const d1maxX = d1.x + d1.width;
+  const d2minX = d2.x;
+  const d2maxX = d2.x + d2.width;
 
-  return distX + distY;
+  if (d1maxX < d2minX) {
+    return d2minX - d1maxX;
+  }
+
+  if (d1minX > d2maxX) {
+    return -(d1minX - d2maxX);
+  }
+
+  return 0;
 };
 
 export const shuffleArray = (arr: Array<any>): Array<any> => {

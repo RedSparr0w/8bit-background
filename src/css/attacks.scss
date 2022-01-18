@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 @mixin attack($name, $frames, $time) {
   &.#{$name} {
     background-size: 100% * $frames 100%;
@@ -7,12 +9,13 @@
 }
 
 .attack {
+  image-rendering: pixelated;
   position: fixed;
   z-index: 10001;
   left: 0;
   bottom: 0;
-  width: 4vh;
-  height: 4vh;
+  width: $base-size;
+  height: $base-size;
 
   &.dir-left {
     transform: rotateY(180deg);
@@ -53,13 +56,13 @@
 
   /* Manual adjustments for height */
   &.pound {
-    margin-top: 0.5vh;
-    height: 3vh;
+    margin-top: $base-size * 0.125;
+    height: $base-size * 0.75;
   }
 
   &.air-cutter {
-    margin-top: 1vh;
-    height: 2vh;
+    margin-top: $base-size * 0.25;
+    height: $base-size * 0.5;
   }
 }
 

@@ -22,69 +22,12 @@ export default class ComputerPokemon extends BattlePokemon {
   public retreatCounter = 0;
   public braveryChance = 0;
   public braveryCounter = 0;
-  // Movement
-  public moveToOrder = [
-    // move up
-    (dx: number, dy: number, c1: number, c2: number): boolean => {
-      if (dy >= c1) {
-        this.movement.y = 1;
-        return true;
-      }
-    },
-    // move up to same level before moving over
-    (dx: number, dy: number, c1: number, c2: number): boolean => {
-      if (dy >= c2 && (dx > 20 || dx < -20)) {
-        this.movement.y = 1;
-        return true;
-      }
-    },
-    // move down
-    (dx: number, dy: number, c1: number, c2: number): boolean => {
-      if (dy <= -c1) {
-        this.movement.y = -1;
-        return true;
-      }
-    },
-    // move down to same level before moving over
-    (dx: number, dy: number, c1: number, c2: number): boolean => {
-      if (dy <= -c2 && (dx > 20 || dx < -20)) {
-        this.movement.y = -1;
-        return true;
-      }
-    },
-    // move right
-    (dx: number, dy: number, c1: number, c2: number): boolean => {
-      if (dx >= c1) {
-        this.movement.x = 1;
-        return true;
-      }
-    },
-    // move left
-    (dx: number, dy: number, c1: number, c2: number): boolean => {
-      if (dx <= -c1) {
-        this.movement.x = -1;
-        return true;
-      }
-    },
-    // move Random if in same position as the target
-    (dx: number, dy: number, c1: number, c2: number): boolean => {
-      if (!dx && !dy) {
-        this.movement.x = Rand.intBetween(-1, 1);
-        if (!this.movement.x) {
-          this.movement.y = Rand.boolean() ? -1 : 1;
-        }
-        return true;
-      }
-    },
-  ]
 
   constructor(team = 1, p = pokemonMap.random()) {
     super(team, p, false);
-    // Give some randomness to the movements
-    this.moveToOrder = shuffleArray(this.moveToOrder);
     // TODO: Make it have a "brain" to choose who to track/attack or move randomly etc
-    this.retreatChance = Math.random() * 0.02;
-    this.braveryChance = Math.random() * 0.1;
+    this.retreatChance = (Math.random() * 0.05) + 0.05;
+    this.braveryChance = (Math.random() * 0.05) + 0.05;
     this.thinkInterval = global.setInterval(() => this.think(), 50);
   }
 
@@ -128,16 +71,7 @@ export default class ComputerPokemon extends BattlePokemon {
     if (this.enemy?.element && this.tick % ComputerPokemon.TICK.ENEMY_CHECK) {
       return;
     }
-    let enemy: BattlePokemon | ComputerPokemon = null;
-    let enemyDistance = Infinity;
-    ActivePokemon.list.filter(p => p.team != this.team)?.forEach(e => {
-      const distance = getDistance(e.element, this.element);
-      if (distance < enemyDistance) {
-        enemy = e;
-        enemyDistance = distance;
-      }
-    });
-    this.enemy = enemy;
+    this.enemy = ActivePokemon.boss;
   }
 
   // TODO: Select a target, then keep that target for next 10? ticks, check for a new target, less computations
@@ -147,40 +81,21 @@ export default class ComputerPokemon extends BattlePokemon {
     }
 
     // Calculate where enemy is compared to us
-    const enemyPos = this.getEnemyPosition();
-    const pos = this.getMyPosition();
-    const distX = enemyPos.x - pos.x;
-    const distY = pos.y - enemyPos.y;
+    const dist = getDistance(this.element, this.enemy.element);
 
     // Stop moving
-    this.movement.x = 0;
-    this.movement.y = 0;
+    this.movement.x = dist > 0 ? 1 : dist < 0 ? -1 : 0;
 
-    const closeDist = WindowSizes.vh * 5;
-    const closestDist = WindowSizes.vh * 0.9;
+    const closeDist = WindowSizes.vh * 10;
 
-    // Check if we should move
-    const moved = this.moveToOrder.some(m => m(distX, distY, closeDist, closestDist));
-
-    // If we haven't moved, we must be near the enemy, face the enemy
-    if (!moved) {
-      if (Math.abs(distX) > Math.abs(distY)) {
-        if (distX <= 0) {
-          this.faceLeft();
-        } else {
-          this.faceRight();
-        }
-      } else if (Math.abs(distY) > Math.abs(distX)) {
-        if (distY <= 0) {
-          this.faceDown();
-        } else {
-          this.faceUp();
-        }
-      }
+    if (dist < 0) {
+      this.faceLeft();
+    } else if (dist > 0) {
+      this.faceRight();
     }
 
     // If close enough, then attack
-    if (Math.abs(distX) <= closeDist && Math.abs(distY) <= closeDist) {
+    if (Math.abs(dist) <= closeDist) {
       const attackType = Rand.fromWeightedArray([AttackType.physical, AttackType.special], [this.pokemon.base.attack, this.pokemon.base.specialAttack]) as AttackType;
       this.attack(attackType);
     }
@@ -191,42 +106,29 @@ export default class ComputerPokemon extends BattlePokemon {
       return;
     }
 
+    const furthestDist = WindowSizes.vw * 30;
+
     // Calculate where enemy is compared to us
-    const enemyPos = this.getEnemyPosition();
-    const pos = this.getMyPosition();
-    const distX = enemyPos.x - pos.x;
-    const distY = pos.y - enemyPos.y;
+    const dist = getDistance(this.element, this.enemy.element);
 
-    // Stop moving
-    this.movement.x = 0;
-    this.movement.y = 0;
+    if (Math.abs(dist) >= furthestDist) {
+      this.movement.x = 0;
 
-    const furthestDist = WindowSizes.vh * 30;
-    const closestDist = WindowSizes.vh * 0.2;
-    const totalDist = (Math.abs(distX) + Math.abs(distY));
-
-    if (totalDist <= furthestDist) {
-      if (distX > closestDist && distX <= furthestDist && totalDist) {
-        this.movement.x = -1;
-      } else if (distX < -closestDist && distX >= -furthestDist) {
-        this.movement.x = 1;
-      } else if (distY > closestDist && distY <= furthestDist) {
-        this.movement.y = -1;
-      } else if (distY < -closestDist && distY >= -furthestDist) {
-        this.movement.y = 1;
-      }
-    } else if (Math.abs(distX) > Math.abs(distY)) {
-      if (distX <= 0) {
+      if (dist < 0) {
         this.faceLeft();
-      } else {
+      } else if (dist > 0) {
         this.faceRight();
       }
-    } else if (Math.abs(distY) > Math.abs(distX)) {
-      if (distY <= 0) {
-        this.faceDown();
-      } else {
-        this.faceUp();
-      }
+      return;
+    }
+
+    // Stop moving
+    this.movement.x = dist > 0 ? -1 : dist < 0 ? 1 : 0;
+
+    if (dist > 0) {
+      this.faceLeft();
+    } else if (dist < 0) {
+      this.faceRight();
     }
   }
 

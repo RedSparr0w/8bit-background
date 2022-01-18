@@ -8,73 +8,14 @@
   z-index: -10;
   pointer-events: none;
 
-  .sky {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-size: auto 120vh;
-    background-repeat: repeat-x;
-    z-index: -5;
-  }
-
-  .sky-0 {
-    background-image: url("../images/sky/00.png");
-  }
-
-  .sky-1 {
-    background-image: url("../images/sky/01.png");
-  }
-
-  .sky-2 {
-    background-image: url("../images/sky/02.png");
-  }
-
-  .sky-3 {
-    background-image: url("../images/sky/03.png");
-  }
-
-  .sky-4 {
-    background-image: url("../images/sky/04.png");
-  }
-
-  .sky-5 {
-    background-image: url("../images/sky/04.png");
-  }
-
-  .sky-6 {
-    background-image: url("../images/sky/04.png");
-  }
-
-  .sky-7 {
-    background-image: url("../images/sky/07.png");
-  }
-
-  .sky-8 {
-    background-image: url("../images/sky/08.png");
-  }
-
-  .sky-9 {
-    background-image: url("../images/sky/09.png");
-  }
-
-  .sky-10 {
-    background-image: url("../images/sky/10.png");
-  }
-
-  .sky-11 {
-    background-image: url("../images/sky/11.png");
-  }
-
   .ground {
-    height: 20vh;
+    height: 100vh;
     width: 100vw;
     position: fixed;
     left: 0;
     bottom: 0;
     background-repeat: repeat-x;
-    background-size: auto 22vh;
+    background-size: auto 100vh;
     z-index: -2;
   }
 
