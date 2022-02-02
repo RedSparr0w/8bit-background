@@ -181,9 +181,6 @@
     left: 200px;
     transform: scale(0.6);
     opacity: 0.6;
-    /*opacity proportional to the size*/
-    /*Speed will also be proportional to the size and opacity*/
-    /*More the speed. Less the time in 's' = seconds*/
     animation: moveclouds 50s linear infinite;
   }
 
@@ -192,7 +189,6 @@
     bottom: -20vh;
     transform: scale(0.8);
     opacity: 0.8;
-    /*opacity proportional to the size*/
     animation: moveclouds 45s linear infinite;
   }
 
@@ -201,7 +197,6 @@
     bottom: -10vh;
     transform: scale(0.75);
     opacity: 0.75;
-    /*opacity proportional to the size*/
     animation: moveclouds 37s linear infinite;
   }
 
@@ -224,7 +219,7 @@
     animation: moveclouds 60s linear infinite;
     z-index: -3;
     background-size: cover;
-    bottom: 20vh;
+    top: 20vh;
     position: fixed;
   }
 
