@@ -1,5 +1,23 @@
+import { Pane } from 'tweakpane';
 import BackgroundPokemon from './BackgroundPokemon/BackgroundPokemon';
 import ActivePokemon from './BattlePokemon/ActivePokemon';
+
+const PARAMS = {
+  pokemonDisplay: 'passive',
+};
+
+const pane = new Pane({
+  title: 'Settings',
+  expanded: true,
+});
+
+
+export const Movement = pane.addFolder({
+  title: 'Movement',
+  expanded: true,
+});
+
+// END TWEAKPANE
 
 const menu = document.getElementById('menu');
 
