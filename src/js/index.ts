@@ -14,6 +14,6 @@ window.onresize = () => {
 export {
   ActivePokemon,
   BackgroundPokemon,
-  DynamicBackground
+  DynamicBackground,
 };
 

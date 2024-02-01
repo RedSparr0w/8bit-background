@@ -52,19 +52,11 @@
 TweakPane - CONTROLS
 */
 
-div.dg.ac {
-  right: 0;
-  top: -100%;
-  transition: top 500ms;
-  z-index: 20000;
-}
-body:hover div.dg.ac {
-  top: 0;
-}
 div.tp-dfwv {
-  right: 8px;
+  right: 20px;
   top: -100%;
   transition: top 300ms ease-in-out;
+  width: 360px;
 }
 body:hover div.tp-dfwv {
   top: 8px;

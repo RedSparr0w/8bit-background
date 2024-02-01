@@ -1,9 +1,16 @@
 import { Pane } from 'tweakpane';
 import BackgroundPokemon from './BackgroundPokemon/BackgroundPokemon';
 import ActivePokemon from './BattlePokemon/ActivePokemon';
+import { CONSTANTS } from './Constants';
 
 const PARAMS = {
   pokemonDisplay: 'passive',
+  playerPokemon: false,
+  controls: {
+    movement: 'WASD',
+    physicalAttack: 'Q',
+    specialAttack: 'E',
+  },
 };
 
 const pane = new Pane({
@@ -11,56 +18,107 @@ const pane = new Pane({
   expanded: true,
 });
 
+pane.addBinding(PARAMS, 'pokemonDisplay', {
+  label: 'Pokémon',
+  options: {
+    None: 'none',
+    Passive: 'passive',
+    Fighting: 'active',
+  },
+}).on('change', (e) => {
+  const val = e.value;
 
-export const Movement = pane.addFolder({
-  title: 'Movement',
-  expanded: true,
-});
-
-// END TWEAKPANE
-
-const menu = document.getElementById('menu');
-
-document.getElementById('openMenu').onclick = (): void => {
-  menu.style.left = '0px';
-};
-
-document.getElementById('closeMenu').onclick = (): void => {
-  menu.style.left = '-250px';
-};
-
-document.getElementById('pokemonDisplay').onchange = (e): void => {
-  const val = (e.target as HTMLSelectElement).value;
+  // Hide all options
+  paneFolderPassiveOptions.hidden = true;
+  paneFolderFightingOptions.hidden = true;
 
   // Stop all current pokemon activities
   BackgroundPokemon.stop();
   ActivePokemon.clearAll();
 
-  // Hide all options
-  [...document.querySelectorAll('.menuOptions')].forEach((el: HTMLDivElement) => el.style.display = 'none');
-
   // Start selected pokemon activity
   switch (val) {
     case 'passive':
       BackgroundPokemon.start();
+      paneFolderPassiveOptions.hidden = false;
       break;
     case 'active':
+      // Add 4 pokemon to start with
       for (let i = 4; i >  0; i--) {
         ActivePokemon.add();
       }
-      document.getElementById('playerControlledPokemon').dispatchEvent(new Event('change'));
+      paneFolderFightingOptions.hidden = false;
       break;
   }
 
   // Save the last selected option in settings/local storage
   localStorage.pokemonDisplay = val;
 
-  // Show possible options
-  const elToShow = document.getElementById(`${val}Options`);
-  if (elToShow) {
-    elToShow.style.display = 'block';
-  }
-};
+  // Hide some options, show possible options
+});
 
-(document.getElementById('pokemonDisplay') as HTMLSelectElement).value = localStorage.pokemonDisplay || 'passive';
-(document.getElementById('pokemonDisplay') as HTMLSelectElement).dispatchEvent(new Event('change'));
+pane.addBinding(CONSTANTS, 'SHINY_CHANCE', {
+  label: 'Shiny Chance',
+  min: 1,
+  max: 1024,
+  step: 1,
+});
+
+const paneFolderPassiveOptions = pane.addFolder({
+  title: 'Passive Options',
+  expanded: true,
+  hidden: true,
+});
+
+paneFolderPassiveOptions.addBinding(BackgroundPokemon, 'MAX_DELAY', {
+  label: 'Max Appearance Delay (seconds)',
+  min: 1,
+  max: 10,
+  step: 1,
+  rows: 5,
+  suffix: 'test',
+});
+
+const paneFolderFightingOptions = pane.addFolder({
+  title: 'Fighting Options',
+  expanded: true,
+  hidden: true,
+});
+
+paneFolderFightingOptions.addButton({
+  title: 'Add Pokémon',
+}).on('click', () => {
+  ActivePokemon.add();
+});
+
+paneFolderFightingOptions.addButton({
+  title: 'Remove Pokémon',
+}).on('click', () => {
+  ActivePokemon.remove();
+});
+
+paneFolderFightingOptions.addBinding(PARAMS, 'playerPokemon', {
+  label: 'Player Controled Pokémon',
+}).on('change', (e) => {
+  e.value ? ActivePokemon.addPlayer() : ActivePokemon.removePlayer();
+});
+
+const paneControlsFolder = paneFolderFightingOptions.addFolder({
+  title: 'Controls',
+  expanded: false,
+});
+
+paneControlsFolder.addBinding(PARAMS.controls, 'movement', {
+  readonly: true,
+  label: 'Movement',
+});
+
+paneControlsFolder.addBinding(PARAMS.controls, 'physicalAttack', {
+  readonly: true,
+  label: 'Physical Attack',
+});
+
+paneControlsFolder.addBinding(PARAMS.controls, 'specialAttack', {
+  readonly: true,
+  label: 'Special Attack',
+});
