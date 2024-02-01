@@ -67,7 +67,7 @@ pane.addBinding(CONSTANTS, 'SHINY_CHANCE', {
 const paneFolderPassiveOptions = pane.addFolder({
   title: 'Passive Options',
   expanded: true,
-  hidden: true,
+  hidden: false,
 });
 
 paneFolderPassiveOptions.addBinding(BackgroundPokemon, 'MAX_DELAY', {
