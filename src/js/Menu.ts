@@ -4,7 +4,7 @@ import ActivePokemon from './BattlePokemon/ActivePokemon';
 import { CONSTANTS } from './Constants';
 
 const PARAMS = {
-  pokemonDisplay: 'none',
+  pokemonDisplay: 'passive',
   playerPokemon: false,
   controls: {
     movement: 'WASD',
@@ -54,6 +54,8 @@ const panePokemonDisplay = pane.addBinding(PARAMS, 'pokemonDisplay', {
       break;
   }
 });
+
+BackgroundPokemon.start();
 
 pane.addBinding(CONSTANTS, 'SHINY_CHANCE', {
   label: 'Shiny Chance',
