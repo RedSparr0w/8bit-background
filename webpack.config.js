@@ -12,7 +12,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.scss$/,
+        test: /\.s[ac]ss$/,
         use: [
           // Creates `style` nodes from JS strings
           'style-loader',
@@ -22,15 +22,18 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              // Prefer `dart-sass`
-              implementation: require('sass'),
+              // Prefer dart-sass
+              implementation: require.resolve('sass'),
             },
           },
         ],
       },
       {
         test: /\.(png|gif|jpe?g)$/,
-        use: 'file-loader?name=/images/[folder]/[name].[ext]',
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/hash/[hash][ext]',
+        },
       },
     ],
   },

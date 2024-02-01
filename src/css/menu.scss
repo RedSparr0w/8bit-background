@@ -47,3 +47,18 @@
     font-size: 18px;
   }
 }
+
+/*
+TweakPane - CONTROLS
+*/
+
+div.tp-dfwv {
+  right: 20px;
+  top: -100%;
+  transition: top 300ms ease-in-out;
+  width: 360px;
+}
+body:hover div.tp-dfwv {
+  top: 8px;
+  z-index: 20000;
+}

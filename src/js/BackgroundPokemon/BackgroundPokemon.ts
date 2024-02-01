@@ -1,12 +1,8 @@
-import { MINUTE, SECOND } from '../Constants';
+import { CONSTANTS, MINUTE, SECOND } from '../Constants';
 import { maxSpeed, minSpeed, pokemonMap } from '../PokemonList';
 import Rand from '../Random';
 
 export default class BackgroundPokemon {
-  static MAX_POKEMON_ID = 815;
-
-  // Changable options
-  static SHINY_CHANCE = 512;
   static MAX_DELAY = 7;
 
   // All the flying pokemon IDs (these pokemon can spawn in the sky)
@@ -34,7 +30,7 @@ export default class BackgroundPokemon {
     moveSpeed += Math.floor(Math.random() * 3) - 1;
     moveSpeed = Math.max(0, Math.min(this.MAX_SPEED, moveSpeed));
     const flying = this.flyingPokemon.includes(id);
-    const shiny = Rand.fromChance(this.SHINY_CHANCE);
+    const shiny = Rand.fromChance(CONSTANTS.SHINY_CHANCE);
 
     const pokeElement = document.createElement('div');
     const bottom = flying ? Rand.intBetween(20, 90) : Rand.intBetween(0, 14);
@@ -60,7 +56,7 @@ export default class BackgroundPokemon {
 
     // Assign our timeout function so we can stop it later
     this.timeout = setTimeout(() => {
-      this.addPokemon(Rand.intBetween(0, this.MAX_POKEMON_ID));
+      this.addPokemon(Rand.intBetween(0, CONSTANTS.MAX_POKEMON_ID));
       // Add another pokemon
       this.start();
     }, delay);
@@ -71,15 +67,3 @@ export default class BackgroundPokemon {
     [...document.querySelectorAll('.backgroundPokemonSprite')].forEach(el => el.remove());
   }
 }
-
-document.getElementById('maxDelay').onchange = (e) => {
-  const val = (e.target as HTMLInputElement).value;
-  document.getElementById('maxDelayValue').innerText = val;
-  BackgroundPokemon.MAX_DELAY = parseInt(val) || 7;
-};
-
-document.getElementById('shinyChance').onchange = (e) => {
-  const val = (e.target as HTMLInputElement).value;
-  document.getElementById('shinyChanceValue').innerText = val;
-  BackgroundPokemon.SHINY_CHANCE = parseInt(val) || 512;
-};

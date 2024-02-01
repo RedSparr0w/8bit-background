@@ -1,13 +1,11 @@
-import { pokemonMap, PokemonListData, minSpeed, maxSpeed } from '../PokemonList';
+import { Attack, AttackType, selectAttack } from '../Attacks';
+import { CONSTANTS } from '../Constants';
+import { elementsColliding } from '../Functions';
+import { PokemonListData, maxSpeed, minSpeed, pokemonMap } from '../PokemonList';
 import WindowSizes from '../WindowSizes';
-import { elementsColliding, getDistance, shuffleArray } from '../Functions';
-import { Attack, Attacks, AttackType, selectAttack } from '../Attacks';
-import Rand from '../Random';
 import ActivePokemon from './ActivePokemon';
 
 export default class BattlePokemon {
-  static MAX_POKEMON_ID = 815;
-  static SHINY_CHANCE = 512;
 
   public shiny = false;
   public element: HTMLDivElement;
@@ -67,7 +65,7 @@ export default class BattlePokemon {
   }
 
   calculateShiny(): boolean {
-    return !Math.floor(Math.random() * BattlePokemon.SHINY_CHANCE);
+    return !Math.floor(Math.random() * CONSTANTS.SHINY_CHANCE);
   }
 
   spawn(): void {
