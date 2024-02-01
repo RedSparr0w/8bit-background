@@ -4,7 +4,7 @@ import ActivePokemon from './BattlePokemon/ActivePokemon';
 import { CONSTANTS } from './Constants';
 
 const PARAMS = {
-  pokemonDisplay: 'passive',
+  pokemonDisplay: 'none',
   playerPokemon: false,
   controls: {
     movement: 'WASD',
@@ -16,9 +16,12 @@ const PARAMS = {
 const pane = new Pane({
   title: 'Settings',
   expanded: true,
+}).on('change', () => {
+  const state = pane.exportState();
+  localStorage.state = JSON.stringify(state);
 });
 
-pane.addBinding(PARAMS, 'pokemonDisplay', {
+const panePokemonDisplay = pane.addBinding(PARAMS, 'pokemonDisplay', {
   label: 'Pokémon',
   options: {
     None: 'none',
@@ -50,11 +53,6 @@ pane.addBinding(PARAMS, 'pokemonDisplay', {
       paneFolderFightingOptions.hidden = false;
       break;
   }
-
-  // Save the last selected option in settings/local storage
-  localStorage.pokemonDisplay = val;
-
-  // Hide some options, show possible options
 });
 
 pane.addBinding(CONSTANTS, 'SHINY_CHANCE', {
@@ -122,3 +120,5 @@ paneControlsFolder.addBinding(PARAMS.controls, 'specialAttack', {
   readonly: true,
   label: 'Special Attack',
 });
+
+pane.importState(localStorage.state ? JSON.parse(localStorage.state) : {});
